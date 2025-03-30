@@ -8,26 +8,14 @@ import javax.persistence.Persistence;
  *
  * @author victoria
  */
-public class ManejadorConexiones implements IManejadorConexiones{
+public class ManejadorConexiones implements IManejadorConexiones {
 
-    private EntityManagerFactory entityManagerFactory;
-
-    public ManejadorConexiones() {
-        try {
-            this.entityManagerFactory = Persistence.createEntityManagerFactory("RollAndCode");
-        } catch (Exception e) {
-            System.err.print("Error." + e.getMessage());
-        }
-        
-    }
-      
     @Override
-    public EntityManager crearConexion() {
-        if (entityManagerFactory == null) {
-            throw new IllegalStateException("No está inicializado");
-        }
-        return entityManagerFactory.createEntityManager();
+    public static EntityManager getEntityManager() {
+        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("RollAndCode");
+
+        EntityManager em = emFactory.createEntityManager();
+        return em;
     }
 
-    
 }
