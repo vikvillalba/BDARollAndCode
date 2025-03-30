@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,7 +50,7 @@ public class ClienteFrecuente implements Serializable {
     
     @Column(name = "fechaRegistro", nullable = false)
     @Temporal(TemporalType.DATE)
-    private LocalDate fechaRegistro;
+    private Calendar fechaRegistro;
     
     @Column(name = "cantidadVisitas", nullable = false, length = 6)
     private Integer cantidadVisitas;
@@ -114,11 +115,11 @@ public class ClienteFrecuente implements Serializable {
         this.telefono = telefono;
     }
 
-    public LocalDate getFechaRegistro() {
+    public Calendar getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(LocalDate fechaRegistro) {
+    public void setFechaRegistro(Calendar fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

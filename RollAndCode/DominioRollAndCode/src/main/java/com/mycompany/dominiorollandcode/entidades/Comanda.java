@@ -4,6 +4,7 @@ import com.mycompany.dominiorollandcode.enums.EstadoComanda;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public class Comanda implements Serializable {
     
     @Column(name = "fechaCreacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime fechaCreacion;
+    private Calendar fechaCreacion;
 
     @Column(name = "totalAcumulado", nullable = false, precision = 8, scale = 2)
     private BigDecimal totalAcumulado;
@@ -88,11 +89,11 @@ public class Comanda implements Serializable {
         this.estado = estado;
     }
 
-    public LocalDateTime getFechaCreacion() {
+    public Calendar getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+    public void setFechaCreacion(Calendar fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
