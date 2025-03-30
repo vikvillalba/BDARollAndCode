@@ -82,7 +82,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         JMenuPrincipal.add(jMenu8);
 
         btnInicio.setText("Inicio");
-        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnInicio.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnInicio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnInicio.setPreferredSize(new java.awt.Dimension(80, 50));
@@ -99,7 +99,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         JMenuPrincipal.add(btnInicio);
 
         btnComandas.setText("Comandas");
-        btnComandas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnComandas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnComandas.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnComandas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnComandas.setMinimumSize(new java.awt.Dimension(130, 50));
@@ -118,7 +118,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         JMenuPrincipal.add(btnComandas);
 
         btnProductos.setText("Productos");
-        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnProductos.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnProductos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProductos.setPreferredSize(new java.awt.Dimension(120, 50));
@@ -126,6 +126,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnVerProductos.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnVerProductos.setText("Ver productos");
         btnVerProductos.setPreferredSize(new java.awt.Dimension(190, 45));
+        btnVerProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerProductosActionPerformed(evt);
+            }
+        });
         btnProductos.add(btnVerProductos);
 
         btnNuevoProducto.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
@@ -141,7 +146,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         JMenuPrincipal.add(btnProductos);
 
         btnIngredientes.setText("Ingredientes");
-        btnIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnIngredientes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnIngredientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIngredientes.setPreferredSize(new java.awt.Dimension(130, 50));
@@ -159,7 +164,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         JMenuPrincipal.add(btnIngredientes);
 
         btnClientesFrecuentes.setText("Clientes Frecuentes");
-        btnClientesFrecuentes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClientesFrecuentes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnClientesFrecuentes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnClientesFrecuentes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClientesFrecuentes.setPreferredSize(new java.awt.Dimension(200, 50));
@@ -177,7 +182,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         JMenuPrincipal.add(btnClientesFrecuentes);
 
         btnReportes.setText("Reportes");
-        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnReportes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnReportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReportes.setMinimumSize(new java.awt.Dimension(130, 50));
@@ -211,6 +216,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
         this.pintarPanelPrincipal(new PnlPantallaPrincipal(this));
     }//GEN-LAST:event_btnInicioMouseClicked
+
+    private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnVerProductosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar JMenuPrincipal;

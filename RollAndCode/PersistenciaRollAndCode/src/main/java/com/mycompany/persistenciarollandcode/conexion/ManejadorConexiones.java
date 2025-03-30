@@ -8,9 +8,9 @@ import javax.persistence.Persistence;
  *
  * @author victoria
  */
-public class ManejadorConexiones implements IManejadorConexiones {
+public class ManejadorConexiones{
 
-    @Override
+    
     public static EntityManager getEntityManager() {
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("RollAndCode");
 
