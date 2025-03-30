@@ -6,6 +6,6 @@ package com.mycompany.dominiorollandcode.enums;
  */
 public enum UnidadMedida {
     GRAMOS,
-    LITROS,
+    MILILITROS,
     PIEZA
 }

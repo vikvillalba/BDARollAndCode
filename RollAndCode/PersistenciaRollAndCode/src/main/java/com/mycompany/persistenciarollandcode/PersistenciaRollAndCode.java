@@ -5,7 +5,6 @@
 package com.mycompany.persistenciarollandcode;
 
 import com.mycompany.dominiorollandcode.entidades.Mesa;
-import com.mycompany.persistenciarollandcode.conexion.IManejadorConexiones;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
 import javax.persistence.EntityManager;
 
@@ -16,8 +15,7 @@ import javax.persistence.EntityManager;
 public class PersistenciaRollAndCode {
 
     public static void main(String[] args) {
-        IManejadorConexiones conexion = new ManejadorConexiones();
-        EntityManager em = conexion.crearConexion();
+        EntityManager em = ManejadorConexiones.getEntityManager();
         
         try {
         em.getTransaction().begin();
