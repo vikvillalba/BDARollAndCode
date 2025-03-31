@@ -14,3 +14,4 @@ public class ControlNavegacion {
        frmInicio.setVisible(true);
     }
 }
+

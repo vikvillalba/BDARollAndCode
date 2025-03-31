@@ -32,6 +32,11 @@ public class PnlPantallaPrincipal extends javax.swing.JPanel {
         btnAgregarMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnAgregarMesas.png"))); // NOI18N
         btnAgregarMesas.setBorder(null);
         btnAgregarMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarMesasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -56,6 +61,11 @@ public class PnlPantallaPrincipal extends javax.swing.JPanel {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMesasActionPerformed
+        System.out.println("agregando mesas");
+        this.btnAgregarMesas.setEnabled(false);
+    }//GEN-LAST:event_btnAgregarMesasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

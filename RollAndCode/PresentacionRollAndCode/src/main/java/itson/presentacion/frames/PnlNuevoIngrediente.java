@@ -5,11 +5,11 @@ package itson.presentacion.frames;
  *
  * @author victoria
  */
-public class PnlNuevoProducto extends javax.swing.JPanel {
+public class PnlNuevoIngrediente extends javax.swing.JPanel {
 
     private FrmPantallaInicio pantallaInicio;
     
-    public PnlNuevoProducto(FrmPantallaInicio pantallaInicio) {
+    public PnlNuevoIngrediente(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         pantallaInicio.pintarPanelPrincipal(this);
@@ -25,28 +25,31 @@ public class PnlNuevoProducto extends javax.swing.JPanel {
 
         lblCategoria = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
-        cbxCategoriaProducto = new javax.swing.JComboBox<>();
+        cbxUnidadMedida = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JButton();
         btnContinuar = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
-        txtNombreProducto = new javax.swing.JTextField();
+        txtNombreIngrediente = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        lblNombre1 = new javax.swing.JLabel();
+        txtNombreIngrediente1 = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(247, 242, 239));
         setPreferredSize(new java.awt.Dimension(1272, 698));
 
         lblCategoria.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
         lblCategoria.setForeground(new java.awt.Color(65, 70, 105));
-        lblCategoria.setText("Seleccione la categoría:");
+        lblCategoria.setText("Seleccione la unidad de medida:");
 
         lblTitulo.setFont(new java.awt.Font("STHeiti", 1, 48)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(65, 70, 105));
-        lblTitulo.setText("Nuevo producto");
+        lblTitulo.setText("Nuevo Ingrediente");
 
-        cbxCategoriaProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
-        cbxCategoriaProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxCategoriaProducto.setBorder(null);
-        cbxCategoriaProducto.setPreferredSize(new java.awt.Dimension(89, 40));
+        cbxUnidadMedida.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        cbxUnidadMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxUnidadMedida.setBorder(null);
+        cbxUnidadMedida.setPreferredSize(new java.awt.Dimension(89, 40));
 
         btnRegresar.setBackground(null);
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
@@ -65,10 +68,17 @@ public class PnlNuevoProducto extends javax.swing.JPanel {
 
         lblNombre.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(65, 70, 105));
-        lblNombre.setText("Nombre del producto:");
+        lblNombre.setText("Cantidad de stock:");
 
-        txtNombreProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
-        txtNombreProducto.setBorder(null);
+        txtNombreIngrediente.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtNombreIngrediente.setBorder(null);
+
+        lblNombre1.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
+        lblNombre1.setForeground(new java.awt.Color(65, 70, 105));
+        lblNombre1.setText("Nombre del ingrediente:");
+
+        txtNombreIngrediente1.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtNombreIngrediente1.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -82,36 +92,47 @@ public class PnlNuevoProducto extends javax.swing.JPanel {
                         .addGap(76, 76, 76)
                         .addComponent(btnContinuar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
+                        .addGap(89, 89, 89)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblNombre1)
                             .addComponent(lblCategoria)
                             .addComponent(lblNombre))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxCategoriaProducto, 0, 330, Short.MAX_VALUE)
-                            .addComponent(txtNombreProducto)
-                            .addComponent(jSeparator1))))
-                .addContainerGap(289, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombreIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreIngrediente1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(251, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(432, 432, 432)
                     .addComponent(lblTitulo)
-                    .addContainerGap(456, Short.MAX_VALUE)))
+                    .addContainerGap(407, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(243, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(216, 216, 216)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria)
-                    .addComponent(cbxCategoriaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNombreProducto))
-                .addGap(0, 0, 0)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(158, 158, 158)
+                    .addComponent(cbxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNombreIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 6, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNombreIngrediente1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 3, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(119, 119, 119)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnRegresar)
                     .addComponent(btnContinuar))
@@ -133,11 +154,14 @@ public class PnlNuevoProducto extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<String> cbxCategoriaProducto;
+    private javax.swing.JComboBox<String> cbxUnidadMedida;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombre1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextField txtNombreProducto;
+    private javax.swing.JTextField txtNombreIngrediente;
+    private javax.swing.JTextField txtNombreIngrediente1;
     // End of variables declaration//GEN-END:variables
 }

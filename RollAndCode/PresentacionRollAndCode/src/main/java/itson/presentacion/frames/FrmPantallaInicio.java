@@ -5,15 +5,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- *
+ * Clase que contiene el menú de navegación, y actúa como control de navegación entre las pantallas.
  * @author victoria
  */
 public class FrmPantallaInicio extends javax.swing.JFrame {
 
 
-    /**
-     * Creates new form frmPantallaInicio
-     */
     public FrmPantallaInicio() {
         initComponents();
         this.setTitle("Roll & Code");
@@ -23,12 +20,12 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     }
     
     public void pintarPanelPrincipal(JPanel panel){
-        jScrollPane.setViewportView(panel);
+        scrollPane.setViewportView(panel);
         panel.setPreferredSize(new Dimension(0,panel.getPreferredSize().height));
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jScrollPane.revalidate();
-        jScrollPane.repaint();
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.revalidate();
+        scrollPane.repaint();
     }
 
     
@@ -41,9 +38,9 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         pnlFondo = new javax.swing.JPanel();
-        jScrollPane = new javax.swing.JScrollPane();
+        scrollPane = new javax.swing.JScrollPane();
         JMenuPrincipal = new javax.swing.JMenuBar();
-        jMenu8 = new javax.swing.JMenu();
+        separador = new javax.swing.JMenu();
         btnInicio = new javax.swing.JMenu();
         btnComandas = new javax.swing.JMenu();
         btnNuevaComanda = new javax.swing.JMenuItem();
@@ -67,19 +64,19 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
 
         pnlFondo.setBackground(new java.awt.Color(247, 242, 239));
         pnlFondo.setLayout(new javax.swing.BoxLayout(pnlFondo, javax.swing.BoxLayout.LINE_AXIS));
-        pnlFondo.add(jScrollPane);
+        pnlFondo.add(scrollPane);
 
         getContentPane().add(pnlFondo, java.awt.BorderLayout.CENTER);
 
         JMenuPrincipal.setBackground(new java.awt.Color(249, 205, 204));
         JMenuPrincipal.setPreferredSize(new java.awt.Dimension(75, 80));
 
-        jMenu8.setEnabled(false);
-        jMenu8.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
-        jMenu8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenu8.setMinimumSize(new java.awt.Dimension(130, 50));
-        jMenu8.setPreferredSize(new java.awt.Dimension(30, 50));
-        JMenuPrincipal.add(jMenu8);
+        separador.setEnabled(false);
+        separador.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
+        separador.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        separador.setMinimumSize(new java.awt.Dimension(130, 50));
+        separador.setPreferredSize(new java.awt.Dimension(30, 50));
+        JMenuPrincipal.add(separador);
 
         btnInicio.setText("Inicio");
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -108,6 +105,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnNuevaComanda.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnNuevaComanda.setText("Crear comanda");
         btnNuevaComanda.setPreferredSize(new java.awt.Dimension(190, 45));
+        btnNuevaComanda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaComandaActionPerformed(evt);
+            }
+        });
         btnComandas.add(btnNuevaComanda);
 
         btnVerComandas.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
@@ -159,6 +161,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnNuevoIngrediente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnNuevoIngrediente.setText("Agregar Ingrediente");
         btnNuevoIngrediente.setPreferredSize(new java.awt.Dimension(220, 45));
+        btnNuevoIngrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoIngredienteActionPerformed(evt);
+            }
+        });
         btnIngredientes.add(btnNuevoIngrediente);
 
         JMenuPrincipal.add(btnIngredientes);
@@ -222,6 +229,15 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnVerProductosActionPerformed
 
+    private void btnNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaComandaActionPerformed
+        this.pintarPanelPrincipal(new PnlNuevaComanda(this));
+    }//GEN-LAST:event_btnNuevaComandaActionPerformed
+
+    private void btnNuevoIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoIngredienteActionPerformed
+        this.pintarPanelPrincipal(new PnlNuevoIngrediente(this));
+    }//GEN-LAST:event_btnNuevoIngredienteActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar JMenuPrincipal;
     private javax.swing.JMenuItem btnBuscarCliente;
@@ -240,9 +256,9 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnVerComandas;
     private javax.swing.JMenuItem btnVerIngredientes;
     private javax.swing.JMenuItem btnVerProductos;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel pnlFondo;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JMenu separador;
     // End of variables declaration//GEN-END:variables
 }
