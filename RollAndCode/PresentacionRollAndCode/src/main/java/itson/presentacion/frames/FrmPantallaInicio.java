@@ -183,11 +183,6 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnClientesFrecuentes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnClientesFrecuentes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClientesFrecuentes.setPreferredSize(new java.awt.Dimension(200, 50));
-        btnClientesFrecuentes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClientesFrecuentesActionPerformed(evt);
-            }
-        });
 
         btnBuscarCliente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnBuscarCliente.setText("Buscar cliente");
@@ -197,6 +192,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnNuevoCliente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnNuevoCliente.setText("Agregar cliente");
         btnNuevoCliente.setPreferredSize(new java.awt.Dimension(190, 45));
+        btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoClienteActionPerformed(evt);
+            }
+        });
         btnClientesFrecuentes.add(btnNuevoCliente);
 
         JMenuPrincipal.add(btnClientesFrecuentes);
@@ -239,7 +239,6 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
        this.pintarPanelPrincipal(new PnlBuscadorProductos(this));
-        
     }//GEN-LAST:event_btnVerProductosActionPerformed
 
     private void btnNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaComandaActionPerformed
@@ -250,9 +249,9 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         this.pintarPanelPrincipal(new PnlNuevoIngrediente(this));
     }//GEN-LAST:event_btnNuevoIngredienteActionPerformed
 
-    private void btnClientesFrecuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrecuentesActionPerformed
+    private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         this.pintarPanelPrincipal(new PnlRegistrarCliente(this));
-    }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
+    }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

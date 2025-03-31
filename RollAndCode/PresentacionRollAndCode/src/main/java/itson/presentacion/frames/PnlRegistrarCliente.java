@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package itson.presentacion.frames;
 
 /**
@@ -36,132 +32,164 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        etiquetaRegistrarCliente = new javax.swing.JLabel();
-        etiquetaApellidoPaterno = new javax.swing.JLabel();
-        etiquetaNombres = new javax.swing.JLabel();
-        etiquetaApellidoMaterno = new javax.swing.JLabel();
-        etiquetaEmail = new javax.swing.JLabel();
-        campoTextoNombres = new javax.swing.JTextField();
-        campoTextoApellidoMaterno = new javax.swing.JTextField();
-        campoTextoNumeroTelefono = new javax.swing.JTextField();
-        campoTextoApellidoPaterno = new javax.swing.JTextField();
-        campoTextoEmail = new javax.swing.JTextField();
-        etiquetaNumeroTelefono = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblApellidoPat = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
+        lblNombres = new javax.swing.JLabel();
+        lblApellidoMat = new javax.swing.JLabel();
+        lblCorreo = new javax.swing.JLabel();
+        txtNombres = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtApellidoPaterno = new javax.swing.JTextField();
+        txtApellidoMaterno = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        btnRegistrarCliente = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-   
+        setBackground(new java.awt.Color(247, 242, 239));
+        setPreferredSize(new java.awt.Dimension(1272, 698));
 
-        etiquetaRegistrarCliente.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
-        etiquetaRegistrarCliente.setText("Registrar Cliente");
+        lblTitulo.setFont(new java.awt.Font("STHeiti", 1, 48)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(65, 70, 105));
+        lblTitulo.setText("Registrar cliente");
 
-        etiquetaApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        etiquetaApellidoPaterno.setText("Apellido Paterno");
+        lblApellidoPat.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
+        lblApellidoPat.setForeground(new java.awt.Color(65, 70, 105));
+        lblApellidoPat.setText("Apellido paterno:");
 
-        etiquetaNombres.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        etiquetaNombres.setLabelFor(jTextArea1);
-        etiquetaNombres.setText("Nombres");
+        lblTelefono.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
+        lblTelefono.setForeground(new java.awt.Color(65, 70, 105));
+        lblTelefono.setText("Teléfono:");
 
-        etiquetaApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        etiquetaApellidoMaterno.setText("Apellido Materno");
+        lblNombres.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
+        lblNombres.setForeground(new java.awt.Color(65, 70, 105));
+        lblNombres.setText("Nombres:");
 
-        etiquetaEmail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        etiquetaEmail.setText("Email");
+        lblApellidoMat.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
+        lblApellidoMat.setForeground(new java.awt.Color(65, 70, 105));
+        lblApellidoMat.setText("Apellido materno:");
 
-        campoTextoApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
+        lblCorreo.setFont(new java.awt.Font("STHeiti", 1, 36)); // NOI18N
+        lblCorreo.setForeground(new java.awt.Color(65, 70, 105));
+        lblCorreo.setText("Correo electrónico:");
+
+        txtNombres.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtNombres.setBorder(null);
+
+        txtCorreo.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtCorreo.setBorder(null);
+
+        txtApellidoPaterno.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtApellidoPaterno.setBorder(null);
+
+        txtApellidoMaterno.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtApellidoMaterno.setBorder(null);
+
+        txtTelefono.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtTelefono.setBorder(null);
+
+        btnRegistrarCliente.setBackground(null);
+        btnRegistrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/registrarCliente.png"))); // NOI18N
+        btnRegistrarCliente.setBorder(null);
+
+        btnRegresar.setBackground(null);
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
+        btnRegresar.setBorder(null);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoApellidoMaternoActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
-        campoTextoApellidoPaterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoTextoApellidoPaternoActionPerformed(evt);
-            }
-        });
-
-        etiquetaNumeroTelefono.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        etiquetaNumeroTelefono.setText("Número de teléfono");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jScrollPane1);
-        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(255, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(etiquetaNombres, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(etiquetaApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(etiquetaApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(etiquetaEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(etiquetaNumeroTelefono, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(campoTextoApellidoMaterno)
-                    .addComponent(etiquetaRegistrarCliente, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoTextoNombres, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoTextoApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoTextoNumeroTelefono)
-                    .addComponent(campoTextoEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                .addGap(210, 210, 210))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addGap(438, 438, 438))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblApellidoPat)
+                            .addComponent(lblTelefono)
+                            .addComponent(lblNombres)
+                            .addComponent(lblApellidoMat)
+                            .addComponent(lblCorreo))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtApellidoPaterno)
+                            .addComponent(txtNombres)
+                            .addComponent(txtCorreo)
+                            .addComponent(txtApellidoMaterno)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(222, 222, 222))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnRegresar)
+                        .addGap(84, 84, 84)
+                        .addComponent(btnRegistrarCliente)
+                        .addGap(270, 270, 270))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(etiquetaRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaNombres)
-                    .addComponent(campoTextoNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoTextoApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(etiquetaApellidoPaterno))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaApellidoMaterno)
-                    .addComponent(campoTextoApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addGap(91, 91, 91)
+                .addComponent(lblTitulo)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoTextoNumeroTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etiquetaNumeroTelefono))
-                        .addGap(18, 18, 18)
-                        .addComponent(campoTextoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(etiquetaEmail))
-                .addContainerGap(86, Short.MAX_VALUE))
+                    .addComponent(lblNombres)
+                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblApellidoPat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtApellidoPaterno))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblApellidoMat)
+                    .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRegistrarCliente)
+                    .addComponent(btnRegresar))
+                .addGap(42, 42, 42))
         );
-
- 
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoTextoApellidoPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoPaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoApellidoPaternoActionPerformed
-
-    private void campoTextoApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoApellidoMaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoTextoApellidoMaternoActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        frame.pintarPanelPrincipal(new PnlPantallaPrincipal(frame));
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField campoTextoApellidoMaterno;
-    private javax.swing.JTextField campoTextoApellidoPaterno;
-    private javax.swing.JTextField campoTextoEmail;
-    private javax.swing.JTextField campoTextoNombres;
-    private javax.swing.JTextField campoTextoNumeroTelefono;
-    private javax.swing.JLabel etiquetaApellidoMaterno;
-    private javax.swing.JLabel etiquetaApellidoPaterno;
-    private javax.swing.JLabel etiquetaEmail;
-    private javax.swing.JLabel etiquetaNombres;
-    private javax.swing.JLabel etiquetaNumeroTelefono;
-    private javax.swing.JLabel etiquetaRegistrarCliente;
+    private javax.swing.JButton btnRegistrarCliente;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblApellidoMat;
+    private javax.swing.JLabel lblApellidoPat;
+    private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtApellidoMaterno;
+    private javax.swing.JTextField txtApellidoPaterno;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
