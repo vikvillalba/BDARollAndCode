@@ -175,6 +175,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnClientesFrecuentes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnClientesFrecuentes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClientesFrecuentes.setPreferredSize(new java.awt.Dimension(200, 50));
+        btnClientesFrecuentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesFrecuentesActionPerformed(evt);
+            }
+        });
 
         btnBuscarCliente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnBuscarCliente.setText("Buscar cliente");
@@ -236,6 +241,10 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     private void btnNuevoIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoIngredienteActionPerformed
         this.pintarPanelPrincipal(new PnlNuevoIngrediente(this));
     }//GEN-LAST:event_btnNuevoIngredienteActionPerformed
+
+    private void btnClientesFrecuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrecuentesActionPerformed
+        this.pintarPanelPrincipal(new PnlRegistrarCliente(this));
+    }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
