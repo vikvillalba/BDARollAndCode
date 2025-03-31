@@ -6,11 +6,18 @@ package itson.presentacion.frames;
  */
 public class PnlPantallaPrincipal extends javax.swing.JPanel {
 
+    FrmPantallaInicio pantallaInicio;
     
     public PnlPantallaPrincipal(FrmPantallaInicio pantallaInicio) {
         initComponents();
+        this.pantallaInicio = pantallaInicio;
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("RollAndCode");
+
+        // permite que solo se puedan agregar mesas una sola vez durante la ejecucion del sistema.
+        if (pantallaInicio.isMesasAgregadas()) {
+            btnAgregarMesas.setEnabled(false);
+        }
     }
 
     /**
@@ -64,6 +71,10 @@ public class PnlPantallaPrincipal extends javax.swing.JPanel {
 
     private void btnAgregarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMesasActionPerformed
         System.out.println("agregando mesas");
+        if (pantallaInicio != null) {
+            pantallaInicio.setMesasAgregadas(true);
+        }
+
         this.btnAgregarMesas.setEnabled(false);
     }//GEN-LAST:event_btnAgregarMesasActionPerformed
 
