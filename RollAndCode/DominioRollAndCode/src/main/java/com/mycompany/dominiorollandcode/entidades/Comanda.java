@@ -3,7 +3,6 @@ package com.mycompany.dominiorollandcode.entidades;
 import com.mycompany.dominiorollandcode.enums.EstadoComanda;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;

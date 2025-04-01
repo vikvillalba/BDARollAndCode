@@ -3,7 +3,6 @@ package com.mycompany.dominiorollandcode.entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
