@@ -4,10 +4,13 @@
  */
 package com.mycompany.negociorollandcode;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteRegistradoDTO;
+import com.mycompany.dominiorollandcode.dtos.RegistrarClienteDTO;
+
 /**
  *
  * @author 52644
  */
 public interface IClienteBO {
-    
+    public abstract ClienteRegistradoDTO registrarCliente(RegistrarClienteDTO cliente);
 }
