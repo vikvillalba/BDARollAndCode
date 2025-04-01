@@ -13,21 +13,21 @@ import javax.persistence.Table;
 
 /**
  * Representa una mesa en la base de datos.
+ *
  * @author victoria
  */
 @Entity
 @Table(name = "mesas")
 public class Mesa implements Serializable {
 
-  
     @Id
     @Column(name = "idMesa", nullable = false, unique = true)
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "numero", nullable = false, unique = true, length = 3)
     private Integer numero;
-    
+
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.PERSIST)
     private List<Comanda> comandas;
 
@@ -49,7 +49,5 @@ public class Mesa implements Serializable {
     public void setNumero(Integer numero) {
         this.numero = numero;
     }
-    
-    
-    
+
 }

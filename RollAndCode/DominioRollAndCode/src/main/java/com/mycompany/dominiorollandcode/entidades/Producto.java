@@ -17,13 +17,13 @@ import javax.persistence.Table;
 
 /**
  * Representa un producto en la base de datos.
+ *
  * @author victoria
  */
 @Entity
 @Table(name = "productos")
 public class Producto implements Serializable {
 
- 
     @Id
     @Column(name = "idProducto", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +31,17 @@ public class Producto implements Serializable {
 
     @Column(name = "nombre", nullable = false, unique = true, length = 50)
     private String nombre;
-    
+
     @Column(name = "precio", nullable = false, precision = 8, scale = 2)
     private BigDecimal precio;
-    
+
     @Column(name = "tipo", nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductoTipos tipo;
-    
+
     @OneToMany(mappedBy = "producto", cascade = CascadeType.PERSIST)
     private List<ProductoComanda> comandas;
-    
+
     @OneToMany(mappedBy = "producto", cascade = CascadeType.PERSIST)
     private List<ProductoIngrediente> ingredientes;
 
@@ -79,7 +79,5 @@ public class Producto implements Serializable {
     public void setTipo(ProductoTipos tipo) {
         this.tipo = tipo;
     }
-    
-   
-    
+
 }
