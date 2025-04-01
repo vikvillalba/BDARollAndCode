@@ -5,11 +5,11 @@ package itson.presentacion.frames;
  *
  * @author victoria
  */
-public class PnlBuscadorProductos extends javax.swing.JPanel {
+public class PnlBuscadorIngredientes extends javax.swing.JPanel {
 
     private FrmPantallaInicio pantallaInicio;
      
-    public PnlBuscadorProductos(FrmPantallaInicio pantallaInicio) {
+    public PnlBuscadorIngredientes(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         pantallaInicio.pintarPanelPrincipal(this);
@@ -29,17 +29,17 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         lblTitulo2 = new javax.swing.JLabel();
         pnlFooter = new javax.swing.JPanel();
         btnContinuar = new javax.swing.JButton();
-        scProductos = new javax.swing.JScrollPane();
-        pnlProductosSeleccionados = new javax.swing.JPanel();
+        scIngredientes = new javax.swing.JScrollPane();
+        pnlIngredientesSeleccionados = new javax.swing.JPanel();
         pnlBuscador = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
         lblTitulo1 = new javax.swing.JLabel();
-        txtBuscadorProducto = new javax.swing.JTextField();
+        txtBuscadorIngrediente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        rbNombreProducto = new javax.swing.JRadioButton();
-        rbTipoProducto = new javax.swing.JRadioButton();
-        pnlProductos = new javax.swing.JPanel();
+        rbNombreIngrediente = new javax.swing.JRadioButton();
+        rbUnidadMedida = new javax.swing.JRadioButton();
+        pnlIngredientes = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
         setPreferredSize(new java.awt.Dimension(1272, 698));
@@ -54,7 +54,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         lblTitulo.setFont(new java.awt.Font("STHeiti", 1, 30)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(65, 70, 105));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Productos");
+        lblTitulo.setText("Ingredientes");
 
         lblTitulo2.setFont(new java.awt.Font("STHeiti", 1, 30)); // NOI18N
         lblTitulo2.setForeground(new java.awt.Color(65, 70, 105));
@@ -86,6 +86,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
 
         pnlFooter.setBackground(new java.awt.Color(249, 205, 204));
 
+        btnContinuar.setBackground(null);
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
         btnContinuar.setBorder(null);
         btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -109,10 +110,10 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
 
         pnlRight.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
-        pnlProductosSeleccionados.setBackground(new java.awt.Color(249, 205, 204));
-        scProductos.setViewportView(pnlProductosSeleccionados);
+        pnlIngredientesSeleccionados.setBackground(new java.awt.Color(249, 205, 204));
+        scIngredientes.setViewportView(pnlIngredientesSeleccionados);
 
-        pnlRight.add(scProductos, java.awt.BorderLayout.CENTER);
+        pnlRight.add(scIngredientes, java.awt.BorderLayout.CENTER);
 
         add(pnlRight, java.awt.BorderLayout.LINE_END);
 
@@ -124,70 +125,75 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
 
         lblTitulo1.setFont(new java.awt.Font("STHeiti", 1, 48)); // NOI18N
         lblTitulo1.setForeground(new java.awt.Color(65, 70, 105));
-        lblTitulo1.setText("Productos");
+        lblTitulo1.setText("Ingredientes");
 
-        txtBuscadorProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
-        txtBuscadorProducto.setBorder(null);
+        txtBuscadorIngrediente.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtBuscadorIngrediente.setBorder(null);
 
         btnBuscar.setBackground(new java.awt.Color(247, 242, 239));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
         btnBuscar.setBorder(null);
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        rbNombreProducto.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
-        rbNombreProducto.setForeground(new java.awt.Color(65, 70, 105));
-        rbNombreProducto.setText("Nombre");
+        rbNombreIngrediente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
+        rbNombreIngrediente.setForeground(new java.awt.Color(65, 70, 105));
+        rbNombreIngrediente.setText("Nombre");
 
-        rbTipoProducto.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
-        rbTipoProducto.setForeground(new java.awt.Color(65, 70, 105));
-        rbTipoProducto.setText("Tipo");
+        rbUnidadMedida.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
+        rbUnidadMedida.setForeground(new java.awt.Color(65, 70, 105));
+        rbUnidadMedida.setText("Unidad de medida");
 
         javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
         pnlHeader.setLayout(pnlHeaderLayout);
         pnlHeaderLayout.setHorizontalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator1)
-                    .addComponent(txtBuscadorProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
-                .addGap(41, 41, 41)
-                .addComponent(btnBuscar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
-                .addGap(0, 319, Short.MAX_VALUE)
-                .addComponent(rbNombreProducto)
-                .addGap(147, 147, 147)
-                .addComponent(rbTipoProducto)
-                .addGap(353, 353, 353))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTitulo1)
-                .addGap(383, 383, 383))
+                .addGap(338, 338, 338))
+            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator1)
+                            .addComponent(txtBuscadorIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                        .addGap(0, 330, Short.MAX_VALUE)
+                        .addComponent(rbNombreIngrediente)
+                        .addGap(76, 76, 76)
+                        .addComponent(rbUnidadMedida)
+                        .addGap(23, 23, 23)))
+                .addComponent(btnBuscar)
+                .addGap(60, 60, 60))
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(lblTitulo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbTipoProducto)
-                    .addComponent(rbNombreProducto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(txtBuscadorProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnBuscar))
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscar))
+                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lblTitulo1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbNombreIngrediente)
+                            .addComponent(rbUnidadMedida))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addComponent(txtBuscadorIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8))
         );
 
         pnlBuscador.add(pnlHeader, java.awt.BorderLayout.PAGE_START);
 
-        pnlProductos.setBackground(new java.awt.Color(247, 242, 239));
-        pnlBuscador.add(pnlProductos, java.awt.BorderLayout.CENTER);
+        pnlIngredientes.setBackground(new java.awt.Color(247, 242, 239));
+        pnlIngredientes.setPreferredSize(new java.awt.Dimension(0, 543));
+        pnlBuscador.add(pnlIngredientes, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -204,12 +210,12 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     private javax.swing.JPanel pnlFooter;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlHeader2;
-    private javax.swing.JPanel pnlProductos;
-    private javax.swing.JPanel pnlProductosSeleccionados;
+    private javax.swing.JPanel pnlIngredientes;
+    private javax.swing.JPanel pnlIngredientesSeleccionados;
     private javax.swing.JPanel pnlRight;
-    private javax.swing.JRadioButton rbNombreProducto;
-    private javax.swing.JRadioButton rbTipoProducto;
-    private javax.swing.JScrollPane scProductos;
-    private javax.swing.JTextField txtBuscadorProducto;
+    private javax.swing.JRadioButton rbNombreIngrediente;
+    private javax.swing.JRadioButton rbUnidadMedida;
+    private javax.swing.JScrollPane scIngredientes;
+    private javax.swing.JTextField txtBuscadorIngrediente;
     // End of variables declaration//GEN-END:variables
 }

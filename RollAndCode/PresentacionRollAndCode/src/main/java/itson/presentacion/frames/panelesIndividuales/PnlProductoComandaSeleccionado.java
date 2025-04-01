@@ -1,15 +1,15 @@
-package itson.presentacion.frames;
+package itson.presentacion.frames.panelesIndividuales;
 
 /**
  *
  * @author victoria
  */
-public class PnlProductoExistente extends javax.swing.JPanel {
+public class PnlProductoComandaSeleccionado extends javax.swing.JPanel {
 
     /**
      * Creates new form PnlProducto
      */
-    public PnlProductoExistente() {
+    public PnlProductoComandaSeleccionado() {
         initComponents();
     }
 
@@ -25,14 +25,15 @@ public class PnlProductoExistente extends javax.swing.JPanel {
         lblTextoPrecio = new javax.swing.JLabel();
         lblSigno = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
-        btnAgregarProducto = new javax.swing.JButton();
+        btnAgregarComentario = new javax.swing.JButton();
+        btnEliminarProducto = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(249, 205, 204));
-        setPreferredSize(new java.awt.Dimension(200, 200));
+        setPreferredSize(new java.awt.Dimension(200, 241));
 
         lblTipoProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         lblTipoProducto.setForeground(new java.awt.Color(65, 70, 105));
-        lblTipoProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTipoProducto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTipoProducto.setText("TIPO:");
 
         lblNombreProducto.setFont(new java.awt.Font("Avenir Next", 1, 18)); // NOI18N
@@ -52,12 +53,14 @@ public class PnlProductoExistente extends javax.swing.JPanel {
 
         lblPrecio.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         lblPrecio.setForeground(new java.awt.Color(65, 70, 105));
-        lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblPrecio.setText("0.00");
 
-        btnAgregarProducto.setBackground(null);
-        btnAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnAgregar.png"))); // NOI18N
-        btnAgregarProducto.setBorder(null);
+        btnAgregarComentario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnComentario.png"))); // NOI18N
+        btnAgregarComentario.setBorder(null);
+
+        btnEliminarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/eliminarProducto.png"))); // NOI18N
+        btnEliminarProducto.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -65,22 +68,27 @@ public class PnlProductoExistente extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnAgregarProducto))
+                    .addComponent(lblNombreProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
+                        .addComponent(lblTextoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblSigno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTextoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSigno)
-                                .addGap(0, 0, 0)
-                                .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap()
+                                .addComponent(lblTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(btnEliminarProducto)))
+                        .addGap(0, 32, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(btnAgregarComentario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,14 +104,17 @@ public class PnlProductoExistente extends javax.swing.JPanel {
                     .addComponent(lblSigno)
                     .addComponent(lblPrecio))
                 .addGap(18, 18, 18)
-                .addComponent(btnAgregarProducto)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addComponent(btnAgregarComentario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarProducto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnAgregarComentario;
+    private javax.swing.JButton btnEliminarProducto;
     private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblSigno;

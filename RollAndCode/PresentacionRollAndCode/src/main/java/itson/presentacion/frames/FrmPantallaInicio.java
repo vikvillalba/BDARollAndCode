@@ -164,6 +164,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnVerIngredientes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnVerIngredientes.setText("Ver Ingredientes");
         btnVerIngredientes.setPreferredSize(new java.awt.Dimension(190, 45));
+        btnVerIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerIngredientesActionPerformed(evt);
+            }
+        });
         btnIngredientes.add(btnVerIngredientes);
 
         btnNuevoIngrediente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
@@ -238,7 +243,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioMouseClicked
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
-       this.pintarPanelPrincipal(new PnlBuscadorProductos(this));
+       this.pintarPanelPrincipal(new PnlProductosExistentes(this));
     }//GEN-LAST:event_btnVerProductosActionPerformed
 
     private void btnNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaComandaActionPerformed
@@ -252,6 +257,10 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
         this.pintarPanelPrincipal(new PnlRegistrarCliente(this));
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
+
+    private void btnVerIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerIngredientesActionPerformed
+       this.pintarPanelPrincipal(new PnlIngredientesExistentes(this));
+    }//GEN-LAST:event_btnVerIngredientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
