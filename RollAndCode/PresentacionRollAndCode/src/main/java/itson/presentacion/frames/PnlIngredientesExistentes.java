@@ -140,7 +140,7 @@ public class PnlIngredientesExistentes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-       pantallaInicio.pintarPanelPrincipal(new PnlPantallaPrincipal(pantallaInicio));
+       pantallaInicio.pintarPanelPrincipal(new PnlPantallaPrincipal(pantallaInicio, pantallaInicio.getMesasBO()));
     }//GEN-LAST:event_btnRegresarActionPerformed
 
 

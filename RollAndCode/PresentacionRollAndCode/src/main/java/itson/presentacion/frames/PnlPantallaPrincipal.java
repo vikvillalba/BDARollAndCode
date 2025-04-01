@@ -1,16 +1,22 @@
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.NuevaMesaDTO;
+import com.mycompany.negociorollandcode.IMesasBO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author victoria
  */
 public class PnlPantallaPrincipal extends javax.swing.JPanel {
 
-    FrmPantallaInicio pantallaInicio;
+    private FrmPantallaInicio pantallaInicio;
+    private IMesasBO mesasBO;
     
-    public PnlPantallaPrincipal(FrmPantallaInicio pantallaInicio) {
+    public PnlPantallaPrincipal(FrmPantallaInicio pantallaInicio, IMesasBO mesasBO) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
+        this.mesasBO = mesasBO;
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("RollAndCode");
 
@@ -70,7 +76,12 @@ public class PnlPantallaPrincipal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMesasActionPerformed
-        System.out.println("agregando mesas");
+        for (int i = 1; i < 21; i++) {
+            NuevaMesaDTO nuevaMesa = new NuevaMesaDTO(i);
+            this.mesasBO.agregar(nuevaMesa);
+        }
+         JOptionPane.showMessageDialog(this, "Se han registrado correctamente las mesas.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        
         if (pantallaInicio != null) {
             pantallaInicio.setMesasAgregadas(true);
         }

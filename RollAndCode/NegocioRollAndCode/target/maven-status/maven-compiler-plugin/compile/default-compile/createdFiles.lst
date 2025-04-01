@@ -1,1 +1,3 @@
-com\mycompany\negociorollandcode\NegocioRollAndCode.class
+com/mycompany/negociorollandcode/implementaciones/MesasBO.class
+com/mycompany/negociorollandcode/fabrica/FabricaObjetosNegocio.class
+com/mycompany/negociorollandcode/IMesasBO.class

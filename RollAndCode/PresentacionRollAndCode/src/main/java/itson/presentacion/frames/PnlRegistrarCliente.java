@@ -6,7 +6,7 @@ package itson.presentacion.frames;
  */
 public class PnlRegistrarCliente extends javax.swing.JPanel {
 
-    FrmPantallaInicio frame;
+    private FrmPantallaInicio frame;
 
     /**
      * Creates new form PnlRegistrarCliente
@@ -16,9 +16,6 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         this.frame = frame;
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Registrar Cliente Frecuente");
-    }
-    public PnlRegistrarCliente(){
-        this(new FrmPantallaInicio());
     }
 
     /**
@@ -170,7 +167,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        frame.pintarPanelPrincipal(new PnlPantallaPrincipal(frame));
+        frame.pintarPanelPrincipal(new PnlPantallaPrincipal(frame, frame.getMesasBO()));
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     

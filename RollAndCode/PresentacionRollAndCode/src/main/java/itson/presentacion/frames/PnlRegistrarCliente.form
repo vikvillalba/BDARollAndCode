@@ -235,9 +235,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnRegistrarCliente">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color type="null"/>
-        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/utilerias/botones/registrarCliente.png"/>
         </Property>
@@ -248,9 +245,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnRegresar">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color type="null"/>
-        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/utilerias/botones/btnRegresar.png"/>
         </Property>
