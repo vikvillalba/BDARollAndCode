@@ -44,7 +44,7 @@
                           <Component id="txtNombreIngrediente" min="-2" pref="330" max="-2" attributes="0"/>
                           <Component id="cbxUnidadMedida" min="-2" pref="330" max="-2" attributes="0"/>
                           <Component id="jSeparator1" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
-                          <Component id="txtNombreIngrediente1" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
+                          <Component id="txtCantidadstock" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="330" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -80,7 +80,7 @@
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="txtNombreIngrediente1" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="txtCantidadstock" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
@@ -132,12 +132,7 @@
           <Font name="STHeiti" size="18" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
@@ -147,11 +142,14 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;UnidadMedida&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnRegresar">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ef" green="f2" red="f7" type="rgb"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/utilerias/botones/btnRegresar.png"/>
         </Property>
@@ -168,6 +166,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnContinuar">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ef" green="f2" red="f7" type="rgb"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/utilerias/botones/btnContinuar.png"/>
         </Property>
@@ -178,6 +179,9 @@
           <Color id="Default Cursor"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnContinuarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombre">
       <Properties>
@@ -213,7 +217,7 @@
         <Property name="text" type="java.lang.String" value="Nombre del ingrediente:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNombreIngrediente1">
+    <Component class="javax.swing.JTextField" name="txtCantidadstock">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="STHeiti" size="18" style="1"/>

@@ -11,8 +11,7 @@ import itson.presentacion.frames.FrmPantallaInicio;
 public class Presentacion {
 
     public static void main(String[] args) {
-        IMesasBO mesasBO = FabricaObjetosNegocio.crearMesasBO();
-        FrmPantallaInicio frmInicio = new FrmPantallaInicio(mesasBO);
+        FrmPantallaInicio frmInicio = new FrmPantallaInicio();
         frmInicio.setVisible(true);
     }
 }

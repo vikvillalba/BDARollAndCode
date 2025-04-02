@@ -50,6 +50,39 @@ public class Ingrediente implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public UnidadMedida getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(UnidadMedida unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+
+    public Integer getCantidadStock() {
+        return cantidadStock;
+    }
+
+    public void setCantidadStock(Integer cantidadStock) {
+        this.cantidadStock = cantidadStock;
+    }
+
+    public List<ProductoIngrediente> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ProductoIngrediente> productos) {
+        this.productos = productos;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

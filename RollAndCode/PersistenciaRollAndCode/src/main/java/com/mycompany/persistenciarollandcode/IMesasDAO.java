@@ -4,7 +4,7 @@ import com.mycompany.dominiorollandcode.dtos.NuevaMesaDTO;
 import com.mycompany.dominiorollandcode.entidades.Mesa;
 
 /**
- *
+ * Interfaz que especifica las acciones de persistencia para las mesas.
  * @author victoria
  */
 public interface IMesasDAO {

@@ -1,6 +1,8 @@
 package itson.presentacion.frames;
 
+import com.mycompany.negociorollandcode.IIngredientesBO;
 import com.mycompany.negociorollandcode.IMesasBO;
+import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,17 +14,19 @@ import javax.swing.JScrollPane;
 public class FrmPantallaInicio extends javax.swing.JFrame {
 
     private boolean mesasAgregadas = false;
-    private IMesasBO mesasBO;
+    private final IMesasBO mesasBO = FabricaObjetosNegocio.crearMesasBO();
+    private final IIngredientesBO ingredientesBO = FabricaObjetosNegocio.crearIngredientesBO();
 
-    public FrmPantallaInicio(IMesasBO mesasBO) {
+
+    public FrmPantallaInicio() {
         initComponents();
-        this.mesasBO = mesasBO;
         this.setTitle("Roll & Code");
         this.btnInicioActionPerformed(null);
         this.setSize(1272, 789);
         this.setLocationRelativeTo(null);
     }
-    
+
+
     public void pintarPanelPrincipal(JPanel panel){
         scrollPane.setViewportView(panel);
         panel.setPreferredSize(new Dimension(0,panel.getPreferredSize().height));
@@ -43,6 +47,12 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     public IMesasBO getMesasBO() {
         return mesasBO;
     }
+
+    public IIngredientesBO getIngredientesBO() {
+        return ingredientesBO;
+    }
+    
+    
     
     
     /**
@@ -239,7 +249,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        this.pintarPanelPrincipal(new PnlPantallaPrincipal(this, this.mesasBO));
+        this.pintarPanelPrincipal(new PnlPantallaPrincipal(this, mesasBO));
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProductoActionPerformed
@@ -247,7 +257,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoProductoActionPerformed
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
-        this.pintarPanelPrincipal(new PnlPantallaPrincipal(this, this.mesasBO));
+        this.pintarPanelPrincipal(new PnlPantallaPrincipal(this, mesasBO));
     }//GEN-LAST:event_btnInicioMouseClicked
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
