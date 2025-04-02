@@ -4,13 +4,14 @@
  */
 package com.mycompany.negociorollandcode;
 
-import com.mycompany.dominiorollandcode.dtos.ClienteRegistradoDTO;
+import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.RegistrarClienteDTO;
+import com.mycompany.negociorollandcode.excepciones.ClienteException;
 
 /**
  *
  * @author 52644
  */
-public interface IClienteBO {
-    public abstract ClienteRegistradoDTO registrarCliente(RegistrarClienteDTO cliente);
+public interface IClientesBO {
+    public abstract ClienteDTO registrarNuevoCliente(RegistrarClienteDTO cliente) throws ClienteException;
 }

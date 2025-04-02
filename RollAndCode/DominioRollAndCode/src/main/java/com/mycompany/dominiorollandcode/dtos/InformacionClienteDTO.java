@@ -11,7 +11,7 @@ import java.util.Calendar;
  *
  * @author 52644
  */
-public class ClienteRegistradoDTO {
+public class InformacionClienteDTO {
     Long id;
     private String nombres;
     private String apellidoPaterno;
@@ -23,7 +23,7 @@ public class ClienteRegistradoDTO {
     private BigDecimal gastoTotal;
     private int puntosFidelidad;    
 
-    public ClienteRegistradoDTO(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String email, int telefono, Calendar fechaRegistro, int cantidadVisitas, BigDecimal gastoTotal, int puntosFidelidad) {
+    public InformacionClienteDTO(Long id, String nombres, String apellidoPaterno, String apellidoMaterno, String email, int telefono, Calendar fechaRegistro, int cantidadVisitas, BigDecimal gastoTotal, int puntosFidelidad) {
         this.id = id;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -36,6 +36,6 @@ public class ClienteRegistradoDTO {
         this.puntosFidelidad = puntosFidelidad;
     }
     
-    public ClienteRegistradoDTO(){}
+    public InformacionClienteDTO(){}
     
 }

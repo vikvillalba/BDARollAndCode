@@ -32,7 +32,7 @@ public class ClienteFrecuente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "correoElectronico", nullable = false, unique = true, length = 120)
+    @Column(name = "correoElectronico", nullable = true, unique = true, length = 120)
     private String correoElectronico;
     
     @Column(name = "nombres", nullable = false, length = 100)
@@ -51,13 +51,13 @@ public class ClienteFrecuente implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar fechaRegistro;
     
-    @Column(name = "cantidadVisitas", nullable = false, length = 6)
+    @Column(name = "cantidadVisitas", nullable = true, length = 6)
     private Integer cantidadVisitas;
     
-    @Column(name = "gastoTotal", nullable = false, precision = 8, scale = 2)
+    @Column(name = "gastoTotal", nullable = true, precision = 8, scale = 2)
     private BigDecimal gastoTotal;
     
-    @Column(name = "puntosFidelidad", nullable = false, length = 5)
+    @Column(name = "puntosFidelidad", nullable = true, length = 5)
     private Integer puntosFidelidad;
     
     @OneToMany(mappedBy = "clienteFrecuente", cascade = CascadeType.PERSIST)

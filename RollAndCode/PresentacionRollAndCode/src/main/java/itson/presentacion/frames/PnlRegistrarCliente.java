@@ -1,5 +1,12 @@
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
+import com.mycompany.dominiorollandcode.dtos.RegistrarClienteDTO;
+import com.mycompany.negociorollandcode.IClientesBO;
+import com.mycompany.negociorollandcode.excepciones.ClienteException;
+import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 52644
@@ -7,6 +14,7 @@ package itson.presentacion.frames;
 public class PnlRegistrarCliente extends javax.swing.JPanel {
 
     private FrmPantallaInicio frame;
+    private IClientesBO clientesBO;
 
     /**
      * Creates new form PnlRegistrarCliente
@@ -16,6 +24,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         this.frame = frame;
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Registrar Cliente Frecuente");
+        this.clientesBO = FabricaObjetosNegocio.crearClientesBO();
     }
 
     /**
@@ -89,11 +98,14 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         txtTelefono.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         txtTelefono.setBorder(null);
 
-        btnRegistrarCliente.setBackground(null);
         btnRegistrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/registrarCliente.png"))); // NOI18N
         btnRegistrarCliente.setBorder(null);
+        btnRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarClienteActionPerformed(evt);
+            }
+        });
 
-        btnRegresar.setBackground(null);
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
         btnRegresar.setBorder(null);
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +182,24 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         frame.pintarPanelPrincipal(new PnlPantallaPrincipal(frame, frame.getMesasBO()));
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    
+    private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
+        RegistrarClienteDTO cliente = new RegistrarClienteDTO(txtNombres.getText(), txtApellidoPaterno.getText(),
+                txtApellidoMaterno.getText(), txtCorreo.getText(), txtTelefono.getText());
+        try {
+            ClienteDTO clienteDTO = clientesBO.registrarNuevoCliente(cliente);
+            JOptionPane.showMessageDialog(null, clienteDTO.toString(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            txtNombres.setText(null);
+            txtApellidoMaterno.setText(null);
+            txtApellidoPaterno.setText(null);
+            txtCorreo.setText(null);
+            txtTelefono.setText(null);
+            
+        } catch (ClienteException e) {
+            JOptionPane.showMessageDialog(null, e.toString(),
+                    "Aviso", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_btnRegistrarClienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarCliente;

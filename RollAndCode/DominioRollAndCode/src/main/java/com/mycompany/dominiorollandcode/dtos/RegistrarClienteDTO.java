@@ -4,6 +4,9 @@
  */
 package com.mycompany.dominiorollandcode.dtos;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author 52644
@@ -12,15 +15,17 @@ public class RegistrarClienteDTO {
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private String email;
-    private int telefono;
+    private String correoElectronico;
+    private String telefono;
+    private Calendar fechaRegistro;
 
-    public RegistrarClienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String email, int telefono) {
+    public RegistrarClienteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.email = email;
+        this.correoElectronico = email;
         this.telefono = telefono;
+        this.fechaRegistro = new GregorianCalendar();
     }
     
     public RegistrarClienteDTO(){}
@@ -37,14 +42,21 @@ public class RegistrarClienteDTO {
         return apellidoMaterno;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
     
+    public Calendar getFechaRegistro(){
+        return fechaRegistro;
+    }
+    
+    public void setCorreoElectronico(String email){
+        this.correoElectronico = email;
+    }
     
     
 }
