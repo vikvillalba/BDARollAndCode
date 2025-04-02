@@ -101,7 +101,6 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
 
         pnlFooter.setBackground(new java.awt.Color(247, 242, 239));
 
-        btnRegresar.setBackground(null);
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
         btnRegresar.setBorder(null);
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -111,7 +110,6 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
             }
         });
 
-        btnAgregarIngredientes.setBackground(null);
         btnAgregarIngredientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/agregarIngredientes.png"))); // NOI18N
         btnAgregarIngredientes.setBorder(null);
         btnAgregarIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -121,7 +119,6 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
             }
         });
 
-        btnGuardarCambios.setBackground(null);
         btnGuardarCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/guardarCambios.png"))); // NOI18N
         btnGuardarCambios.setBorder(null);
         btnGuardarCambios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

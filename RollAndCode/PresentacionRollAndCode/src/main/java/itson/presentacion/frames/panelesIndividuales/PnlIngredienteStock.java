@@ -26,7 +26,7 @@ public class PnlIngredienteStock extends javax.swing.JPanel {
         lblStock = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(249, 205, 204));
-        setPreferredSize(new java.awt.Dimension(900, 73));
+        setPreferredSize(new java.awt.Dimension(1200, 73));
 
         lblNombreIngrediente.setFont(new java.awt.Font("Avenir Next", 1, 18)); // NOI18N
         lblNombreIngrediente.setForeground(new java.awt.Color(65, 70, 105));
@@ -52,13 +52,13 @@ public class PnlIngredienteStock extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(45, 45, 45)
                 .addComponent(lblNombreIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(115, 115, 115)
                 .addComponent(lblUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(lblStock, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(75, 75, 75)
                 .addComponent(btnAgregarStock)
                 .addGap(16, 16, 16))
         );
