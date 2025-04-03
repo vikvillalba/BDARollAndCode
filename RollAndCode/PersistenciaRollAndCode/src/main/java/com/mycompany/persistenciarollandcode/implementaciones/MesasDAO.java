@@ -1,10 +1,13 @@
 package com.mycompany.persistenciarollandcode.implementaciones;
 
+import com.mycompany.dominiorollandcode.dtos.MesaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaMesaDTO;
 import com.mycompany.dominiorollandcode.entidades.Mesa;
 import com.mycompany.persistenciarollandcode.IMesasDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -23,6 +26,18 @@ public class MesasDAO implements IMesasDAO{
         entityManager.getTransaction().commit();
         
         return mesa; 
+    }
+
+    @Override
+    public List<MesaDTO> obtenerMesas() {
+       EntityManager entityManager = ManejadorConexiones.getEntityManager();
+       String jpqlQuery = """
+                          SELECT new com.mycompany.dominiorollandcode.dtos.MesaDTO (M.id, M.numero)
+                          FROM Mesa M
+                          """;
+       
+        TypedQuery<MesaDTO> query = entityManager.createQuery(jpqlQuery, MesaDTO.class);
+        return query.getResultList();
     }
     
 }

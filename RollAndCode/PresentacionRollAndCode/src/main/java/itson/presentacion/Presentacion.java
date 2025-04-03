@@ -1,7 +1,5 @@
 package itson.presentacion;
 
-import com.mycompany.negociorollandcode.IMesasBO;
-import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.FrmPantallaInicio;
 
 /**

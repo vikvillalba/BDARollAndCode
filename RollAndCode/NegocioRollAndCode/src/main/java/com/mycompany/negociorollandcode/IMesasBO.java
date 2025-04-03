@@ -2,6 +2,7 @@ package com.mycompany.negociorollandcode;
 
 import com.mycompany.dominiorollandcode.dtos.MesaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaMesaDTO;
+import java.util.List;
 
 /**
  * Interfaz para objetos de negocio de mesas.
@@ -9,5 +10,6 @@ import com.mycompany.dominiorollandcode.dtos.NuevaMesaDTO;
  */
 public interface IMesasBO {
     public abstract MesaDTO agregar(NuevaMesaDTO nuevaMesa);
+    public abstract List<MesaDTO> obtenerMesas();
     
 }

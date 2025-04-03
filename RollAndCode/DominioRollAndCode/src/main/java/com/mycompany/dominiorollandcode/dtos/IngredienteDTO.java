@@ -34,6 +34,11 @@ public class IngredienteDTO {
     public Integer getCantidadStock() {
         return cantidadStock;
     }
+
+    public void setCantidadStock(Integer cantidadStock) {
+        this.cantidadStock = cantidadStock;
+    }
+    
     
     
     

@@ -5,6 +5,7 @@ import com.mycompany.dominiorollandcode.dtos.NuevaMesaDTO;
 import com.mycompany.dominiorollandcode.entidades.Mesa;
 import com.mycompany.negociorollandcode.IMesasBO;
 import com.mycompany.persistenciarollandcode.IMesasDAO;
+import java.util.List;
 
 /**
  * Clase que implementa la interfaz IMesasBO
@@ -23,6 +24,11 @@ public class MesasBO implements IMesasBO{
         Mesa mesa = this.mesasDAO.registrar(nuevaMesa);
         MesaDTO mesaDTO = new MesaDTO(mesa.getId(), mesa.getNumero());
         return mesaDTO;
+    }
+
+    @Override
+    public List<MesaDTO> obtenerMesas() {
+        return this.mesasDAO.obtenerMesas();
     }
     
 }

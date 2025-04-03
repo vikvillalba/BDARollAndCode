@@ -21,6 +21,7 @@ public class FabricaObjetosNegocio {
     
     private static IMesasBO mesasBO;
     private static IIngredientesBO ingredientesBO;
+    private static IClientesBO clientesBO;
 
     // implementando el patron singleton
     public static IMesasBO crearMesasBO() {
@@ -33,8 +34,11 @@ public class FabricaObjetosNegocio {
     }
 
     public static IClientesBO crearClientesBO() {
-        IClientesDAO clientesDAO = new ClientesDAO();
-        IClientesBO clientesBO = new ClientesBO(clientesDAO);
+        if (clientesBO == null) {
+            IClientesDAO clientesDAO = new ClientesDAO();
+            clientesBO = new ClientesBO(clientesDAO);
+        }
+
         return clientesBO;
     }
 

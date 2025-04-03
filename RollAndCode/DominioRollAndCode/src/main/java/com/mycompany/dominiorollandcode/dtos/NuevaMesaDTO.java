@@ -11,6 +11,10 @@ public class NuevaMesaDTO {
         this.numero = numero;
     }
 
+    public NuevaMesaDTO() {
+    }
+    
+
     public Integer getNumero() {
         return numero;
     }

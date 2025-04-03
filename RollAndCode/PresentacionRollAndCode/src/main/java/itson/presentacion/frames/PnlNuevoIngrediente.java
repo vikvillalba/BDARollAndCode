@@ -4,6 +4,9 @@ package itson.presentacion.frames;
 import com.mycompany.dominiorollandcode.dtos.NuevoIngredienteDTO;
 import com.mycompany.dominiorollandcode.enums.UnidadMedida;
 import com.mycompany.negociorollandcode.IIngredientesBO;
+import com.mycompany.negociorollandcode.excepciones.IngredienteException;
+import itson.presentacion.excepciones.PresentacionException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -167,12 +170,37 @@ public class PnlNuevoIngrediente extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-       String nombreIngrediente = txtNombreIngrediente.getText();
+       // obtiene los valores ingresados en los textfields
+        String nombreIngrediente = txtNombreIngrediente.getText();
        UnidadMedida unidadMedida = (UnidadMedida) cbxUnidadMedida.getSelectedItem();
+       
+       // valida que se haya ingresado un valor para el stock
+       if(txtCantidadstock.getText().isBlank() || txtCantidadstock.getText().isEmpty()){
+           try {
+               throw new PresentacionException("La cantidad de stock no puede estar vacía.");
+           } catch (PresentacionException ex) {
+               txtCantidadstock.setText("");
+               JOptionPane.showMessageDialog(null, ex.getMessage(),"Aviso", JOptionPane.OK_OPTION);
+               return;
+           }
+       }
+       
        Integer stock = Integer.valueOf(txtCantidadstock.getText());
        
+       // arma la dto
         NuevoIngredienteDTO nuevoIngredienteDTO = new NuevoIngredienteDTO(nombreIngrediente, unidadMedida, stock);
-        this.ingredientesBO.registrar(nuevoIngredienteDTO);
+        try {
+            // llama al metodo del BO y le envia la dto
+            this.ingredientesBO.registrar(nuevoIngredienteDTO);
+            JOptionPane.showInternalMessageDialog(null, "El ingrediente se registró correctamente", "Confirmación", JOptionPane.OK_OPTION);
+            // limpia los campos de texto
+            txtCantidadstock.setText("");
+            txtNombreIngrediente.setText("");
+        } catch (IngredienteException ex) {
+            txtCantidadstock.setText("");
+            txtNombreIngrediente.setText("");
+            JOptionPane.showMessageDialog(this, ex.getMessage(),"Aviso", JOptionPane.OK_OPTION);
+        }
         
     }//GEN-LAST:event_btnContinuarActionPerformed
 

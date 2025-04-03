@@ -1,7 +1,9 @@
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.MesaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaMesaDTO;
 import com.mycompany.negociorollandcode.IMesasBO;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -76,7 +78,9 @@ public class PnlPantallaPrincipal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMesasActionPerformed
-        for (int i = 1; i < 21; i++) {
+        List<MesaDTO> mesas = this.mesasBO.obtenerMesas();
+        
+        for (int i = mesas.size()+1; i < mesas.size()+21 ; i++) {
             NuevaMesaDTO nuevaMesa = new NuevaMesaDTO(i);
             this.mesasBO.agregar(nuevaMesa);
         }
