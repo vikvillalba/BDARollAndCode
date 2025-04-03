@@ -79,5 +79,31 @@ public class IngredientesDAO implements IIngredientesDAO{
         
         return ingredienteActualizado;
     }
+
+    @Override
+    public List<IngredienteDTO> obtenerIngredientesFiltradosNombre(String filtro) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpqlQuery = "SELECT new com.mycompany.dominiorollandcode.dtos.IngredienteDTO "
+                + "(I.id, I.nombre, I.unidadMedida, I.cantidadStock) "
+                + "FROM Ingrediente I "
+                + "WHERE I.unidadMedida LIKE :filtro";
+
+        TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpqlQuery, IngredienteDTO.class);
+        query.setParameter("filtro", "%" + filtro + "%");  // Se usa setParameter para evitar inyección SQL
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<IngredienteDTO> obtenerIngredientesFiltradosUnidadMedida(String filtro) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpqlQuery = "SELECT new com.mycompany.dominiorollandcode.dtos.IngredienteDTO "
+                + "(I.id, I.nombre, I.unidadMedida, I.cantidadStock) "
+                + "FROM Ingrediente I "
+                + "WHERE I.unidadMedida LIKE :filtro";
+
+        TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpqlQuery, IngredienteDTO.class);
+        query.setParameter("filtro", "%" + filtro + "%");
+        return query.getResultList();
+    }
 }
-    

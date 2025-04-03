@@ -2,11 +2,7 @@ package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.negociorollandcode.IIngredientesBO;
-import com.mycompany.negociorollandcode.excepciones.IngredienteException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  * Representa un ingrediente registrado, con la opción de añadir stock
@@ -100,30 +96,8 @@ public class PnlIngredienteStock extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarStockActionPerformed
-        String input = JOptionPane.showInputDialog(null, "Ingrese la cantidad de stock:", "Cantidad de Stock", JOptionPane.QUESTION_MESSAGE);
-
-        if (input != null && !input.isBlank()) {
-            try {
-                Integer cantidadStock = Integer.parseInt(input);
-                
-                try {
-                    IngredienteDTO ingredienteActualizado = this.ingredientesBO.actualizarStock(ingredienteDTO, cantidadStock);
-                    setDatosIngrediente(
-                            ingredienteActualizado.getNombre(), 
-                            ingredienteActualizado.getCantidadStock().toString(), 
-                            ingredienteActualizado.getUnidadMedida().toString()
-                    );
-                } catch (IngredienteException ex) {
-                   JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR);
-                }
-                
-                
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se ingresó ningún valor.", "Aviso", JOptionPane.WARNING_MESSAGE);
-        }
+        AgregarStock popUpAgregarStock = new AgregarStock(this, ingredientesBO, ingredienteDTO);
+        popUpAgregarStock.setVisible(true);
 
     }//GEN-LAST:event_btnAgregarStockActionPerformed
 

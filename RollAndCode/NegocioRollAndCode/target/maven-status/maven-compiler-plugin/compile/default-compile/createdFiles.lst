@@ -1,3 +1,4 @@
+com/mycompany/negociorollandcode/IProductosBO.class
 com/mycompany/negociorollandcode/excepciones/ClienteException.class
 com/mycompany/negociorollandcode/IIngredientesBO.class
 com/mycompany/negociorollandcode/fabrica/FabricaObjetosNegocio.class
