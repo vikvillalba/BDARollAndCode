@@ -34,7 +34,7 @@ public class PnlIngredienteSeleccionado extends javax.swing.JPanel {
 
         lblNombreIngrediente.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         lblNombreIngrediente.setForeground(new java.awt.Color(65, 70, 105));
-        lblNombreIngrediente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreIngrediente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombreIngrediente.setText("NombreIngrediente");
 
         btnEliminarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/eliminarIngrediente.png"))); // NOI18N
@@ -50,9 +50,9 @@ public class PnlIngredienteSeleccionado extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(lblNombreIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblNombreIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarIngrediente)
                 .addGap(15, 15, 15))
         );
@@ -64,26 +64,39 @@ public class PnlIngredienteSeleccionado extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(btnEliminarIngrediente))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(19, 19, 19)
                         .addComponent(lblNombreIngrediente)))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarIngredienteActionPerformed
         List<IngredienteDTO> ingredientes = this.buscadorIngredientes.getIngredientesSeleccionados();
-        ingredientes.remove(ingredienteDTO);
+        List<PnlIngredienteExistente> ingredientesExistentes = this.buscadorIngredientes.getPnlIngredientesExistentes();
 
+        ingredientes.remove(this.ingredienteDTO);
         this.buscadorIngredientes.setIngredientesSeleccionados(ingredientes);
-        this.buscadorIngredientes.cargarIngredientesSeleccionados();
 
-        PnlIngredienteExistente panelIngredienteExistente = this.buscadorIngredientes.getPanelIngredienteExistente(ingredienteDTO);
-        if (panelIngredienteExistente != null) {
-            panelIngredienteExistente.activarBotonSeleccion();
+        this.buscadorIngredientes.cargarIngredientesSeleccionados();
+        for (PnlIngredienteExistente panelExistente : ingredientesExistentes) {
+            if (panelExistente.getIngredienteDTO().equals(this.ingredienteDTO)) {
+                panelExistente.activarBotonSeleccion();
+                panelExistente.setVisible(true);
+                panelExistente.revalidate();
+                panelExistente.repaint();
+                break; 
+            }
         }
 
+        this.buscadorIngredientes.getPnlIngredientes().revalidate();
+        this.buscadorIngredientes.getPnlIngredientes().repaint();
     }//GEN-LAST:event_btnEliminarIngredienteActionPerformed
 
+    public IngredienteDTO getIngredienteDTO() {
+        return ingredienteDTO;
+    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarIngrediente;

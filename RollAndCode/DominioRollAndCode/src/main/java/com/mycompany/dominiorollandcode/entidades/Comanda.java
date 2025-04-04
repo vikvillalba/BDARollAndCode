@@ -100,8 +100,8 @@ public class Comanda implements Serializable {
         return totalAcumulado;
     }
 
-    public void setTotalAcumulado(BigDecimal totalAcumulado) {
-        this.totalAcumulado = totalAcumulado;
+    public void setTotalAcumulado() {
+        calcularImporteTotal();
     }
     @PrePersist
     @PreUpdate

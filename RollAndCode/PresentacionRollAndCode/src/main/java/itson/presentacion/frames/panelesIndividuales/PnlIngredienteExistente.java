@@ -17,12 +17,14 @@ public class PnlIngredienteExistente extends javax.swing.JPanel {
     private IIngredientesBO ingredientesBO;
     private IngredienteDTO ingredienteDTO;
     private PnlBuscadorIngredientes buscadorIngredientes;
+    private boolean seleccionado;
 
     public PnlIngredienteExistente(IngredienteDTO ingrediente, PnlBuscadorIngredientes buscadorIngredientes) {
         initComponents();
         this.buscadorIngredientes = buscadorIngredientes;
         this.ingredienteDTO = ingrediente;
         this.ingredientesBO = FabricaObjetosNegocio.crearIngredientesBO();
+        this.seleccionado = false;
         setDatosIngrediente();
     }
 
@@ -92,20 +94,39 @@ public class PnlIngredienteExistente extends javax.swing.JPanel {
 
     private void btnAgregarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarIngredienteActionPerformed
         List<IngredienteDTO> ingredientes = this.buscadorIngredientes.getIngredientesSeleccionados();
-        ingredientes.add(this.ingredienteDTO);
-        this.btnAgregarIngrediente.setEnabled(false);
-        this.buscadorIngredientes.cargarIngredientesSeleccionados();
-        this.buscadorIngredientes.setIngredientesSeleccionados(ingredientes);
+  
+        if (!ingredientes.contains(this.ingredienteDTO)) {
+            ingredientes.add(this.ingredienteDTO);
 
+            this.remove(this.btnAgregarIngrediente);
+            this.revalidate();
+            this.repaint();
+
+            this.buscadorIngredientes.setIngredientesSeleccionados(ingredientes);
+            this.buscadorIngredientes.cargarIngredientesSeleccionados();
+            this.seleccionado = true;
+
+        } 
+       
     }//GEN-LAST:event_btnAgregarIngredienteActionPerformed
 
-    public void activarBotonSeleccion(){
-        this.btnAgregarIngrediente.setEnabled(true);
+    public void activarBotonSeleccion() {
+        if (this.btnAgregarIngrediente.getParent() == null) {
+            this.add(this.btnAgregarIngrediente);
+            this.revalidate();
+            this.repaint();
+        }
     }
+
 
     public IngredienteDTO getIngredienteDTO() {
         return ingredienteDTO;
     }
+
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
+    
     
     
 

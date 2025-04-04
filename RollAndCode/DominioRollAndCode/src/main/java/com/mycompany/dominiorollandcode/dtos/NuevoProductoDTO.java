@@ -14,10 +14,7 @@ public class NuevoProductoDTO {
     private ProductoTipos tipo;
     private List<IngredienteDTO> ingredientes;
 
-    public NuevoProductoDTO(String nombre, BigDecimal precio, ProductoTipos tipo) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.tipo = tipo;
+    public NuevoProductoDTO() {
     }
 
     public String getNombre() {
@@ -51,6 +48,7 @@ public class NuevoProductoDTO {
     public void setIngredientes(List<IngredienteDTO> ingredientes) {
         this.ingredientes = ingredientes;
     }
+    
     
     
     

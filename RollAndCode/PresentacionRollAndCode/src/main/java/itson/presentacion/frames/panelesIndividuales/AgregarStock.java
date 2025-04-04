@@ -31,7 +31,7 @@ public class AgregarStock extends javax.swing.JFrame {
                throw new PresentacionException("La cantidad de stock no puede estar vacía.");
            } catch (PresentacionException ex) {
                txtCantidadStock.setText("");
-               JOptionPane.showMessageDialog(null, ex.getMessage(),"Aviso", JOptionPane.OK_OPTION);
+               JOptionPane.showMessageDialog(null, ex.getMessage(),"Aviso", JOptionPane.INFORMATION_MESSAGE);
            }
        }
         return Integer.valueOf(this.txtCantidadStock.getText());

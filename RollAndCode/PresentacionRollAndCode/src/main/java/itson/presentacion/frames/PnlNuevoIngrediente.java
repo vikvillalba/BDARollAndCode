@@ -23,6 +23,7 @@ public class PnlNuevoIngrediente extends javax.swing.JPanel {
         this.ingredientesBO = this.pantallaInicio.getIngredientesBO();
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Agregar nuevo producto");
+       
 
         for (UnidadMedida unidad : UnidadMedida.values()) {
             this.cbxUnidadMedida.addItem(unidad);
@@ -188,11 +189,11 @@ public class PnlNuevoIngrediente extends javax.swing.JPanel {
        Integer stock = Integer.valueOf(txtCantidadstock.getText());
        
        // arma la dto
-        NuevoIngredienteDTO nuevoIngredienteDTO = new NuevoIngredienteDTO(nombreIngrediente, unidadMedida, stock);
+        NuevoIngredienteDTO nuevoIngredienteDTO = new NuevoIngredienteDTO(nombreIngrediente.toUpperCase(), unidadMedida, stock);
         try {
             // llama al metodo del BO y le envia la dto
             this.ingredientesBO.registrar(nuevoIngredienteDTO);
-            JOptionPane.showInternalMessageDialog(null, "El ingrediente se registró correctamente", "Confirmación", JOptionPane.OK_OPTION);
+            JOptionPane.showInternalMessageDialog(null, "El ingrediente se registró correctamente", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             // limpia los campos de texto
             txtCantidadstock.setText("");
             txtNombreIngrediente.setText("");

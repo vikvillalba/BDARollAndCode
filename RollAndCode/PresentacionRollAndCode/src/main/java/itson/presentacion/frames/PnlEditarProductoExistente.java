@@ -168,7 +168,7 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     private void btnAgregarIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarIngredientesActionPerformed
-        pantallaInicio.pintarPanelPrincipal(new PnlBuscadorIngredientes(pantallaInicio));
+        //pantallaInicio.pintarPanelPrincipal(new PnlBuscadorIngredientes(pantallaInicio));
     }//GEN-LAST:event_btnAgregarIngredientesActionPerformed
 
 

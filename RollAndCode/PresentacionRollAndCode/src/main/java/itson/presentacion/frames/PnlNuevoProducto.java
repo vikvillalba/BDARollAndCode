@@ -1,6 +1,7 @@
 
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.enums.ProductoTipos;
 import com.mycompany.negociorollandcode.IIngredientesBO;
 import itson.presentacion.excepciones.PresentacionException;
@@ -154,7 +155,10 @@ public class PnlNuevoProducto extends javax.swing.JPanel {
                return;
            }
        }
-         pantallaInicio.pintarPanelPrincipal(new PnlBuscadorIngredientes(pantallaInicio));
+         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO();
+         nuevoProducto.setNombre(txtNombreProducto.getText());
+         nuevoProducto.setTipo((ProductoTipos) cbxCategoriaProducto.getSelectedItem());
+         pantallaInicio.pintarPanelPrincipal(new PnlBuscadorIngredientes(pantallaInicio, nuevoProducto));
        
     }//GEN-LAST:event_btnContinuarActionPerformed
 

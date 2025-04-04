@@ -1,17 +1,17 @@
-
 package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
+import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.negociorollandcode.IIngredientesBO;
 import com.mycompany.negociorollandcode.excepciones.IngredienteException;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteExistente;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteSeleccionado;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,62 +21,87 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
 
     private FrmPantallaInicio pantallaInicio;
     private IIngredientesBO ingredientesBO;
+    private NuevoProductoDTO nuevoProductoDTO;
+    // para los ingredientes que se ponen en el panel de ingredientesseleccionados;
     private List<IngredienteDTO> ingredientesSeleccionados = new ArrayList<>();
     private List<PnlIngredienteExistente> pnlIngredientesExistentes = new ArrayList<>();
-   
-    public PnlBuscadorIngredientes(FrmPantallaInicio pantallaInicio) {
+    private ButtonGroup opcionesBusqueda;
+
+    public PnlBuscadorIngredientes(FrmPantallaInicio pantallaInicio,  NuevoProductoDTO nuevoProductoDTO) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         this.ingredientesBO = pantallaInicio.getIngredientesBO();
+        this.nuevoProductoDTO = nuevoProductoDTO;
+
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Buscar Ingredientes");
         cargarIngredientes(ingredientesBO.obtenerIngredientesExistentes());
-        ButtonGroup opcionesBusqueda =  new ButtonGroup();
+        opcionesBusqueda = new ButtonGroup();
         opcionesBusqueda.add(rbNombreIngrediente);
         opcionesBusqueda.add(rbUnidadMedida);
     }
 
     private void cargarIngredientes(List<IngredienteDTO> ingredientes) {
-        for (int i = 0; i < ingredientes.size(); i++) {
-            // por cada ingrediente existente en la bd crea un panel
-            IngredienteDTO ingrediente = ingredientes.get(i);
+        this.pnlIngredientes.removeAll(); 
+        this.pnlIngredientesExistentes.clear(); 
 
+
+        for (IngredienteDTO ingrediente : ingredientes) {
             PnlIngredienteExistente pnlIngrediente = new PnlIngredienteExistente(ingrediente, this);
             this.pnlIngredientes.add(pnlIngrediente);
             this.pnlIngredientesExistentes.add(pnlIngrediente); 
         }
-    }
-    
 
-    public List<IngredienteDTO> getIngredientesSeleccionados(){
+        this.pnlIngredientes.revalidate();
+        this.pnlIngredientes.repaint(); 
+    }
+
+    public List<IngredienteDTO> getIngredientesSeleccionados() {
         return ingredientesSeleccionados;
     }
 
     public void setIngredientesSeleccionados(List<IngredienteDTO> ingredientesSeleccionados) {
-       this.ingredientesSeleccionados = ingredientesSeleccionados;
+        this.ingredientesSeleccionados = ingredientesSeleccionados;
     }
 
     public void cargarIngredientesSeleccionados() {
-        this.pnlIngredientesSeleccionados.removeAll();
-        
-        for (int i = 0; i < ingredientesSeleccionados.size(); i++) {
-            IngredienteDTO ingrediente = ingredientesSeleccionados.get(i);
-            PnlIngredienteSeleccionado pnlIngrediente = new PnlIngredienteSeleccionado(ingrediente, this);
-            this.pnlIngredientesSeleccionados.add(pnlIngrediente);
+        this.pnlIngredientesSeleccionados.removeAll(); 
+        for (IngredienteDTO ingrediente : ingredientesSeleccionados) {
+            boolean yaExiste = false;
+
+            for (Component component : this.pnlIngredientesSeleccionados.getComponents()) {
+                if (component instanceof PnlIngredienteSeleccionado) {
+                    PnlIngredienteSeleccionado pnl = (PnlIngredienteSeleccionado) component;
+                    if (pnl.getIngredienteDTO().equals(ingrediente)) {
+                        yaExiste = true;
+                        break;
+                    }
+                }
+            }
+            if (!yaExiste) {
+                PnlIngredienteSeleccionado pnlIngrediente = new PnlIngredienteSeleccionado(ingrediente, this);
+                this.pnlIngredientesSeleccionados.add(pnlIngrediente);
+            }
         }
 
-        this.pnlIngredientesSeleccionados.revalidate();
+        this.pnlIngredientesSeleccionados.revalidate(); 
         this.pnlIngredientesSeleccionados.repaint();
     }
 
-    public PnlIngredienteExistente getPanelIngredienteExistente(IngredienteDTO ingrediente) {
-        for (PnlIngredienteExistente pnl : pnlIngredientesExistentes) {
-            if (pnl.getIngredienteDTO().equals(ingrediente)) {
-                return pnl;
-            }
-        }
-        return null;
+    public List<PnlIngredienteExistente> getPnlIngredientesExistentes() {
+        return pnlIngredientesExistentes;
     }
+
+    public JPanel getPnlIngredientes() {
+        return pnlIngredientes;
+    }
+
+    public JPanel getPnlIngredientesSeleccionados() {
+        return pnlIngredientesSeleccionados;
+    }
+
+
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -96,6 +121,7 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         rbNombreIngrediente = new javax.swing.JRadioButton();
         rbUnidadMedida = new javax.swing.JRadioButton();
+        btnBorrarSeleccion = new javax.swing.JButton();
         pnlIngredientes = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
@@ -143,9 +169,15 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
 
         pnlFooter.setBackground(new java.awt.Color(249, 205, 204));
 
+        btnContinuar.setBackground(new java.awt.Color(249, 205, 204));
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
         btnContinuar.setBorder(null);
         btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFooterLayout = new javax.swing.GroupLayout(pnlFooter);
         pnlFooter.setLayout(pnlFooterLayout);
@@ -202,6 +234,15 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         rbUnidadMedida.setForeground(new java.awt.Color(65, 70, 105));
         rbUnidadMedida.setText("Unidad de medida");
 
+        btnBorrarSeleccion.setBackground(new java.awt.Color(247, 242, 239));
+        btnBorrarSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/eliminarIngrediente.png"))); // NOI18N
+        btnBorrarSeleccion.setBorder(null);
+        btnBorrarSeleccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarSeleccionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
         pnlHeader.setLayout(pnlHeaderLayout);
         pnlHeaderLayout.setHorizontalGroup(
@@ -214,34 +255,39 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
                             .addComponent(jSeparator1)
                             .addComponent(txtBuscadorIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)))
                     .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGap(0, 354, Short.MAX_VALUE)
+                        .addGap(0, 343, Short.MAX_VALUE)
                         .addComponent(rbNombreIngrediente)
                         .addGap(61, 61, 61)
                         .addComponent(rbUnidadMedida)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
-                .addGap(60, 60, 60))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBorrarSeleccion)
+                .addGap(18, 18, 18))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 221, Short.MAX_VALUE)
                 .addComponent(lblTitulo1)
                 .addGap(149, 149, 149))
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
+            .addGroup(pnlHeaderLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitulo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBorrarSeleccion)
                     .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbNombreIngrediente)
-                            .addComponent(rbUnidadMedida))
+                        .addComponent(lblTitulo1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscadorIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(rbNombreIngrediente)
+                                    .addComponent(rbUnidadMedida))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBuscadorIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -255,20 +301,46 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       if(rbNombreIngrediente.isSelected()){
-           String filtro = txtBuscadorIngrediente.getText();
-           try {
-               List<IngredienteDTO> ingredientesNombre = this.ingredientesBO.obtenerIngredientesFiltradosNombre(filtro);
-               cargarIngredientes(ingredientesNombre);
-               
-           } catch (IngredienteException ex) {
-               JOptionPane.showMessageDialog(null, ex.getMessage(), "Error" ,JOptionPane.ERROR_MESSAGE);
-           }
-       }
+        String filtro = txtBuscadorIngrediente.getText().trim();
+        this.txtBuscadorIngrediente.setText(""); 
+
+        List<IngredienteDTO> ingredientes = new ArrayList<>();
+
+        if (filtro.isEmpty()) {
+            ingredientes = this.ingredientesBO.obtenerIngredientesExistentes();
+        } else if (rbNombreIngrediente.isSelected()) {
+            try {
+                ingredientes = this.ingredientesBO.obtenerIngredientesFiltradosNombre(filtro);
+            } catch (IngredienteException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (rbUnidadMedida.isSelected()) {
+            try {
+                ingredientes = this.ingredientesBO.obtenerIngredientesFiltradosUnidadMedida(filtro);
+            } catch (IngredienteException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        cargarIngredientes(ingredientes);
+        this.opcionesBusqueda.clearSelection();
+
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed
+        List<IngredienteDTO> ingredientes = this.ingredientesBO.obtenerIngredientesExistentes();
+        cargarIngredientes(ingredientes);
+    }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
+
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        // ingredientesseleccionados
+        this.nuevoProductoDTO.setIngredientes(ingredientesSeleccionados);
+        pantallaInicio.pintarPanelPrincipal(new PnlConfirmarNuevoProducto(pantallaInicio, nuevoProductoDTO, this));
+    }//GEN-LAST:event_btnContinuarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrarSeleccion;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnContinuar;
     private javax.swing.JSeparator jSeparator1;

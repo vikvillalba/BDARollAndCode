@@ -33,17 +33,14 @@ public class IngredientesBO implements IIngredientesBO{
             throw new IngredienteException("El stock no puede ser negativo.");
         }
         // validar que el ingrediente no exista (mismo nombre y mismo tipo)
-        // obtener lista
-        List<IngredienteDTO> ingredientes = this.ingredientesDAO.obtenerIngredientesExistentes();
-        for (int i = 0; i < ingredientes.size(); i++) {
-            if (ingredientes.get(i).getNombre().equals(nuevoIngrediente.getNombre()) 
-                    && ingredientes.get(i).getUnidadMedida().equals(nuevoIngrediente.getUnidadMedida())){
-                throw new IngredienteException("Ya existe un ingrediente con el mismo nombre y unidad de medida.");
-            }
-        }
+        // 
+       IngredienteDTO ingredienteExistente = this.ingredientesDAO.obtenerIngrediente(nuevoIngrediente.getNombre(), nuevoIngrediente.getUnidadMedida().toString());
+       if(ingredienteExistente != null){
+           throw new IngredienteException("Ya existe un ingrediente registrado con el mismo nombre y unidad de medida");
+       }
         
         Ingrediente ingrediente = this.ingredientesDAO.registrar(nuevoIngrediente);
-        IngredienteDTO ingredienteDTO = new IngredienteDTO(ingrediente.getId(), ingrediente.getNombre(), ingrediente.getUnidadMedida(), ingrediente.getCantidadStock());
+        IngredienteDTO ingredienteDTO = new IngredienteDTO(ingrediente.getId(), ingrediente.getNombre().toUpperCase(), ingrediente.getUnidadMedida(), ingrediente.getCantidadStock());
         return ingredienteDTO;
     }
 
@@ -75,27 +72,36 @@ public class IngredientesBO implements IIngredientesBO{
             throw new IngredienteException("No se ingresó ningún valor para realizar la búsqueda.");
         }
         
-        List<IngredienteDTO> ingredientes = this.ingredientesDAO.obtenerIngredientesFiltradosNombre(filtro);
-               if(ingredientes == null){
+        List<IngredienteDTO> ingredientes;
+        try {
+            ingredientes = this.ingredientesDAO.obtenerIngredientesFiltradosNombre(filtro.toUpperCase());
+            if(ingredientes == null){
                    throw new IngredienteException("No existen ingredientes con las especificaciones dadas.");
                }
                return ingredientes;
+        } catch (PersistenciaException ex) {
+            throw new IngredienteException(ex.getMessage());
+        }
+               
     }
 
     @Override
     public List<IngredienteDTO> obtenerIngredientesFiltradosUnidadMedida(String filtro) throws IngredienteException {
-        for (ProductoTipos tipo : ProductoTipos.values())  {
-            if (tipo.name().equalsIgnoreCase(filtro)) { 
-            List<IngredienteDTO> ingredientes = this.ingredientesDAO.obtenerIngredientesFiltradosUnidadMedida(filtro);
-            
-            if (ingredientes == null || ingredientes.isEmpty()) { 
-                throw new IngredienteException("No existen ingredientes con las especificaciones dadas.");
-            }
-            return ingredientes;
+        filtro = filtro.toUpperCase().trim();
+        for (ProductoTipos tipo : ProductoTipos.values()) {
+
+            if (tipo.name().equalsIgnoreCase(filtro)) {
+                
+                try {
+                    List<IngredienteDTO> ingredientes = this.ingredientesDAO.obtenerIngredientesFiltradosUnidadMedida(filtro.toUpperCase());
+
+                } catch (PersistenciaException ex) {
+                    throw new IngredienteException(ex.getMessage());
+                }
+
             }
         }
         throw new IngredienteException("Filtro de búsqueda inválido");
     }
-    
-    
+
 }

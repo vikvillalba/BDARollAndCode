@@ -14,6 +14,7 @@ public interface IIngredientesDAO {
     public abstract Ingrediente registrar(NuevoIngredienteDTO nuevoIngrediente);
     public abstract List<IngredienteDTO> obtenerIngredientesExistentes();
     public abstract IngredienteDTO actualizarStock(IngredienteDTO ingredienteActualizar) throws PersistenciaException;
-    public abstract List<IngredienteDTO> obtenerIngredientesFiltradosNombre(String filtro);
-    public abstract List<IngredienteDTO> obtenerIngredientesFiltradosUnidadMedida(String filtro);
+    public abstract List<IngredienteDTO> obtenerIngredientesFiltradosNombre(String filtro) throws PersistenciaException;
+    public abstract List<IngredienteDTO> obtenerIngredientesFiltradosUnidadMedida(String filtro) throws PersistenciaException;
+    public abstract IngredienteDTO obtenerIngrediente(String nombre, String unidadMedida);
 }
