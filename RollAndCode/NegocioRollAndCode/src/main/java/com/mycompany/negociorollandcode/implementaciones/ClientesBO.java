@@ -25,7 +25,9 @@ public class ClientesBO implements IClientesBO {
    public  ClienteDTO registrarNuevoCliente(RegistrarClienteDTO cliente)throws ClienteException{
        if(cliente.getCorreoElectronico().isBlank())
            cliente.setCorreoElectronico("Sin Correo");
-       
+       if(cliente.getNombres().isBlank() || cliente.getApellidoMaterno().isBlank() || cliente.getApellidoPaterno().isBlank() || cliente.getTelefono().isBlank()){
+           throw new ClienteException("Solo el correo puede permanecer en blanco");
+       }
        ClienteFrecuente clienteF = this.clientesDAO.registrarCliente(cliente);
        return new ClienteDTO(clienteF.getId(), clienteF.getNombres(), clienteF.getApellidoPaterno(),
                clienteF.getApellidoMaterno(), clienteF.getTelefono(), clienteF.getCorreoElectronico(), clienteF.getFechaRegistro());  

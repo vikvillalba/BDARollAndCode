@@ -6,6 +6,8 @@ import com.mycompany.persistenciarollandcode.IClientesDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
 import java.math.BigDecimal;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -35,6 +37,21 @@ public class ClientesDAO implements IClientesDAO {
         em.getTransaction().commit();
         
         return cliente;
+    }
+    
+    @Override
+    public boolean verificarCorreo(String correo){
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        return em.find(String.class, correo).equals(correo);
+    }
+    
+    @Override
+    public boolean verificarTelefono(String telefono){
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<String> criteria = builder.createQuery(String.class);
+        //criteria.
+        return false;
     }
     
 }

@@ -9,4 +9,6 @@ import com.mycompany.dominiorollandcode.entidades.ClienteFrecuente;
  */
 public interface IClientesDAO {
     public abstract ClienteFrecuente registrarCliente(RegistrarClienteDTO cliente);
+    public abstract boolean verificarTelefono(String telefono);
+    public abstract boolean verificarCorreo(String correo);
 }
