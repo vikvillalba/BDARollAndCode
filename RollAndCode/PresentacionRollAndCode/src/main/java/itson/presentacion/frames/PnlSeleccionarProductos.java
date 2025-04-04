@@ -34,7 +34,6 @@ public class PnlSeleccionarProductos extends javax.swing.JPanel {
         lblTitulo2 = new javax.swing.JLabel();
         pnlFooter = new javax.swing.JPanel();
         btnContinuar = new javax.swing.JButton();
-        scProductos = new javax.swing.JScrollPane();
         pnlProductosSeleccionados = new javax.swing.JPanel();
         pnlBuscador = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
@@ -115,9 +114,20 @@ public class PnlSeleccionarProductos extends javax.swing.JPanel {
         pnlRight.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlProductosSeleccionados.setBackground(new java.awt.Color(249, 205, 204));
-        scProductos.setViewportView(pnlProductosSeleccionados);
+        pnlProductosSeleccionados.setPreferredSize(null);
 
-        pnlRight.add(scProductos, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout pnlProductosSeleccionadosLayout = new javax.swing.GroupLayout(pnlProductosSeleccionados);
+        pnlProductosSeleccionados.setLayout(pnlProductosSeleccionadosLayout);
+        pnlProductosSeleccionadosLayout.setHorizontalGroup(
+            pnlProductosSeleccionadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        pnlProductosSeleccionadosLayout.setVerticalGroup(
+            pnlProductosSeleccionadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 504, Short.MAX_VALUE)
+        );
+
+        pnlRight.add(pnlProductosSeleccionados, java.awt.BorderLayout.CENTER);
 
         add(pnlRight, java.awt.BorderLayout.LINE_END);
 
@@ -192,6 +202,7 @@ public class PnlSeleccionarProductos extends javax.swing.JPanel {
         pnlBuscador.add(pnlHeader, java.awt.BorderLayout.PAGE_START);
 
         pnlProductos.setBackground(new java.awt.Color(247, 242, 239));
+        pnlProductos.setPreferredSize(null);
         pnlBuscador.add(pnlProductos, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);
@@ -214,7 +225,6 @@ public class PnlSeleccionarProductos extends javax.swing.JPanel {
     private javax.swing.JPanel pnlRight;
     private javax.swing.JRadioButton rbNombreProducto;
     private javax.swing.JRadioButton rbTipoProducto;
-    private javax.swing.JScrollPane scProductos;
     private javax.swing.JTextField txtBuscadorProducto;
     // End of variables declaration//GEN-END:variables
 

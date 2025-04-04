@@ -26,15 +26,20 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-
-    public void pintarPanelPrincipal(JPanel panel){
+    public void pintarPanelPrincipal(JPanel panel) {
         scrollPane.setViewportView(panel);
-        panel.setPreferredSize(new Dimension(0,panel.getPreferredSize().height));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        // Revalidar y repintar el JScrollPane y el panel dentro de él
         scrollPane.revalidate();
         scrollPane.repaint();
+
+        // Esto asegura que el panel se ajuste al tamaño contenido y el JScrollPane también
+        panel.revalidate();
+        panel.repaint();
     }
+
 
     public boolean isMesasAgregadas() {
         return mesasAgregadas;
@@ -50,6 +55,10 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
 
     public IIngredientesBO getIngredientesBO() {
         return ingredientesBO;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
     }
     
     

@@ -7,8 +7,12 @@ import com.mycompany.negociorollandcode.excepciones.IngredienteException;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteExistente;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteSeleccionado;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,25 +39,32 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
 
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Buscar Ingredientes");
+
         cargarIngredientes(ingredientesBO.obtenerIngredientesExistentes());
         opcionesBusqueda = new ButtonGroup();
         opcionesBusqueda.add(rbNombreIngrediente);
         opcionesBusqueda.add(rbUnidadMedida);
+
     }
 
     private void cargarIngredientes(List<IngredienteDTO> ingredientes) {
-        this.pnlIngredientes.removeAll(); 
-        this.pnlIngredientesExistentes.clear(); 
-
+        this.pnlIngredientes.removeAll();
+        this.pnlIngredientesExistentes.clear();
 
         for (IngredienteDTO ingrediente : ingredientes) {
             PnlIngredienteExistente pnlIngrediente = new PnlIngredienteExistente(ingrediente, this);
+
             this.pnlIngredientes.add(pnlIngrediente);
-            this.pnlIngredientesExistentes.add(pnlIngrediente); 
+            this.pnlIngredientesExistentes.add(pnlIngrediente);
+
         }
 
+
         this.pnlIngredientes.revalidate();
-        this.pnlIngredientes.repaint(); 
+        this.pnlIngredientes.repaint();
+
+        pantallaInicio.getScrollPane().revalidate();
+        pantallaInicio.getScrollPane().repaint();
     }
 
     public List<IngredienteDTO> getIngredientesSeleccionados() {
@@ -168,6 +179,7 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         pnlRight.add(pnlHeader2, java.awt.BorderLayout.PAGE_START);
 
         pnlFooter.setBackground(new java.awt.Color(249, 205, 204));
+        pnlFooter.setPreferredSize(null);
 
         btnContinuar.setBackground(new java.awt.Color(249, 205, 204));
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
@@ -199,6 +211,7 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         pnlRight.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlIngredientesSeleccionados.setBackground(new java.awt.Color(249, 205, 204));
+        pnlIngredientesSeleccionados.setPreferredSize(null);
         pnlRight.add(pnlIngredientesSeleccionados, java.awt.BorderLayout.CENTER);
 
         add(pnlRight, java.awt.BorderLayout.LINE_END);
@@ -294,7 +307,6 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         pnlBuscador.add(pnlHeader, java.awt.BorderLayout.PAGE_START);
 
         pnlIngredientes.setBackground(new java.awt.Color(247, 242, 239));
-        pnlIngredientes.setPreferredSize(new java.awt.Dimension(0, 543));
         pnlBuscador.add(pnlIngredientes, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);
@@ -317,6 +329,7 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         } else if (rbUnidadMedida.isSelected()) {
             try {
                 ingredientes = this.ingredientesBO.obtenerIngredientesFiltradosUnidadMedida(filtro);
+
             } catch (IngredienteException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }

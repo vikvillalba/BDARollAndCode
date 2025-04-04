@@ -4,6 +4,7 @@ import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoIngredienteDTO;
 import com.mycompany.dominiorollandcode.entidades.Ingrediente;
 import com.mycompany.dominiorollandcode.enums.ProductoTipos;
+import com.mycompany.dominiorollandcode.enums.UnidadMedida;
 import com.mycompany.negociorollandcode.IIngredientesBO;
 import com.mycompany.negociorollandcode.excepciones.IngredienteException;
 import com.mycompany.persistenciarollandcode.IIngredientesDAO;
@@ -88,20 +89,18 @@ public class IngredientesBO implements IIngredientesBO{
     @Override
     public List<IngredienteDTO> obtenerIngredientesFiltradosUnidadMedida(String filtro) throws IngredienteException {
         filtro = filtro.toUpperCase().trim();
-        for (ProductoTipos tipo : ProductoTipos.values()) {
-
-            if (tipo.name().equalsIgnoreCase(filtro)) {
-                
+        for (UnidadMedida unidad : UnidadMedida.values()) {
+            if (unidad.name().equals(filtro)) {
                 try {
                     List<IngredienteDTO> ingredientes = this.ingredientesDAO.obtenerIngredientesFiltradosUnidadMedida(filtro.toUpperCase());
+                    return ingredientes;
 
                 } catch (PersistenciaException ex) {
+
                     throw new IngredienteException(ex.getMessage());
                 }
-
             }
         }
         throw new IngredienteException("Filtro de búsqueda inválido");
     }
-
 }

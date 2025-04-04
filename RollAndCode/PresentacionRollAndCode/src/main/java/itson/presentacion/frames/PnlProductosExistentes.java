@@ -159,6 +159,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         pnlBuscador.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlProductos.setBackground(new java.awt.Color(247, 242, 239));
+        pnlProductos.setPreferredSize(null);
         pnlBuscador.add(pnlProductos, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);

@@ -108,7 +108,7 @@ public class IngredientesDAO implements IIngredientesDAO{
                 + "WHERE I.unidadMedida LIKE :filtro";
 
         TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpqlQuery, IngredienteDTO.class);
-        query.setParameter("filtro", "%" + filtro + "%");
+        query.setParameter("filtro", "%" + filtro.toUpperCase() + "%");
         List<IngredienteDTO> ingredientes = query.getResultList();
         if(ingredientes.isEmpty()){
             throw new PersistenciaException("No se encontraron resultados.");

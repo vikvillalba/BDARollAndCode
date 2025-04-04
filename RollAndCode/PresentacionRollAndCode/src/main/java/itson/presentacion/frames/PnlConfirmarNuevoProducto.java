@@ -176,6 +176,8 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
         add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlIngredientesProducto.setBackground(new java.awt.Color(247, 242, 239));
+        pnlIngredientesProducto.setPreferredSize(null);
+        pnlIngredientesProducto.setRequestFocusEnabled(false);
         add(pnlIngredientesProducto, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
