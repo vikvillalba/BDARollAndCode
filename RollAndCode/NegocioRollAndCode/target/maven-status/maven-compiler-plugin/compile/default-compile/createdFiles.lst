@@ -7,5 +7,6 @@ com/mycompany/negociorollandcode/excepciones/IngredienteException.class
 com/mycompany/negociorollandcode/IClientesBO.class
 com/mycompany/negociorollandcode/implementaciones/ProductosBO.class
 com/mycompany/negociorollandcode/implementaciones/MesasBO.class
+com/mycompany/negociorollandcode/excepciones/ProductoException.class
 com/mycompany/negociorollandcode/implementaciones/ClientesBO.class
 com/mycompany/negociorollandcode/implementaciones/IngredientesBO.class

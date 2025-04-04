@@ -3,10 +3,16 @@ package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
+import com.mycompany.dominiorollandcode.dtos.NuevoProductoIngredienteDTO;
 import com.mycompany.negociorollandcode.IProductosBO;
+import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
+import itson.presentacion.excepciones.PresentacionException;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProducto;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,9 +23,10 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
 
     private FrmPantallaInicio pantallaInicio;
     private PnlBuscadorIngredientes buscadorIngredientes;
-
+    private List<IngredienteDTO> ingredientesProducto;
     private NuevoProductoDTO nuevoProductoDTO;
     private IProductosBO productosBO;
+    private List<PnlIngredienteProducto> panelesIngredientes;
     
     public PnlConfirmarNuevoProducto(FrmPantallaInicio pantallaInicio, NuevoProductoDTO nuevoProductoDTO, PnlBuscadorIngredientes buscadorIngredientes) {
         initComponents();
@@ -27,6 +34,8 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
         this.productosBO = FabricaObjetosNegocio.crearProductosBO();
         this.nuevoProductoDTO = nuevoProductoDTO;
         this.buscadorIngredientes = buscadorIngredientes;
+        this.panelesIngredientes = new ArrayList<>();
+        
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Confirmar nuevo producto");
         
@@ -39,10 +48,11 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
 
 
     private void cargarIngredientes(){
-        List<IngredienteDTO> ingredientesProducto = this.nuevoProductoDTO.getIngredientes();
+        ingredientesProducto = this.nuevoProductoDTO.getIngredientes();
         for (IngredienteDTO ingredienteDTO : ingredientesProducto) {
             PnlIngredienteProducto ingrediente = new PnlIngredienteProducto(ingredienteDTO);
             this.pnlIngredientesProducto.add(ingrediente);
+            this.panelesIngredientes.add(ingrediente);
         }
     }
     @SuppressWarnings("unchecked")
@@ -174,7 +184,57 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNuevoProductoActionPerformed
-        // TODO add your handling code here:
+       // obtener cantidad por cada producto 
+
+        List<NuevoProductoIngredienteDTO> ingredientes = new ArrayList<>();
+        for (PnlIngredienteProducto panelIngrediente : panelesIngredientes) {
+
+            String cantidadtxt = panelIngrediente.getCantidadTxt();
+
+            if (cantidadtxt == null || cantidadtxt.trim().isEmpty()) {
+                try {
+                    throw new PresentacionException("La cantidad no puede estar vacía.");
+                } catch (PresentacionException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Cantidad inválida", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            Integer cantidad = Integer.valueOf(cantidadtxt);
+
+            IngredienteDTO ingrediente = panelIngrediente.getIngrediente();
+            NuevoProductoIngredienteDTO ingredienteRelacion = new NuevoProductoIngredienteDTO();
+            ingredienteRelacion.setIdIngrediente(ingrediente.getId());
+            ingredienteRelacion.setCantidad(cantidad);
+            ingredientes.add(ingredienteRelacion);
+
+        }
+        String preciotxt = this.txtPrecioProducto.getText();
+        if(preciotxt == null || preciotxt.trim().isEmpty()) {
+            System.out.println("El precio no puede estar vacío.");
+            try {
+                throw new PresentacionException("El precio no puede estar vacío.");
+            } catch (PresentacionException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Precio inválido", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        try {
+            BigDecimal precio = new BigDecimal(preciotxt);
+            System.out.println("Precio válido: " + precio);
+        } catch (NumberFormatException ex) {
+           JOptionPane.showMessageDialog(null, ex.getMessage(), "Precio inválido", JOptionPane.ERROR_MESSAGE);
+        }
+  
+        
+        BigDecimal precio = new BigDecimal(preciotxt);
+        nuevoProductoDTO.setIngredientesRelacion(ingredientes);
+        nuevoProductoDTO.setPrecio(precio);
+        
+        try {
+            this.productosBO.registrar(nuevoProductoDTO);
+            JOptionPane.showMessageDialog(null, "Producto registrado", "El producto se ha registrado con éxtito.", JOptionPane.INFORMATION_MESSAGE);
+        } catch (ProductoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));
+        }
     }//GEN-LAST:event_btnGuardarNuevoProductoActionPerformed
 
 

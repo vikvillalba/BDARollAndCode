@@ -22,8 +22,15 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         this.lblUnidadMedida.setText(ingrediente.getUnidadMedida().toString());
     }
 
+    public String getCantidadTxt(){
+        return this.txtCantidadIngrediente.getText();
+    }
 
-    // public getter para lo q hay en el campo de texto
+    public IngredienteDTO getIngrediente() {
+        return ingrediente;
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

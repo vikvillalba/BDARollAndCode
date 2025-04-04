@@ -13,6 +13,7 @@ public class NuevoProductoDTO {
     private BigDecimal precio;
     private ProductoTipos tipo;
     private List<IngredienteDTO> ingredientes;
+    private List<NuevoProductoIngredienteDTO> ingredientesRelacion;
 
     public NuevoProductoDTO() {
     }
@@ -49,7 +50,13 @@ public class NuevoProductoDTO {
         this.ingredientes = ingredientes;
     }
     
-    
+    public List<NuevoProductoIngredienteDTO> getIngredientesRelacion() {
+        return ingredientesRelacion;
+    }
+
+    public void setIngredientesRelacion(List<NuevoProductoIngredienteDTO> ingredientesRelacion) {
+        this.ingredientesRelacion = ingredientesRelacion;
+    }
     
     
 }

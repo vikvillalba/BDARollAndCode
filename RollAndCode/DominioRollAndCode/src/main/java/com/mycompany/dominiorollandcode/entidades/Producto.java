@@ -80,4 +80,21 @@ public class Producto implements Serializable {
         this.tipo = tipo;
     }
 
+    public List<ProductoComanda> getComandas() {
+        return comandas;
+    }
+
+    public void setComandas(List<ProductoComanda> comandas) {
+        this.comandas = comandas;
+    }
+
+    public List<ProductoIngrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<ProductoIngrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    
 }
