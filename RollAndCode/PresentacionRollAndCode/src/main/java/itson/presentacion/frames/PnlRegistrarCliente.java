@@ -19,12 +19,12 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
     /**
      * Creates new form PnlRegistrarCliente
      */
-    public PnlRegistrarCliente(FrmPantallaInicio frame) {
+    public PnlRegistrarCliente(FrmPantallaInicio frame) throws Exception {
         initComponents();
         this.frame = frame;
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Registrar Cliente Frecuente");
-        this.clientesBO = FabricaObjetosNegocio.crearClientesBO();
+        this.clientesBO = FabricaObjetosNegocio.crearClientesBO(this.frame.getKey());
     }
 
     /**

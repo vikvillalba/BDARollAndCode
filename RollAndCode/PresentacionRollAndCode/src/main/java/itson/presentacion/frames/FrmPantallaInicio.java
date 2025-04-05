@@ -1,9 +1,12 @@
 package itson.presentacion.frames;
 
+import com.mycompany.negociorollandcode.IClientesBO;
 import com.mycompany.negociorollandcode.IIngredientesBO;
 import com.mycompany.negociorollandcode.IMesasBO;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import com.mycompany.negociorollandcode.implementaciones.com.mycompany.negociorollandcode.utileria.Key;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +23,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     private boolean mesasAgregadas = false;
     private final IMesasBO mesasBO = FabricaObjetosNegocio.crearMesasBO();
     private final IIngredientesBO ingredientesBO = FabricaObjetosNegocio.crearIngredientesBO();
+    private IClientesBO clientesBO;
 
     public FrmPantallaInicio() {
         initComponents();
@@ -28,7 +32,9 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         this.setSize(1272, 789);
         this.setLocationRelativeTo(null);
         try {
+
             this.key = Key.getInstance();
+            this.clientesBO = FabricaObjetosNegocio.crearClientesBO(this.key);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,6 +51,10 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         panel.repaint();
     }
 
+    public Key getKey() throws Exception {
+        return Key.getInstance();
+    }
+
     public boolean isMesasAgregadas() {
         return mesasAgregadas;
     }
@@ -59,6 +69,10 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
 
     public IIngredientesBO getIngredientesBO() {
         return ingredientesBO;
+    }
+
+    public IClientesBO getClientesBO() {
+        return clientesBO;
     }
 
     public JScrollPane getScrollPane() {
@@ -287,7 +301,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoIngredienteActionPerformed
 
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
-        this.pintarPanelPrincipal(new PnlRegistrarCliente(this));
+        try {
+            this.pintarPanelPrincipal(new PnlRegistrarCliente(this));
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPantallaInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void btnVerIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerIngredientesActionPerformed
