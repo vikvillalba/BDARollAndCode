@@ -157,7 +157,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="pnlIngredientesSeleccionados">
+        <Container class="javax.swing.JPanel" name="pnlProductosSeleccionados">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cd" red="f9" type="rgb"/>

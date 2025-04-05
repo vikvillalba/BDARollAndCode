@@ -7,12 +7,15 @@ import com.mycompany.negociorollandcode.IProductosBO;
 import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoExistenteComanda;
+import itson.presentacion.frames.panelesIndividuales.PnlProductoSeleccionado;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -69,6 +72,42 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
 
     }
 
+    public List<ProductoDTO> getProductosSeleccionados() {
+        return productosSeleccionados;
+    }
+
+    public void setProductosSeleccionados(List<ProductoDTO> productosSeleccionados) {
+        this.productosSeleccionados = productosSeleccionados;
+    }
+
+    public List<PnlProductoExistenteComanda> getPnlProductosExistentes() {
+        return pnlProductosExistentes;
+    }
+    
+    public void cargarIngredientesSeleccionados() {
+        this.pnlProductosSeleccionados.removeAll();
+        for (ProductoDTO producto : productosSeleccionados) {
+            PnlProductoSeleccionado pnlIngrediente = new PnlProductoSeleccionado(producto, this);
+            this.pnlProductosSeleccionados.add(pnlIngrediente);
+
+        }
+
+        this.pnlProductosSeleccionados.revalidate();
+        this.pnlProductosSeleccionados.repaint();
+    }
+
+    public JPanel getPnlProductos() {
+        return pnlProductos;
+    }
+
+    public JPanel getPnlProductosSeleccionados() {
+        return pnlProductosSeleccionados;
+    }
+    
+    
+
+
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -79,7 +118,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         lblTitulo2 = new javax.swing.JLabel();
         pnlFooter = new javax.swing.JPanel();
         btnContinuar = new javax.swing.JButton();
-        pnlIngredientesSeleccionados = new javax.swing.JPanel();
+        pnlProductosSeleccionados = new javax.swing.JPanel();
         pnlBuscador = new javax.swing.JPanel();
         pnlHeader1 = new javax.swing.JPanel();
         rbTipoProducto = new javax.swing.JRadioButton();
@@ -165,9 +204,9 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
 
         pnlRight.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
-        pnlIngredientesSeleccionados.setBackground(new java.awt.Color(249, 205, 204));
-        pnlIngredientesSeleccionados.setPreferredSize(null);
-        pnlRight.add(pnlIngredientesSeleccionados, java.awt.BorderLayout.CENTER);
+        pnlProductosSeleccionados.setBackground(new java.awt.Color(249, 205, 204));
+        pnlProductosSeleccionados.setPreferredSize(null);
+        pnlRight.add(pnlProductosSeleccionados, java.awt.BorderLayout.CENTER);
 
         add(pnlRight, java.awt.BorderLayout.LINE_END);
 
@@ -291,8 +330,8 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     private javax.swing.JPanel pnlFooter;
     private javax.swing.JPanel pnlHeader1;
     private javax.swing.JPanel pnlHeader2;
-    private javax.swing.JPanel pnlIngredientesSeleccionados;
     private javax.swing.JPanel pnlProductos;
+    private javax.swing.JPanel pnlProductosSeleccionados;
     private javax.swing.JPanel pnlRight;
     private javax.swing.JRadioButton rbNombreProducto;
     private javax.swing.JRadioButton rbTipoProducto;

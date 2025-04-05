@@ -3,6 +3,7 @@ package itson.presentacion.frames.panelesIndividuales;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.negociorollandcode.IProductosBO;
 import itson.presentacion.frames.PnlBuscadorProductos;
+import java.util.List;
 
 /**
  *
@@ -72,6 +73,11 @@ public class PnlProductoExistenteComanda extends javax.swing.JPanel {
         btnAgregarProducto.setBackground(new java.awt.Color(249, 205, 204));
         btnAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnAgregar.png"))); // NOI18N
         btnAgregarProducto.setBorder(null);
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,6 +121,19 @@ public class PnlProductoExistenteComanda extends javax.swing.JPanel {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+        List<ProductoDTO> productos = this.buscadorProductos.getProductosSeleccionados();
+        
+            productos.add(this.productoDTO);
+
+            this.revalidate();
+            this.repaint();
+
+            this.buscadorProductos.setProductosSeleccionados(productos);
+            this.buscadorProductos.cargarIngredientesSeleccionados();
+
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

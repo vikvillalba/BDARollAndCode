@@ -37,6 +37,7 @@ public class PnlIngredienteSeleccionado extends javax.swing.JPanel {
         lblNombreIngrediente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblNombreIngrediente.setText("NombreIngrediente");
 
+        btnEliminarIngrediente.setBackground(new java.awt.Color(249, 205, 204));
         btnEliminarIngrediente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/eliminarIngrediente.png"))); // NOI18N
         btnEliminarIngrediente.setBorder(null);
         btnEliminarIngrediente.addActionListener(new java.awt.event.ActionListener() {
