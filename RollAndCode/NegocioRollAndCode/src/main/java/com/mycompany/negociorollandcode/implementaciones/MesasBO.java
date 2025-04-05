@@ -30,5 +30,10 @@ public class MesasBO implements IMesasBO{
     public List<MesaDTO> obtenerMesas() {
         return this.mesasDAO.obtenerMesas();
     }
+
+    @Override
+    public MesaDTO obtenerMesa(Integer numero) {
+        return this.mesasDAO.obtenerMesa(numero);
+    }
     
 }

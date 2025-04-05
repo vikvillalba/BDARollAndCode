@@ -66,11 +66,10 @@ public class ProductosDAO implements IProductosDAO {
 
             TypedQuery<Producto> query = entityManager.createQuery(jpqlQuery, Producto.class);
             query.setParameter("nombre", nombre);
-            List<Producto> productos = query.getResultList();  // Cambiar a getResultList()
+            List<Producto> productos = query.getResultList();
 
-            // Si ya existe un producto con ese nombre, devolverlo
             if (!productos.isEmpty()) {
-                Producto producto = productos.get(0);  // Puedes tomar el primero si hay coincidencias
+                Producto producto = productos.get(0);
                 ProductoDTO productoDTO = new ProductoDTO(producto.getId(), producto.getNombre(), producto.getPrecio(), producto.getTipo());
                 List<IngredienteDTO> ingredientes = producto.getIngredientes().stream()
                         .map(pi -> new IngredienteDTO(pi.getIngrediente().getId(), pi.getIngrediente().getNombre(), pi.getIngrediente().getUnidadMedida(), pi.getIngrediente().getCantidadStock()))
@@ -85,7 +84,48 @@ public class ProductosDAO implements IProductosDAO {
         return null;
     }
 
+    @Override
+    public List<ProductoDTO> obtenerProductosExistentes() throws PersistenciaException{
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        try {
+            String jpqlQuery = """
+                            SELECT DISTINCT p FROM Producto p LEFT JOIN FETCH p.ingredientes pi 
+                           """;
+            TypedQuery<Producto> query = entityManager.createQuery(jpqlQuery, Producto.class);
+            List<Producto> productos = query.getResultList();
+
+            if (!productos.isEmpty()) {
+                List<ProductoDTO> productosDTO = new ArrayList<>();
+
+                for (Producto producto : productos) {
+                    ProductoDTO productoDTO = new ProductoDTO(
+                            producto.getId(),
+                            producto.getNombre(),
+                            producto.getPrecio(),
+                            producto.getTipo()
+                    );
+
+                    List<IngredienteDTO> ingredientes = new ArrayList<>();
+                    for (ProductoIngrediente pi : producto.getIngredientes()) {
+                        IngredienteDTO ingredienteDTO = new IngredienteDTO(
+                                pi.getIngrediente().getId(),
+                                pi.getIngrediente().getNombre(),
+                                pi.getIngrediente().getUnidadMedida(),
+                                pi.getIngrediente().getCantidadStock()
+                        );
+                        ingredientes.add(ingredienteDTO);
+                    }
+                    productoDTO.setIngredientes(ingredientes);
+                    productosDTO.add(productoDTO);
+                }
+
+                return productosDTO;
+            }
+
+        } catch (NoResultException e) {
+            throw new PersistenciaException("Error al recuperar los productos.");
+        }
+        return null;
+    }
+
 }
-
-    
-

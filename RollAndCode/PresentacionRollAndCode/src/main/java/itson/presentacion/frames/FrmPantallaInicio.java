@@ -39,12 +39,8 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         scrollPane.setViewportView(panel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-        // Revalidar y repintar el JScrollPane y el panel dentro de él
         scrollPane.revalidate();
         scrollPane.repaint();
-
-        // Esto asegura que el panel se ajuste al tamaño contenido y el JScrollPane también
         panel.revalidate();
         panel.repaint();
     }
@@ -106,6 +102,8 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
 
         pnlFondo.setBackground(new java.awt.Color(247, 242, 239));
         pnlFondo.setLayout(new javax.swing.BoxLayout(pnlFondo, javax.swing.BoxLayout.LINE_AXIS));
+
+        scrollPane.setPreferredSize(null);
         pnlFondo.add(scrollPane);
 
         getContentPane().add(pnlFondo, java.awt.BorderLayout.CENTER);

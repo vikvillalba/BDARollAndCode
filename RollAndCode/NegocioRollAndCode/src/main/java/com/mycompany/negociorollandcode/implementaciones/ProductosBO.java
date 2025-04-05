@@ -9,6 +9,8 @@ import com.mycompany.persistenciarollandcode.IProductosDAO;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase que implementa la interfaz para operaciones de negocio de productos.
@@ -50,8 +52,12 @@ public class ProductosBO implements IProductosBO{
     
 
     @Override
-    public List<ProductoDTO> obtenerProductosExistentes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<ProductoDTO> obtenerProductosExistentes() throws ProductoException {
+        try {
+            return this.productosDAO.obtenerProductosExistentes();
+        } catch (PersistenciaException ex) {
+            throw new ProductoException(ex.getMessage());
+        }
     }
 
     @Override

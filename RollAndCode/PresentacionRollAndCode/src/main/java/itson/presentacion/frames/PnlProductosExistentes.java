@@ -13,7 +13,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         pantallaInicio.pintarPanelPrincipal(this);
-        pantallaInicio.setTitle("Buscar Productos");
+        pantallaInicio.setTitle("Productos existentes");
     }
 
     /**
@@ -24,95 +24,24 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlBuscador = new javax.swing.JPanel();
-        pnlHeader = new javax.swing.JPanel();
-        lblTitulo1 = new javax.swing.JLabel();
-        txtBuscadorProducto = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        rbNombreProducto = new javax.swing.JRadioButton();
-        rbTipoProducto = new javax.swing.JRadioButton();
         pnlFooter = new javax.swing.JPanel();
         btnAgregarProducto = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         pnlProductos = new javax.swing.JPanel();
+        pnlHeader = new javax.swing.JPanel();
+        rbTipoProducto = new javax.swing.JRadioButton();
+        rbNombreProducto = new javax.swing.JRadioButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscadorProducto = new javax.swing.JTextField();
+        lblTitulo1 = new javax.swing.JLabel();
+        btnBorrarSeleccion = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(new java.awt.Dimension(1272, 698));
         setLayout(new java.awt.BorderLayout());
 
         pnlBuscador.setBackground(new java.awt.Color(247, 242, 239));
         pnlBuscador.setLayout(new java.awt.BorderLayout());
-
-        pnlHeader.setBackground(new java.awt.Color(247, 242, 239));
-        pnlHeader.setPreferredSize(new java.awt.Dimension(572, 140));
-
-        lblTitulo1.setFont(new java.awt.Font("STHeiti", 1, 48)); // NOI18N
-        lblTitulo1.setForeground(new java.awt.Color(65, 70, 105));
-        lblTitulo1.setText("Productos");
-
-        txtBuscadorProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
-        txtBuscadorProducto.setBorder(null);
-
-        btnBuscar.setBackground(new java.awt.Color(247, 242, 239));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
-        btnBuscar.setBorder(null);
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        rbNombreProducto.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
-        rbNombreProducto.setForeground(new java.awt.Color(65, 70, 105));
-        rbNombreProducto.setText("Nombre");
-
-        rbTipoProducto.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
-        rbTipoProducto.setForeground(new java.awt.Color(65, 70, 105));
-        rbTipoProducto.setText("Tipo");
-
-        javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
-        pnlHeader.setLayout(pnlHeaderLayout);
-        pnlHeaderLayout.setHorizontalGroup(
-            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jSeparator1))
-                            .addComponent(txtBuscadorProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(btnBuscar))
-                    .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGap(455, 455, 455)
-                        .addComponent(rbNombreProducto)
-                        .addGap(117, 117, 117)
-                        .addComponent(rbTipoProducto))
-                    .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGap(506, 506, 506)
-                        .addComponent(lblTitulo1)))
-                .addContainerGap(146, Short.MAX_VALUE))
-        );
-        pnlHeaderLayout.setVerticalGroup(
-            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBuscar))
-                    .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addComponent(lblTitulo1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbNombreProducto)
-                            .addComponent(rbTipoProducto))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscadorProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-
-        pnlBuscador.add(pnlHeader, java.awt.BorderLayout.PAGE_START);
 
         pnlFooter.setBackground(new java.awt.Color(247, 242, 239));
 
@@ -126,6 +55,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
             }
         });
 
+        btnRegresar.setBackground(new java.awt.Color(247, 242, 239));
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
         btnRegresar.setBorder(null);
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -159,7 +89,97 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         pnlBuscador.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlProductos.setBackground(new java.awt.Color(247, 242, 239));
-        pnlProductos.setPreferredSize(null);
+
+        pnlHeader.setBackground(new java.awt.Color(247, 242, 239));
+
+        rbTipoProducto.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
+        rbTipoProducto.setForeground(new java.awt.Color(65, 70, 105));
+        rbTipoProducto.setText("Tipo");
+
+        rbNombreProducto.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
+        rbNombreProducto.setForeground(new java.awt.Color(65, 70, 105));
+        rbNombreProducto.setText("Nombre");
+
+        btnBuscar.setBackground(new java.awt.Color(247, 242, 239));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
+        btnBuscar.setBorder(null);
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        txtBuscadorProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtBuscadorProducto.setBorder(null);
+        txtBuscadorProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscadorProductoActionPerformed(evt);
+            }
+        });
+
+        lblTitulo1.setFont(new java.awt.Font("STHeiti", 1, 48)); // NOI18N
+        lblTitulo1.setForeground(new java.awt.Color(65, 70, 105));
+        lblTitulo1.setText("Productos");
+
+        btnBorrarSeleccion.setBackground(new java.awt.Color(247, 242, 239));
+        btnBorrarSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/eliminarIngrediente.png"))); // NOI18N
+        btnBorrarSeleccion.setBorder(null);
+        btnBorrarSeleccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarSeleccionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
+        pnlHeader.setLayout(pnlHeaderLayout);
+        pnlHeaderLayout.setHorizontalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
+                .addContainerGap(856, Short.MAX_VALUE)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBorrarSeleccion)
+                .addGap(155, 155, 155))
+            .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlHeaderLayout.createSequentialGroup()
+                    .addGap(229, 229, 229)
+                    .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtBuscadorProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                                .addGap(294, 294, 294)
+                                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(rbNombreProducto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(rbTipoProducto)
+                                        .addGap(109, 109, 109))
+                                    .addComponent(lblTitulo1))))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(435, Short.MAX_VALUE)))
+        );
+        pnlHeaderLayout.setVerticalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnBorrarSeleccion))
+                .addContainerGap())
+            .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlHeaderLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lblTitulo1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rbNombreProducto)
+                        .addComponent(rbTipoProducto))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtBuscadorProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        pnlProductos.add(pnlHeader);
+
         pnlBuscador.add(pnlProductos, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);
@@ -173,9 +193,19 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
        pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
+    private void txtBuscadorProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscadorProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscadorProductoActionPerformed
+
+    private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed
+        //        List<IngredienteDTO> ingredientes = this.ingredientesBO.obtenerIngredientesExistentes();
+        //        cargarIngredientes(ingredientes);
+    }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
+    private javax.swing.JButton btnBorrarSeleccion;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JSeparator jSeparator1;

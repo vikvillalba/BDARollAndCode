@@ -11,5 +11,6 @@ import java.util.List;
 public interface IMesasBO {
     public abstract MesaDTO agregar(NuevaMesaDTO nuevaMesa);
     public abstract List<MesaDTO> obtenerMesas();
+    public abstract MesaDTO obtenerMesa(Integer numero);
     
 }

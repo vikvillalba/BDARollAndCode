@@ -12,4 +12,5 @@ import java.util.List;
 public interface IMesasDAO {
     public abstract Mesa registrar(NuevaMesaDTO nuevaMesa);
     public abstract List<MesaDTO> obtenerMesas();
+    public abstract MesaDTO obtenerMesa(Integer numero);
 }

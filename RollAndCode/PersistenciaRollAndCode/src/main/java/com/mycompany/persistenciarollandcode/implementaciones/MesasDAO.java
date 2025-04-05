@@ -39,5 +39,19 @@ public class MesasDAO implements IMesasDAO{
         TypedQuery<MesaDTO> query = entityManager.createQuery(jpqlQuery, MesaDTO.class);
         return query.getResultList();
     }
+
+    @Override
+    public MesaDTO obtenerMesa(Integer numero) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+       String jpqlQuery = """
+                          SELECT new com.mycompany.dominiorollandcode.dtos.MesaDTO (M.id, M.numero)
+                          FROM Mesa M
+                          WHERE M.numero = :numero
+                          """;
+       
+        TypedQuery<MesaDTO> query = entityManager.createQuery(jpqlQuery, MesaDTO.class);
+        query.setParameter("numero", numero);
+        return query.getSingleResult();
+    }
     
 }

@@ -8,9 +8,9 @@ import itson.presentacion.frames.panelesIndividuales.PnlIngredienteExistente;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteSeleccionado;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -27,23 +27,29 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
     private IIngredientesBO ingredientesBO;
     private NuevoProductoDTO nuevoProductoDTO;
     // para los ingredientes que se ponen en el panel de ingredientesseleccionados;
-    private List<IngredienteDTO> ingredientesSeleccionados = new ArrayList<>();
-    private List<PnlIngredienteExistente> pnlIngredientesExistentes = new ArrayList<>();
+    private List<IngredienteDTO> ingredientesSeleccionados;
+    private List<PnlIngredienteExistente> pnlIngredientesExistentes;
     private ButtonGroup opcionesBusqueda;
 
     public PnlBuscadorIngredientes(FrmPantallaInicio pantallaInicio,  NuevoProductoDTO nuevoProductoDTO) {
         initComponents();
+        pnlIngredientes.setLayout(new BoxLayout(pnlIngredientes, BoxLayout.Y_AXIS));
+        this.pnlIngredientes.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         this.pantallaInicio = pantallaInicio;
         this.ingredientesBO = pantallaInicio.getIngredientesBO();
         this.nuevoProductoDTO = nuevoProductoDTO;
-
-        pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Buscar Ingredientes");
+        
+        this.ingredientesSeleccionados = new ArrayList<>();
+        this.pnlIngredientesExistentes = new ArrayList<>();
 
-        cargarIngredientes(ingredientesBO.obtenerIngredientesExistentes());
         opcionesBusqueda = new ButtonGroup();
         opcionesBusqueda.add(rbNombreIngrediente);
         opcionesBusqueda.add(rbUnidadMedida);
+        
+        
+        cargarIngredientes(ingredientesBO.obtenerIngredientesExistentes());
+                
 
     }
 
@@ -55,16 +61,18 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
             PnlIngredienteExistente pnlIngrediente = new PnlIngredienteExistente(ingrediente, this);
 
             this.pnlIngredientes.add(pnlIngrediente);
+            pnlIngredientes.add(Box.createVerticalStrut(10));
+            pnlIngrediente.setPreferredSize(new Dimension(900, 80));
+            pnlIngrediente.setMaximumSize(new Dimension(900, 80));
             this.pnlIngredientesExistentes.add(pnlIngrediente);
-
         }
-
 
         this.pnlIngredientes.revalidate();
         this.pnlIngredientes.repaint();
 
         pantallaInicio.getScrollPane().revalidate();
         pantallaInicio.getScrollPane().repaint();
+
     }
 
     public List<IngredienteDTO> getIngredientesSeleccionados() {
@@ -136,7 +144,7 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         pnlIngredientes = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(new java.awt.Dimension(1272, 698));
+        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlRight.setBackground(new java.awt.Color(249, 205, 204));
@@ -179,7 +187,6 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         pnlRight.add(pnlHeader2, java.awt.BorderLayout.PAGE_START);
 
         pnlFooter.setBackground(new java.awt.Color(249, 205, 204));
-        pnlFooter.setPreferredSize(null);
 
         btnContinuar.setBackground(new java.awt.Color(249, 205, 204));
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
@@ -307,6 +314,7 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         pnlBuscador.add(pnlHeader, java.awt.BorderLayout.PAGE_START);
 
         pnlIngredientes.setBackground(new java.awt.Color(247, 242, 239));
+        pnlIngredientes.setLayout(new javax.swing.BoxLayout(pnlIngredientes, javax.swing.BoxLayout.Y_AXIS));
         pnlBuscador.add(pnlIngredientes, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);

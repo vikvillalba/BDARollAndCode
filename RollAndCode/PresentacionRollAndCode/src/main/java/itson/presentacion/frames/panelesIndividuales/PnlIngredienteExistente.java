@@ -5,8 +5,6 @@ import com.mycompany.negociorollandcode.IIngredientesBO;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.PnlBuscadorIngredientes;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *

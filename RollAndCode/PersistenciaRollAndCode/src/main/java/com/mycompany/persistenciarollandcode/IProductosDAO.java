@@ -4,6 +4,7 @@ import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  * Interfaz que establece las operaciones de persistencia para los productos.
@@ -12,4 +13,5 @@ import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 public interface IProductosDAO {
     public abstract Producto registrar(NuevoProductoDTO nuevoProductoDTO) throws PersistenciaException;
     public abstract ProductoDTO obtenerProducto(String nombre);
+    public abstract List<ProductoDTO>obtenerProductosExistentes()throws PersistenciaException;
 }
