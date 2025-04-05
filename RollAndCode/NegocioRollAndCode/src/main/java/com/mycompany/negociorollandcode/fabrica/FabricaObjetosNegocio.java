@@ -8,6 +8,7 @@ import com.mycompany.negociorollandcode.implementaciones.ClientesBO;
 import com.mycompany.negociorollandcode.implementaciones.IngredientesBO;
 import com.mycompany.negociorollandcode.implementaciones.MesasBO;
 import com.mycompany.negociorollandcode.implementaciones.ProductosBO;
+import com.mycompany.negociorollandcode.implementaciones.com.mycompany.negociorollandcode.utileria.Key;
 import com.mycompany.persistenciarollandcode.IClientesDAO;
 import com.mycompany.persistenciarollandcode.IIngredientesDAO;
 import com.mycompany.persistenciarollandcode.IMesasDAO;
@@ -38,10 +39,11 @@ public class FabricaObjetosNegocio {
         return mesasBO;
     }
 
-    public static IClientesBO crearClientesBO() {
+    public static IClientesBO crearClientesBO(Key key) {
         if (clientesBO == null) {
             IClientesDAO clientesDAO = new ClientesDAO();
-            clientesBO = new ClientesBO(clientesDAO);
+            clientesBO = new ClientesBO(clientesDAO, key);
+            
         }
 
         return clientesBO;

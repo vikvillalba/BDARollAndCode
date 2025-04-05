@@ -44,7 +44,7 @@ public class ClienteFrecuente implements Serializable {
     @Column(name = "apellidoMaterno", nullable = false, length = 50)
     private String apellidoMaterno;
    
-    @Column(name = "telefono", nullable = false, length = 10, unique = true)
+    @Column(name = "telefono", nullable = false, length = 44, unique = true)
     private String telefono;
     
     @Column(name = "fechaRegistro", nullable = false)
