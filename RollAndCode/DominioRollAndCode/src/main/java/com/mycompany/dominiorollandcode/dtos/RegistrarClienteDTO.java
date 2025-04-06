@@ -58,5 +58,9 @@ public class RegistrarClienteDTO {
         this.correoElectronico = email;
     }
     
+    public void setTelefono(String telefono){
+        this.telefono = telefono;
+    }
+    
     
 }

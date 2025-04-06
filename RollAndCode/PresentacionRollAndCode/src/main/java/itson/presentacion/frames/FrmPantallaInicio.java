@@ -4,7 +4,6 @@ import com.mycompany.negociorollandcode.IClientesBO;
 import com.mycompany.negociorollandcode.IIngredientesBO;
 import com.mycompany.negociorollandcode.IMesasBO;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
-import com.mycompany.negociorollandcode.implementaciones.com.mycompany.negociorollandcode.utileria.Key;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,11 +18,10 @@ import javax.swing.JScrollPane;
  */
 public class FrmPantallaInicio extends javax.swing.JFrame {
 
-    private Key key;
     private boolean mesasAgregadas = false;
     private final IMesasBO mesasBO = FabricaObjetosNegocio.crearMesasBO();
     private final IIngredientesBO ingredientesBO = FabricaObjetosNegocio.crearIngredientesBO();
-    private IClientesBO clientesBO;
+    private final IClientesBO clientesBO = FabricaObjetosNegocio.crearClientesBO();;
 
     public FrmPantallaInicio() {
         initComponents();
@@ -31,14 +29,6 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         this.btnInicioActionPerformed(null);
         this.setSize(1272, 789);
         this.setLocationRelativeTo(null);
-        try {
-
-            this.key = Key.getInstance();
-            this.clientesBO = FabricaObjetosNegocio.crearClientesBO(this.key);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void pintarPanelPrincipal(JPanel panel) {
@@ -49,10 +39,6 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         scrollPane.repaint();
         panel.revalidate();
         panel.repaint();
-    }
-
-    public Key getKey() throws Exception {
-        return Key.getInstance();
     }
 
     public boolean isMesasAgregadas() {

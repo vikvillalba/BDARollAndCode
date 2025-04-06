@@ -32,7 +32,7 @@ public class ClienteFrecuente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "correoElectronico", nullable = true, unique = true, length = 120)
+    @Column(name = "correoElectronico", nullable = true, unique = false, length = 120)
     private String correoElectronico;
     
     @Column(name = "nombres", nullable = false, length = 100)

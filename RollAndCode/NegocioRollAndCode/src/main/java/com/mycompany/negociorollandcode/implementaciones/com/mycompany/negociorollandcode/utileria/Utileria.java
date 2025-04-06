@@ -4,10 +4,9 @@
  */
 package com.mycompany.negociorollandcode.implementaciones.com.mycompany.negociorollandcode.utileria;
 
-import java.security.SecureRandom;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
@@ -16,47 +15,27 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Utileria {
 
-   private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
+    private static final String ALGORITMO = "AES";
+    private static final String MODO = "ECB";
+    private static final String PADDING = "PKCS5Padding";
+    private static final String TRANSFORMACION = ALGORITMO + "/" + MODO + "/" + PADDING;
 
-    private static final int IV_LENGTH = 16; 
+    private static final byte[] CLAVE_SECRETA = "olaquetachendo12".getBytes(StandardCharsets.UTF_8); 
 
-    public static String encrypt(String phoneNumber, byte[] key) throws Exception {
-        byte[] iv = new byte[IV_LENGTH];
-        new SecureRandom().nextBytes(iv);
-
-        SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv));
-
-        byte[] encryptedBytes = cipher.doFinal(phoneNumber.getBytes("UTF-8"));
-
-        byte[] combined = new byte[iv.length + encryptedBytes.length];
-        System.arraycopy(iv, 0, combined, 0, iv.length);
-        System.arraycopy(encryptedBytes, 0, combined, iv.length, encryptedBytes.length);
-
-        return Base64.getEncoder().encodeToString(combined);
+    public static String encriptar(String s) throws Exception {
+        SecretKeySpec clave = new SecretKeySpec(CLAVE_SECRETA, ALGORITMO);
+        Cipher cipher = Cipher.getInstance(TRANSFORMACION);
+        cipher.init(Cipher.ENCRYPT_MODE, clave);
+        byte[] bytesEncriptados = cipher.doFinal(s.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(bytesEncriptados);
     }
 
-    public static String decrypt(String encryptedData, byte[] key) throws Exception {
-        byte[] combined = Base64.getDecoder().decode(encryptedData);
-
-        byte[] iv = new byte[IV_LENGTH];
-        byte[] encryptedBytes = new byte[combined.length - IV_LENGTH];
-        System.arraycopy(combined, 0, iv, 0, IV_LENGTH);
-        System.arraycopy(combined, IV_LENGTH, encryptedBytes, 0, encryptedBytes.length);
-
-        SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
-
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        return new String(decryptedBytes, "UTF-8");
+    public static String desencriptar(String s) throws Exception {
+        SecretKeySpec clave = new SecretKeySpec(CLAVE_SECRETA, ALGORITMO);
+        Cipher cipher = Cipher.getInstance(TRANSFORMACION);
+        cipher.init(Cipher.DECRYPT_MODE, clave);
+        byte[] bytesDecodificados = Base64.getDecoder().decode(s);
+        byte[] bytesDesencriptados = cipher.doFinal(bytesDecodificados);
+        return new String(bytesDesencriptados, StandardCharsets.UTF_8);
     }
-
-    public static byte[] generateKey() throws Exception {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] key = new byte[32];
-        secureRandom.nextBytes(key);
-        return key;
     }
-}

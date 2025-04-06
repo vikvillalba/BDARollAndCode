@@ -24,7 +24,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         this.frame = frame;
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Registrar Cliente Frecuente");
-        this.clientesBO = FabricaObjetosNegocio.crearClientesBO(this.frame.getKey());
+        this.clientesBO = frame.getClientesBO();
     }
 
     /**
@@ -186,6 +186,8 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         RegistrarClienteDTO cliente = new RegistrarClienteDTO(txtNombres.getText(), txtApellidoPaterno.getText(),
                 txtApellidoMaterno.getText(), txtCorreo.getText(), txtTelefono.getText());
         try {
+            if(this.clientesBO==null)
+                frame.getClientesBO();
             ClienteDTO clienteDTO = clientesBO.registrarNuevoCliente(cliente);
             JOptionPane.showMessageDialog(null, clienteDTO.toString(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
             txtNombres.setText(null);
@@ -195,7 +197,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
             txtTelefono.setText(null);
             
         } catch (ClienteException e) {
-            JOptionPane.showMessageDialog(null, e.toString(),
+            JOptionPane.showMessageDialog(null, e.getMessage(),
                     "Aviso", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_btnRegistrarClienteActionPerformed

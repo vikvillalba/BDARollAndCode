@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -45,17 +46,15 @@ public class ClientesDAO implements IClientesDAO {
 
     @Override
     public boolean verificarCorreoBaseDatos(String correo) {
-        if (correo.equals("Sin Correo")) {
-            return false;
-        }
         EntityManager em = ManejadorConexiones.getEntityManager();
         try {
-            String jpql = "SELECT c FROM ClientesFrecuente c WHERE c.correoElectronico = :correo";
-            ClienteFrecuente cliente = em.createQuery(jpql, ClienteFrecuente.class)
+            String jpql = "SELECT COUNT(c) FROM ClienteFrecuente c WHERE c.correoElectronico = :correo";
+
+            Long count = em.createQuery(jpql, Long.class)
                     .setParameter("correo", correo)
                     .getSingleResult();
-            return true;
-        } catch (Exception e) {
+            return count > 0;
+        } catch (NoResultException e) {
             return false;
         }
     }
@@ -71,7 +70,7 @@ public class ClientesDAO implements IClientesDAO {
         try {
             ClienteFrecuente clienteFrecuente = em.createQuery(criteria).getSingleResult();
             return true;
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             return false;
 
         }

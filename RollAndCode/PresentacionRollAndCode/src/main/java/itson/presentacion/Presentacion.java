@@ -3,7 +3,7 @@ package itson.presentacion;
 import itson.presentacion.frames.FrmPantallaInicio;
 
 /**
- *
+ *7
  * @author victoria
  */
 public class Presentacion {
@@ -12,4 +12,5 @@ public class Presentacion {
         FrmPantallaInicio frmInicio = new FrmPantallaInicio();
         frmInicio.setVisible(true);
     }
+    
 }
