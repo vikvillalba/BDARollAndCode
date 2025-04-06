@@ -57,7 +57,7 @@ public class ClientesBO implements IClientesBO {
             return new ClienteDTO(clienteF.getId(), clienteF.getNombres(), clienteF.getApellidoPaterno(),
                     clienteF.getApellidoMaterno(), telefono, clienteF.getCorreoElectronico(), clienteF.getFechaRegistro());
         } catch (Exception e) {
-            throw new ClienteException("No se ha podido registrar");
+            throw new ClienteException("No se ha podido registrar"+e.getMessage());
         }
 
     }
