@@ -44,8 +44,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         opcionesBusqueda.add(rbTipoProducto);
         
         try {
-            List<ProductoDTO> productosExistentes = productosBO.obtenerProductosExistentes();
-            cargarProductos(productosBO.obtenerProductosDisponibles(productosExistentes));
+            cargarProductos(productosBO.obtenerProductosExistentes());
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al cargar los productos", JOptionPane.ERROR_MESSAGE);
         }
@@ -330,15 +329,14 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed
-
+        List<ProductoDTO> productos;
         try {
-            List<ProductoDTO> productosExistentes = productosBO.obtenerProductosExistentes();
-            cargarProductos(productosBO.obtenerProductosDisponibles(productosExistentes));
-
+            productos = this.productosBO.obtenerProductosExistentes();
+            cargarProductos(productos);
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+    
     }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -350,21 +348,18 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         if (filtro.isEmpty()) {
              try {
                  productos = this.productosBO.obtenerProductosExistentes();
-                 productos = this.productosBO.obtenerProductosDisponibles(productos);
              } catch (ProductoException ex) {
                  JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
              }
         } else if (rbNombreProducto.isSelected()) {
             try {
                 productos = this.productosBO.obtenerProductosFiltradosNombre(filtro);
-                productos = this.productosBO.obtenerProductosDisponibles(productos);
             } catch (ProductoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (rbTipoProducto.isSelected()) {
             try {
                 productos = this.productosBO.obtenerProductosFiltradosTipo(filtro);
-                productos = this.productosBO.obtenerProductosDisponibles(productos);
 
             } catch (ProductoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

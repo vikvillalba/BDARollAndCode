@@ -2,7 +2,6 @@ package com.mycompany.persistenciarollandcode;
 
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
-import com.mycompany.dominiorollandcode.dtos.ProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.util.List;
@@ -17,7 +16,6 @@ public interface IProductosDAO {
     public abstract List<ProductoDTO>obtenerProductosExistentes()throws PersistenciaException;
     public abstract List<ProductoDTO>obtenerProductosFiltradosNombre(String filtro)throws PersistenciaException;
     public abstract List<ProductoDTO>obtenerProductosFiltradosTipo(String filtro)throws PersistenciaException;
-    public abstract List<ProductoIngredienteDTO> obtenerProductosIngrediente(Long idProducto)throws PersistenciaException;
     
     
 }

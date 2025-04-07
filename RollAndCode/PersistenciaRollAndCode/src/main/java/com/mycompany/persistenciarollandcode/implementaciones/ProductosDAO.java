@@ -4,7 +4,6 @@ import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
-import com.mycompany.dominiorollandcode.dtos.ProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.entidades.Ingrediente;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.dominiorollandcode.entidades.ProductoIngrediente;
@@ -86,7 +85,7 @@ public class ProductosDAO implements IProductosDAO {
     }
 
     @Override
-    public List<ProductoDTO> obtenerProductosExistentes() throws PersistenciaException {
+    public List<ProductoDTO> obtenerProductosExistentes() throws PersistenciaException{
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         try {
             String jpqlQuery = """
@@ -131,14 +130,14 @@ public class ProductosDAO implements IProductosDAO {
 
     @Override
     public List<ProductoDTO> obtenerProductosFiltradosNombre(String filtro) throws PersistenciaException {
-        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+                EntityManager entityManager = ManejadorConexiones.getEntityManager();
         try {
             String jpqlQuery = """
                             SELECT DISTINCT p FROM Producto p LEFT JOIN FETCH p.ingredientes pi 
                             WHERE UPPER (p.nombre) LIKE UPPER(:filtro)
                            """;
             TypedQuery<Producto> query = entityManager.createQuery(jpqlQuery, Producto.class);
-            query.setParameter("filtro", "%" + filtro + "%");
+            query.setParameter("filtro", "%" + filtro + "%");  
             List<Producto> productos = query.getResultList();
 
             if (!productos.isEmpty()) {
@@ -177,14 +176,14 @@ public class ProductosDAO implements IProductosDAO {
 
     @Override
     public List<ProductoDTO> obtenerProductosFiltradosTipo(String filtro) throws PersistenciaException {
-        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+                        EntityManager entityManager = ManejadorConexiones.getEntityManager();
         try {
             String jpqlQuery = """
                             SELECT DISTINCT p FROM Producto p LEFT JOIN FETCH p.ingredientes pi 
                             WHERE UPPER (p.tipo) LIKE :filtro
                            """;
             TypedQuery<Producto> query = entityManager.createQuery(jpqlQuery, Producto.class);
-            query.setParameter("filtro", "%" + filtro + "%");
+            query.setParameter("filtro", "%" + filtro + "%");  
             List<Producto> productos = query.getResultList();
 
             if (!productos.isEmpty()) {
@@ -219,35 +218,6 @@ public class ProductosDAO implements IProductosDAO {
             throw new PersistenciaException("Error al recuperar los productos.");
         }
         return null;
-    }
-
-    @Override
-    public List<ProductoIngredienteDTO> obtenerProductosIngrediente(Long idProducto) throws PersistenciaException {
-        EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        String jpqlQuery = """
-                           SELECT p
-                           FROM ProductoIngrediente p
-                           WHERE p.producto.id = :id
-                           """;
-
-        TypedQuery<ProductoIngrediente> query = entityManager.createQuery(jpqlQuery, ProductoIngrediente.class);
-        query.setParameter("id", idProducto);
-        List<ProductoIngrediente> resultado = query.getResultList();
-
-        List<ProductoIngredienteDTO> ingredientesProducto = new ArrayList<>();
-
-        for (ProductoIngrediente productoIngrediente : resultado) {
-            ProductoIngredienteDTO productoIngredienteDTO = new ProductoIngredienteDTO(
-                    productoIngrediente.getId(),
-                    productoIngrediente.getProducto().getId(),
-                    productoIngrediente.getIngrediente().getId(),
-                    productoIngrediente.getCantidad()
-            );
-
-            ingredientesProducto.add(productoIngredienteDTO);
-        }
-
-        return ingredientesProducto;
     }
 
 }
