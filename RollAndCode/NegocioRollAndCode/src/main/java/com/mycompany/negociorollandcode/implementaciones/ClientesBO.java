@@ -7,6 +7,7 @@ import com.mycompany.negociorollandcode.IClientesBO;
 import com.mycompany.negociorollandcode.excepciones.ClienteException;
 import com.mycompany.negociorollandcode.implementaciones.com.mycompany.negociorollandcode.utileria.Utileria;
 import com.mycompany.persistenciarollandcode.IClientesDAO;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -62,4 +63,26 @@ public class ClientesBO implements IClientesBO {
         }
 
     }
+
+    @Override
+    public List<ClienteDTO> buscarClientes() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<ClienteDTO> buscarClientesNombre(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<ClienteDTO> buscarClientesCorreo(String correo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<ClienteDTO> buscarClientesTelefono(String telefono) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
 }

@@ -44,7 +44,8 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         opcionesBusqueda.add(rbTipoProducto);
         
         try {
-            cargarProductos(productosBO.obtenerProductosExistentes());
+            List<ProductoDTO> productosExistentes = productosBO.obtenerProductosExistentes();
+            cargarProductos(productosBO.obtenerProductosDisponibles(productosExistentes));
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al cargar los productos", JOptionPane.ERROR_MESSAGE);
         }
@@ -195,7 +196,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         btnContinuar.setBackground(new java.awt.Color(249, 205, 204));
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
         btnContinuar.setBorder(null);
-        btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContinuarActionPerformed(evt);
@@ -243,6 +244,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         btnBuscar.setBackground(new java.awt.Color(247, 242, 239));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
         btnBuscar.setBorder(null);
+
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,14 +327,15 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed
-        List<ProductoDTO> productos;
+
         try {
-            productos = this.productosBO.obtenerProductosExistentes();
-            cargarProductos(productos);
+            List<ProductoDTO> productosExistentes = productosBO.obtenerProductosExistentes();
+            cargarProductos(productosBO.obtenerProductosDisponibles(productosExistentes));
+
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    
+
     }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -344,18 +347,21 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         if (filtro.isEmpty()) {
              try {
                  productos = this.productosBO.obtenerProductosExistentes();
+                 productos = this.productosBO.obtenerProductosDisponibles(productos);
              } catch (ProductoException ex) {
                  JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
              }
         } else if (rbNombreProducto.isSelected()) {
             try {
                 productos = this.productosBO.obtenerProductosFiltradosNombre(filtro);
+                productos = this.productosBO.obtenerProductosDisponibles(productos);
             } catch (ProductoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (rbTipoProducto.isSelected()) {
             try {
                 productos = this.productosBO.obtenerProductosFiltradosTipo(filtro);
+                productos = this.productosBO.obtenerProductosDisponibles(productos);
 
             } catch (ProductoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

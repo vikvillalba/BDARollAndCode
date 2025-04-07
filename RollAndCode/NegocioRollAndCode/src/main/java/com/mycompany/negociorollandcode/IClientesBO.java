@@ -7,6 +7,7 @@ package com.mycompany.negociorollandcode;
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.RegistrarClienteDTO;
 import com.mycompany.negociorollandcode.excepciones.ClienteException;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,8 @@ import com.mycompany.negociorollandcode.excepciones.ClienteException;
  */
 public interface IClientesBO {
     public abstract ClienteDTO registrarNuevoCliente(RegistrarClienteDTO cliente) throws ClienteException;
+    public abstract List<ClienteDTO> buscarClientes();
+    public abstract List<ClienteDTO> buscarClientesNombre(String nombre);
+    public abstract List<ClienteDTO> buscarClientesCorreo(String correo);
+    public abstract List<ClienteDTO> buscarClientesTelefono(String telefono);
 }
