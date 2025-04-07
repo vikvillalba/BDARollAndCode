@@ -122,7 +122,7 @@ public class ClientesDAO implements IClientesDAO {
                       WHERE c.nombres LIKE :nombres
                       """;
         TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
-        query.setParameter("nombres", "%"+nombre+"%");
+        query.setParameter("nombres", "%" + nombre + "%");
         return query.getResultList();
     }
 
@@ -139,14 +139,31 @@ public class ClientesDAO implements IClientesDAO {
                       c.gastoTotal
                       )
                       FROM ClienteFrecuente c
+                      WHERE c.correoElectronico LIKE :correoElectronico
                       """;
         TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
+        query.setParameter("nombres", "%" + correo + "%");
         return query.getResultList();
 
     }
 
     @Override
     public List<ClienteDTO> buscarClientesTelefono(String telefono) {
-        return null;
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        String jpql = """
+                      SELECT NEW com.mycompany.dominiorollandcode.dtos.ClienteDTO(
+                      c.id,
+                      c.nombres,
+                      c.apellidoPaterno,
+                      c,correoElectronico,
+                      c.telefono,
+                      c.gastoTotal
+                      )
+                      FROM ClienteFrecuente c
+                      WHERE c.correoElectronico == :correoElectronico
+                      """;
+        TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
+        query.setParameter("nombres", telefono);
+        return query.getResultList();
     }
 }

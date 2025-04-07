@@ -1,4 +1,3 @@
-
 package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
@@ -252,7 +251,6 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
                 btnBuscarActionPerformed(evt);
             }
         });
-
 
         txtBuscadorProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         txtBuscadorProducto.setBorder(null);
