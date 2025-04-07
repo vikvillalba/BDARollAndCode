@@ -147,6 +147,6 @@ public class ClientesDAO implements IClientesDAO {
 
     @Override
     public List<ClienteDTO> buscarClientesTelefono(String telefono) {
-
+        return null;
     }
 }

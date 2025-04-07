@@ -14,7 +14,7 @@ public interface IClientesDAO {
     public abstract boolean verificarTelefono(String telefono);
     public abstract boolean verificarFormatoCorreo(String correo);
     public abstract boolean verificarCorreoBaseDatos(String correo);
-    public abstract List<ClienteFrecuente> buscarClientes();
+    public abstract List<ClienteDTO> buscarClientes();
     public abstract List<ClienteDTO> buscarClientesNombre(String nombre);
     public abstract List<ClienteDTO> buscarClientesCorreo(String correo);
     public abstract List<ClienteDTO> buscarClientesTelefono(String telefono);
