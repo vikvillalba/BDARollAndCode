@@ -96,8 +96,10 @@ public class ClientesDAO implements IClientesDAO {
                       c.id,
                       c.nombres,
                       c.apellidoPaterno,
-                      c.correoElectronico,
+                      c.apellidoMaterno,
                       c.telefono,
+                      c.correoElectronico,
+                      c.fechaRegistro,
                       c.gastoTotal
                       )
                       FROM ClienteFrecuente c

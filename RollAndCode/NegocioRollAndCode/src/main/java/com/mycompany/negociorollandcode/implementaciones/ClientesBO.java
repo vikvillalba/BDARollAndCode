@@ -7,6 +7,7 @@ import com.mycompany.negociorollandcode.IClientesBO;
 import com.mycompany.negociorollandcode.excepciones.ClienteException;
 import com.mycompany.negociorollandcode.implementaciones.com.mycompany.negociorollandcode.utileria.Utileria;
 import com.mycompany.persistenciarollandcode.IClientesDAO;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -41,8 +42,9 @@ public class ClientesBO implements IClientesBO {
         } else {
             cliente.setCorreoElectronico("Sin Correo");
         }
-        
-        if (cliente.getNombres().isBlank() || cliente.getApellidoMaterno().isBlank() || cliente.getApellidoPaterno().isBlank() || cliente.getTelefono().isBlank()) {
+
+        if (cliente.getNombres().isBlank() || cliente.getApellidoMaterno().isBlank()
+                || cliente.getApellidoPaterno().isBlank() || cliente.getTelefono().isBlank()) {
             throw new ClienteException("Solo el correo puede permanecer en blanco");
         }
         if (cliente.getTelefono().length() > 10 || cliente.getTelefono().length() < 10) {
@@ -57,32 +59,40 @@ public class ClientesBO implements IClientesBO {
             cliente.setTelefono(numTelefonoEncriptado);
             ClienteFrecuente clienteF = this.clientesDAO.registrarCliente(cliente);
             return new ClienteDTO(clienteF.getId(), clienteF.getNombres(), clienteF.getApellidoPaterno(),
-                    clienteF.getApellidoMaterno(), telefono, clienteF.getCorreoElectronico(), clienteF.getFechaRegistro(), 0);
+                    clienteF.getApellidoMaterno(), telefono, clienteF.getCorreoElectronico(),
+                    clienteF.getFechaRegistro(), BigDecimal.ZERO);
         } catch (Exception e) {
-            throw new ClienteException("No se ha podido registrar"+e.getMessage());
+            throw new ClienteException("No se ha podido registrar" + e.getMessage());
         }
 
     }
 
     @Override
     public List<ClienteDTO> buscarClientes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return clientesDAO.buscarClientes();
     }
 
     @Override
     public List<ClienteDTO> buscarClientesNombre(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return clientesDAO.buscarClientesNombre(nombre);
     }
 
     @Override
     public List<ClienteDTO> buscarClientesCorreo(String correo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return clientesDAO.buscarClientesCorreo(correo);
     }
 
     @Override
     public List<ClienteDTO> buscarClientesTelefono(String telefono) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String numTelefonoEncriptado = Utileria.encriptar(telefono);
+            List<ClienteDTO> clientes = clientesDAO.buscarClientesTelefono(numTelefonoEncriptado);
+            return clientes;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
+            return null;
+        }
     }
-    
-    
+
 }

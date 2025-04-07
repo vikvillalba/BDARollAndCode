@@ -1,7 +1,7 @@
 package com.mycompany.dominiorollandcode.dtos;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  *
@@ -16,9 +16,10 @@ public class ClienteDTO {
     private String telefono;
     private String correoElectronico;
     private Calendar fechaRegistro;
-    private double gastoTotal;
+    private BigDecimal gastoTotal;
 
-    public ClienteDTO(long id, String nombres, String ApellidoP, String apellidoM, String telefono, String email, Calendar fechaRegistro, double gastoTotal) {
+    public ClienteDTO(long id, String nombres, String ApellidoP, String apellidoM,
+            String telefono, String email, Calendar fechaRegistro, BigDecimal gastoTotal) {
         this.id = id;
         this.nombres = nombres;
         this.apellidoMaterno = apellidoM;
@@ -67,8 +68,12 @@ public class ClienteDTO {
     public Calendar getFechaRegistro() {
         return this.fechaRegistro;
     }
-    public double getGastoTotal(){
+    public BigDecimal getGastoTotal(){
         return this.gastoTotal;
     }
+
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.telefono = numeroTelefono;
+    }   
 
 }

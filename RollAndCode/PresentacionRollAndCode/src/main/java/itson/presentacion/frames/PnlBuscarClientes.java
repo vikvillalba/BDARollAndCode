@@ -4,7 +4,11 @@
  */
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
+import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.negociorollandcode.IClientesBO;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,8 +16,10 @@ import com.mycompany.negociorollandcode.IClientesBO;
  */
 public class PnlBuscarClientes extends javax.swing.JPanel {
 
-    FrmPantallaInicio frame;
-    IClientesBO clientesBO;
+    private FrmPantallaInicio frame;
+    private IClientesBO clientesBO;
+    private NuevaComandaDTO comanda;
+    private List<ClienteDTO> clientes;
 
     /**
      * Creates new form PnlBuscarClientes
@@ -24,6 +30,16 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         clientesBO = frame.getClientesBO();
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Buscar Clientes");
+
+        this.clientes = clientesBO.buscarClientes();
+
+        try {
+            this.clientes = clientesBO.buscarClientes();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
+        }
+
+       
     }
 
     /**
@@ -47,7 +63,7 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         rbTelefono = new javax.swing.JRadioButton();
         lbClientes = new javax.swing.JLabel();
         campoBusqueda = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        pnlClientes = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
@@ -85,14 +101,14 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlClientesLayout = new javax.swing.GroupLayout(pnlClientes);
+        pnlClientes.setLayout(pnlClientesLayout);
+        pnlClientesLayout.setHorizontalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 764, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlClientesLayout.setVerticalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 394, Short.MAX_VALUE)
         );
 
@@ -129,7 +145,7 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
                         .addGap(230, 230, 230)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pnlClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(campoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -168,7 +184,7 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
                     .addComponent(campoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
@@ -212,8 +228,8 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JTextField campoBusqueda;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbClientes;
+    private javax.swing.JPanel pnlClientes;
     private javax.swing.JRadioButton rbCorreo;
     private javax.swing.JRadioButton rbNombre;
     private javax.swing.JRadioButton rbTelefono;

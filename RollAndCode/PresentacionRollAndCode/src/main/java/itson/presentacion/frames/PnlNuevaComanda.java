@@ -1,5 +1,6 @@
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.MesaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.negociorollandcode.IMesasBO;
@@ -24,6 +25,14 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Nueva Comanda");
         cargarMesas();
+    }
+    public void PnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente){
+        recuperarContexto(panel, cliente);
+    }
+    
+    private void recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente){
+        PnlNuevaComanda pnlNuevaComanda = new PnlNuevaComanda(panel.pantallaInicio);
+        pnlNuevaComanda.comanda.setCliente(cliente);
     }
 
      private void cargarMesas(){

@@ -5,6 +5,9 @@
 package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
+import com.mycompany.negociorollandcode.IClientesBO;
+import itson.presentacion.frames.PnlBuscarClientes;
+import java.math.BigDecimal;
 
 /**
  *
@@ -12,16 +15,29 @@ import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
  */
 public class PnlConsultarCliente extends javax.swing.JPanel {
 
+    IClientesBO clientesBO;
+    ClienteDTO clienteDTO;
+    PnlBuscarClientes panel;
+
     /**
      * Creates new form PnlConsultarCliente
      */
-    public PnlConsultarCliente(ClienteDTO cliente) {
+    public PnlConsultarCliente(ClienteDTO cliente, IClientesBO clientesBO, PnlBuscarClientes panel) {
         initComponents();
-        campoNombre.setText(cliente.getNombres());
-        campoApellido.setText(cliente.getApellidoPaterno());
-        campoCorreo.setText(cliente.getCorreoElectronico());
-        campoTelefono.setText(cliente.getTelefono());
-        campoPuntosFidelidad.setText(String.valueOf(cliente.getGastoTotal()/20));
+        this.clientesBO = clientesBO;
+        this.clienteDTO = cliente;
+        this.panel = panel;
+        campoNombre.setText(clienteDTO.getNombres());
+        campoNombre.setEnabled(false);
+        campoApellido.setText(clienteDTO.getApellidoPaterno());
+        campoApellido.setEnabled(false);
+        campoCorreo.setText(clienteDTO.getCorreoElectronico());
+        campoCorreo.setEnabled(false);
+        campoTelefono.setText(clienteDTO.getTelefono());
+        campoTelefono.setEnabled(false);
+        campoPuntosFidelidad.setText(String.valueOf(clienteDTO.getGastoTotal().divide(BigDecimal.valueOf(20L))));
+        campoPuntosFidelidad.setEnabled(false);
+        
     }
 
     /**
@@ -63,6 +79,11 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
         campoPuntosFidelidad.setEnabled(false);
 
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,6 +121,10 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
