@@ -1,4 +1,3 @@
-
 package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
