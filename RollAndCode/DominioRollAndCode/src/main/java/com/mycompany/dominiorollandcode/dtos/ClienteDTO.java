@@ -16,8 +16,9 @@ public class ClienteDTO {
     private String telefono;
     private String correoElectronico;
     private Calendar fechaRegistro;
+    private double gastoTotal;
 
-    public ClienteDTO(long id, String nombres, String ApellidoP, String apellidoM, String telefono, String email, Calendar fechaRegistro) {
+    public ClienteDTO(long id, String nombres, String ApellidoP, String apellidoM, String telefono, String email, Calendar fechaRegistro, double gastoTotal) {
         this.id = id;
         this.nombres = nombres;
         this.apellidoMaterno = apellidoM;
@@ -25,6 +26,7 @@ public class ClienteDTO {
         this.telefono = telefono;
         this.correoElectronico = email;
         this.fechaRegistro = fechaRegistro;
+        this.gastoTotal = gastoTotal;
     }
 
     public ClienteDTO() {
@@ -56,7 +58,7 @@ public class ClienteDTO {
 
     @Override
     public String toString() {
-      
+
         return "Cliente Registrado: " + "\nId = " + id + "\nNombre = " + nombres + "\nApellido Paterno = " + apellidoPaterno
                 + "\nApellido Materno = " + apellidoMaterno + "\nNumero Telefono = " + telefono + "\nCorreo = " + correoElectronico;
 
@@ -64,6 +66,9 @@ public class ClienteDTO {
 
     public Calendar getFechaRegistro() {
         return this.fechaRegistro;
+    }
+    public double getGastoTotal(){
+        return this.gastoTotal;
     }
 
 }

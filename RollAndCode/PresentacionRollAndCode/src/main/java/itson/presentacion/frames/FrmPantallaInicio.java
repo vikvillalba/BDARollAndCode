@@ -220,10 +220,20 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnClientesFrecuentes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnClientesFrecuentes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClientesFrecuentes.setPreferredSize(new java.awt.Dimension(200, 50));
+        btnClientesFrecuentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesFrecuentesActionPerformed(evt);
+            }
+        });
 
         btnBuscarCliente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnBuscarCliente.setText("Buscar cliente");
         btnBuscarCliente.setPreferredSize(new java.awt.Dimension(210, 45));
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteActionPerformed(evt);
+            }
+        });
         btnClientesFrecuentes.add(btnBuscarCliente);
 
         btnNuevoCliente.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
@@ -297,6 +307,14 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     private void btnVerIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerIngredientesActionPerformed
         this.pintarPanelPrincipal(new PnlIngredientesExistentes(this));
     }//GEN-LAST:event_btnVerIngredientesActionPerformed
+
+    private void btnClientesFrecuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrecuentesActionPerformed
+      
+    }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
+
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        this.pintarPanelPrincipal(new PnlBuscarClientes(this));
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

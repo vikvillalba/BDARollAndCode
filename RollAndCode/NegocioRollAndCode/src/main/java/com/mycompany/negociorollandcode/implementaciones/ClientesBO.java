@@ -26,10 +26,11 @@ public class ClientesBO implements IClientesBO {
 
     @Override
     public ClienteDTO registrarNuevoCliente(RegistrarClienteDTO cliente) throws ClienteException {
-        String correo = cliente.getCorreoElectronico();
+        String correo = cliente.getCorreoElectronico().toLowerCase();
         if (!correo.isBlank()) {
             if (this.clientesDAO.verificarFormatoCorreo(correo)) {
                 if (!this.clientesDAO.verificarCorreoBaseDatos(correo)) {
+                    cliente.setCorreoElectronico(correo);
                 } else {
                     throw new ClienteException("Correo ya registrado");
                 }
@@ -39,7 +40,7 @@ public class ClientesBO implements IClientesBO {
         } else {
             cliente.setCorreoElectronico("Sin Correo");
         }
-
+        
         if (cliente.getNombres().isBlank() || cliente.getApellidoMaterno().isBlank() || cliente.getApellidoPaterno().isBlank() || cliente.getTelefono().isBlank()) {
             throw new ClienteException("Solo el correo puede permanecer en blanco");
         }
@@ -55,7 +56,7 @@ public class ClientesBO implements IClientesBO {
             cliente.setTelefono(numTelefonoEncriptado);
             ClienteFrecuente clienteF = this.clientesDAO.registrarCliente(cliente);
             return new ClienteDTO(clienteF.getId(), clienteF.getNombres(), clienteF.getApellidoPaterno(),
-                    clienteF.getApellidoMaterno(), telefono, clienteF.getCorreoElectronico(), clienteF.getFechaRegistro());
+                    clienteF.getApellidoMaterno(), telefono, clienteF.getCorreoElectronico(), clienteF.getFechaRegistro(), 0);
         } catch (Exception e) {
             throw new ClienteException("No se ha podido registrar"+e.getMessage());
         }
