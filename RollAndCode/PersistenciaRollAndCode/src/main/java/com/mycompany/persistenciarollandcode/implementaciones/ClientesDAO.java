@@ -112,17 +112,19 @@ public class ClientesDAO implements IClientesDAO {
     public List<ClienteDTO> buscarClientesNombre(String nombre) {
         EntityManager em = ManejadorConexiones.getEntityManager();
         String jpql = """
-                      SELECT NEW com.mycompany.dominiorollandcode.dtos.ClienteDTO(
-                      c.id,
-                      c.nombres,
-                      c.apellidoPaterno,
-                      c.correoElectronico,
-                      c.telefono,
-                      c.gastoTotal
-                      )
-                      FROM ClienteFrecuente c 
-                      WHERE c.nombres LIKE :nombres
-                      """;
+                     SELECT NEW com.mycompany.dominiorollandcode.dtos.ClienteDTO(
+                     c.id,
+                     c.nombres,
+                     c.apellidoPaterno,
+                     c.apellidoMaterno,
+                     c.telefono,
+                     c.correoElectronico,
+                     c.fechaRegistro,
+                     c.gastoTotal
+                     )
+                     FROM ClienteFrecuente c 
+                     WHERE c.nombres LIKE :nombres
+                     """;
         TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
         query.setParameter("nombres", "%" + nombre + "%");
         return query.getResultList();
@@ -136,8 +138,10 @@ public class ClientesDAO implements IClientesDAO {
                       c.id,
                       c.nombres,
                       c.apellidoPaterno,
-                      c,correoElectronico,
+                      c.apellidoMaterno,
                       c.telefono,
+                      c.correoElectronico,
+                      c.fechaRegistro,
                       c.gastoTotal
                       )
                       FROM ClienteFrecuente c
@@ -155,17 +159,19 @@ public class ClientesDAO implements IClientesDAO {
         String jpql = """
                       SELECT NEW com.mycompany.dominiorollandcode.dtos.ClienteDTO(
                       c.id,
-                      c.nombres,
-                      c.apellidoPaterno,
-                      c,correoElectronico,
-                      c.telefono,
-                      c.gastoTotal
+                                           c.nombres,
+                                           c.apellidoPaterno,
+                                           c.apellidoMaterno,
+                                           c.telefono,
+                                           c.correoElectronico,
+                                           c.fechaRegistro,
+                                           c.gastoTotal
                       )
                       FROM ClienteFrecuente c
-                      WHERE c.correoElectronico == :correoElectronico
+                      WHERE c.telefono == :telefono
                       """;
         TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
-        query.setParameter("nombres", telefono);
+        query.setParameter("telefono", telefono);
         return query.getResultList();
     }
 }
