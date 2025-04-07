@@ -14,8 +14,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -240,6 +238,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         try {
             this.comandasBO.registrarComanda(comanda);
             JOptionPane.showMessageDialog(null, "Comanda creada correctamente", "Comanda registrada", JOptionPane.INFORMATION_MESSAGE);
+            this.pantallaInicio.pintarPanelPrincipal(new PnlNuevaComanda(pantallaInicio));
         } catch (ComandaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
