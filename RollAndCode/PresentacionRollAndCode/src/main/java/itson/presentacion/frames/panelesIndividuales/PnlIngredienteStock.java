@@ -45,6 +45,7 @@ public class PnlIngredienteStock extends javax.swing.JPanel {
         lblNombreIngrediente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNombreIngrediente.setText("NombreIngrediente");
 
+        btnAgregarStock.setBackground(new java.awt.Color(249, 205, 204));
         btnAgregarStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/agregarStock.png"))); // NOI18N
         btnAgregarStock.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnAgregarStock.addActionListener(new java.awt.event.ActionListener() {

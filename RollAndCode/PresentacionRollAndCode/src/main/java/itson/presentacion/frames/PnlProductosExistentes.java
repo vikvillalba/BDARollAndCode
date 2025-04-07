@@ -46,7 +46,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         this.pnlProductos.removeAll();
 
         for (ProductoDTO producto : productos) {
-            PnlProductoExistente pnlProducto = new PnlProductoExistente(producto);
+            PnlProductoExistente pnlProducto = new PnlProductoExistente(producto, this.pantallaInicio);
             this.pnlProductos.add(pnlProducto);
 
         }
