@@ -195,7 +195,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         btnContinuar.setBackground(new java.awt.Color(249, 205, 204));
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
         btnContinuar.setBorder(null);
-        btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContinuarActionPerformed(evt);
@@ -243,16 +243,12 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         btnBuscar.setBackground(new java.awt.Color(247, 242, 239));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
         btnBuscar.setBorder(null);
-<<<<<<< Updated upstream
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-=======
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
->>>>>>> Stashed changes
 
         txtBuscadorProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         txtBuscadorProducto.setBorder(null);
