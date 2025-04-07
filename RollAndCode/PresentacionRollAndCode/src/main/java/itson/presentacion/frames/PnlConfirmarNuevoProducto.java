@@ -232,6 +232,7 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
         try {
             this.productosBO.registrar(nuevoProductoDTO);
             JOptionPane.showMessageDialog(null, "Producto registrado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            pantallaInicio.pintarPanelPrincipal(new PnlProductosExistentes(pantallaInicio));
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));

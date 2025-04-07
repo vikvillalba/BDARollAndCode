@@ -1,16 +1,25 @@
 package itson.presentacion.frames.panelesIndividuales;
 
+import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
+
 /**
  *
  * @author victoria
  */
 public class PnlProductoExistente extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PnlProducto
-     */
-    public PnlProductoExistente() {
+      private ProductoDTO producto;
+    
+    public PnlProductoExistente(ProductoDTO producto) {
         initComponents();
+        this.producto = producto;
+        cargarDetalles();
+    }
+
+    private void cargarDetalles(){
+        this.lblNombreProducto.setText(producto.getNombre());
+        this.lblPrecio.setText(producto.getPrecio().toString());
+        this.lblTipoProducto.setText(producto.getTipo().toString());
     }
 
     /**

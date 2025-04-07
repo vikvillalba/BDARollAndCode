@@ -1,6 +1,16 @@
 
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
+import com.mycompany.negociorollandcode.IProductosBO;
+import com.mycompany.negociorollandcode.excepciones.ProductoException;
+import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
+import itson.presentacion.frames.panelesIndividuales.PnlProductoExistente;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author victoria
@@ -8,12 +18,44 @@ package itson.presentacion.frames;
 public class PnlProductosExistentes extends javax.swing.JPanel {
 
     private FrmPantallaInicio pantallaInicio;
+     private IProductosBO productosBO;
+    private ButtonGroup opcionesBusqueda;
+    
      
     public PnlProductosExistentes(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
+        this.productosBO = FabricaObjetosNegocio.crearProductosBO();
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Productos existentes");
+        
+        opcionesBusqueda = new ButtonGroup();
+        opcionesBusqueda.add(rbNombreProducto);
+        opcionesBusqueda.add(rbTipoProducto);
+        
+        
+        try {
+            cargarProductos(productosBO.obtenerProductosExistentes());
+        } catch (ProductoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al cargar los productos", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void cargarProductos(List<ProductoDTO> productos) {
+ 
+        this.pnlProductos.removeAll();
+
+        for (ProductoDTO producto : productos) {
+            PnlProductoExistente pnlProducto = new PnlProductoExistente(producto);
+            this.pnlProductos.add(pnlProducto);
+
+        }
+        this.pnlProductos.revalidate();
+        this.pnlProductos.repaint();
+
+        pantallaInicio.getScrollPane().revalidate();
+        pantallaInicio.getScrollPane().repaint();
+
     }
 
     /**
@@ -24,10 +66,6 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlBuscador = new javax.swing.JPanel();
-        pnlFooter = new javax.swing.JPanel();
-        btnAgregarProducto = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
-        pnlProductos = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
         rbTipoProducto = new javax.swing.JRadioButton();
         rbNombreProducto = new javax.swing.JRadioButton();
@@ -36,59 +74,16 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         txtBuscadorProducto = new javax.swing.JTextField();
         lblTitulo1 = new javax.swing.JLabel();
         btnBorrarSeleccion = new javax.swing.JButton();
+        pnlFooter = new javax.swing.JPanel();
+        btnAgregarProducto = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        pnlProductos = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
         setLayout(new java.awt.BorderLayout());
 
         pnlBuscador.setBackground(new java.awt.Color(247, 242, 239));
         pnlBuscador.setLayout(new java.awt.BorderLayout());
-
-        pnlFooter.setBackground(new java.awt.Color(247, 242, 239));
-
-        btnAgregarProducto.setBackground(new java.awt.Color(247, 242, 239));
-        btnAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/agregarNuevoProducto.png"))); // NOI18N
-        btnAgregarProducto.setBorder(null);
-        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarProductoActionPerformed(evt);
-            }
-        });
-
-        btnRegresar.setBackground(new java.awt.Color(247, 242, 239));
-        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
-        btnRegresar.setBorder(null);
-        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlFooterLayout = new javax.swing.GroupLayout(pnlFooter);
-        pnlFooter.setLayout(pnlFooterLayout);
-        pnlFooterLayout.setHorizontalGroup(
-            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFooterLayout.createSequentialGroup()
-                .addContainerGap(308, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addGap(49, 49, 49)
-                .addComponent(btnAgregarProducto)
-                .addGap(317, 317, 317))
-        );
-        pnlFooterLayout.setVerticalGroup(
-            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFooterLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregarProducto)
-                    .addComponent(btnRegresar))
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-
-        pnlBuscador.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
-
-        pnlProductos.setBackground(new java.awt.Color(247, 242, 239));
 
         pnlHeader.setBackground(new java.awt.Color(247, 242, 239));
 
@@ -104,14 +99,14 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
         btnBuscar.setBorder(null);
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         txtBuscadorProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         txtBuscadorProducto.setBorder(null);
-        txtBuscadorProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscadorProductoActionPerformed(evt);
-            }
-        });
 
         lblTitulo1.setFont(new java.awt.Font("STHeiti", 1, 48)); // NOI18N
         lblTitulo1.setForeground(new java.awt.Color(65, 70, 105));
@@ -178,8 +173,54 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        pnlProductos.add(pnlHeader);
+        pnlBuscador.add(pnlHeader, java.awt.BorderLayout.PAGE_START);
 
+        pnlFooter.setBackground(new java.awt.Color(247, 242, 239));
+
+        btnAgregarProducto.setBackground(new java.awt.Color(247, 242, 239));
+        btnAgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/agregarNuevoProducto.png"))); // NOI18N
+        btnAgregarProducto.setBorder(null);
+        btnAgregarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setBackground(new java.awt.Color(247, 242, 239));
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
+        btnRegresar.setBorder(null);
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlFooterLayout = new javax.swing.GroupLayout(pnlFooter);
+        pnlFooter.setLayout(pnlFooterLayout);
+        pnlFooterLayout.setHorizontalGroup(
+            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFooterLayout.createSequentialGroup()
+                .addContainerGap(308, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addGap(49, 49, 49)
+                .addComponent(btnAgregarProducto)
+                .addGap(317, 317, 317))
+        );
+        pnlFooterLayout.setVerticalGroup(
+            pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFooterLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAgregarProducto)
+                    .addComponent(btnRegresar))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        pnlBuscador.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
+
+        pnlProductos.setBackground(new java.awt.Color(247, 242, 239));
         pnlBuscador.add(pnlProductos, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);
@@ -193,14 +234,46 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
        pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
-    private void txtBuscadorProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscadorProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscadorProductoActionPerformed
-
     private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed
-        //        List<IngredienteDTO> ingredientes = this.ingredientesBO.obtenerIngredientesExistentes();
-        //        cargarIngredientes(ingredientes);
+        List<ProductoDTO> productos;
+        try {
+            productos = this.productosBO.obtenerProductosExistentes();
+            cargarProductos(productos);
+        } catch (ProductoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+         String filtro = txtBuscadorProducto.getText().trim();
+        this.txtBuscadorProducto.setText("");
+
+        List<ProductoDTO> productos = new ArrayList<>();
+
+        if (filtro.isEmpty()) {
+            try {
+                productos = this.productosBO.obtenerProductosExistentes();
+            } catch (ProductoException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (rbNombreProducto.isSelected()) {
+            try {
+                productos = this.productosBO.obtenerProductosFiltradosNombre(filtro);
+            } catch (ProductoException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (rbTipoProducto.isSelected()) {
+            try {
+                productos = this.productosBO.obtenerProductosFiltradosTipo(filtro);
+
+            } catch (ProductoException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        cargarProductos(productos);
+        this.opcionesBusqueda.clearSelection();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
