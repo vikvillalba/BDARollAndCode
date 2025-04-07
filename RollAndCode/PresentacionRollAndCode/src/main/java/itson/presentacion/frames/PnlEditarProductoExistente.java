@@ -122,6 +122,7 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
             }
         });
 
+        btnGuardarCambios.setBackground(new java.awt.Color(247, 242, 239));
         btnGuardarCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/guardarCambios.png"))); // NOI18N
         btnGuardarCambios.setBorder(null);
         btnGuardarCambios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -136,13 +137,13 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
         pnlFooterLayout.setHorizontalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFooterLayout.createSequentialGroup()
-                .addGap(181, 181, 181)
+                .addGap(159, 159, 159)
                 .addComponent(btnRegresar)
-                .addGap(41, 41, 41)
+                .addGap(36, 36, 36)
                 .addComponent(btnAgregarIngredientes)
-                .addGap(55, 55, 55)
+                .addGap(34, 34, 34)
                 .addComponent(btnGuardarCambios)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         pnlFooterLayout.setVerticalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

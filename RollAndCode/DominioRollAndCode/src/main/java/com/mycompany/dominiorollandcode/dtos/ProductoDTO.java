@@ -13,7 +13,7 @@ public class ProductoDTO {
     private String nombre;
     private BigDecimal precio;
     private ProductoTipos tipo;
-    private List<IngredienteDTO> ingredientes;
+    private List<IngredienteProductoDTO> ingredientes;
 
     public ProductoDTO(Long id, String nombre, BigDecimal precio, ProductoTipos tipo) {
         this.id = id;
@@ -38,13 +38,14 @@ public class ProductoDTO {
         return tipo;
     }
 
-    public List<IngredienteDTO> getIngredientes() {
+    public List<IngredienteProductoDTO> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(List<IngredienteDTO> ingredientes) {
+    public void setIngredientes(List<IngredienteProductoDTO> ingredientes) {
         this.ingredientes = ingredientes;
     }
+
     
     
 }

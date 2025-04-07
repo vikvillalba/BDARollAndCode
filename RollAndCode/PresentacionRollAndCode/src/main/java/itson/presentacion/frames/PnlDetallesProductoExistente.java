@@ -1,7 +1,10 @@
 
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
+import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProductoExistente;
+import java.util.List;
 
 /**
  *
@@ -20,8 +23,25 @@ public class PnlDetallesProductoExistente extends javax.swing.JPanel {
         this.producto = producto;
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Detalles del producto");
+        
+        this.lblNombreProducto.setText(producto.getNombre());
+        this.lblPrecioProducto.setText(producto.getPrecio().toString());
+        this.lblTipoProducto.setText(producto.getTipo().toString());
+        
+        cargarIngredientes();
     }
 
+    private void cargarIngredientes(){
+        this.pnlIngredientesProducto.removeAll();
+        List<IngredienteProductoDTO> ingredientes = this.producto.getIngredientes();
+        for (IngredienteProductoDTO ingrediente : ingredientes) {
+            PnlIngredienteProductoExistente pnlIngrediente = new PnlIngredienteProductoExistente(ingrediente);
+            this.pnlIngredientesProducto.add(pnlIngrediente);
+        }
+        
+        this.pnlIngredientesProducto.revalidate();
+        this.pnlIngredientesProducto.repaint();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

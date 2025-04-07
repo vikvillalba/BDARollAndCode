@@ -1,6 +1,7 @@
 package com.mycompany.persistenciarollandcode.implementaciones;
 
 import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
+import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
@@ -8,6 +9,7 @@ import com.mycompany.dominiorollandcode.dtos.ProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.entidades.Ingrediente;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.dominiorollandcode.entidades.ProductoIngrediente;
+import com.mycompany.dominiorollandcode.enums.UnidadMedida;
 import com.mycompany.persistenciarollandcode.IProductosDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
@@ -72,8 +74,8 @@ public class ProductosDAO implements IProductosDAO {
             if (!productos.isEmpty()) {
                 Producto producto = productos.get(0);
                 ProductoDTO productoDTO = new ProductoDTO(producto.getId(), producto.getNombre(), producto.getPrecio(), producto.getTipo());
-                List<IngredienteDTO> ingredientes = producto.getIngredientes().stream()
-                        .map(pi -> new IngredienteDTO(pi.getIngrediente().getId(), pi.getIngrediente().getNombre(), pi.getIngrediente().getUnidadMedida(), pi.getIngrediente().getCantidadStock()))
+                List<IngredienteProductoDTO> ingredientes = producto.getIngredientes().stream()
+                        .map(pi -> new IngredienteProductoDTO(pi.getIngrediente().getId(), pi.getIngrediente().getNombre(), pi.getIngrediente().getUnidadMedida(), pi.getIngrediente().getCantidadStock(), pi.getCantidad()))
                         .collect(Collectors.toList());
                 productoDTO.setIngredientes(ingredientes);
                 return productoDTO;
@@ -106,15 +108,16 @@ public class ProductosDAO implements IProductosDAO {
                             producto.getTipo()
                     );
 
-                    List<IngredienteDTO> ingredientes = new ArrayList<>();
+                    List<IngredienteProductoDTO> ingredientes = new ArrayList<>();
                     for (ProductoIngrediente pi : producto.getIngredientes()) {
-                        IngredienteDTO ingredienteDTO = new IngredienteDTO(
+                        IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO(
                                 pi.getIngrediente().getId(),
                                 pi.getIngrediente().getNombre(),
                                 pi.getIngrediente().getUnidadMedida(),
-                                pi.getIngrediente().getCantidadStock()
+                                pi.getIngrediente().getCantidadStock(),
+                                pi.getCantidad()
                         );
-                        ingredientes.add(ingredienteDTO);
+                        ingredientes.add(ingredienteProductoDTO);
                     }
                     productoDTO.setIngredientes(ingredientes);
                     productosDTO.add(productoDTO);
@@ -152,15 +155,16 @@ public class ProductosDAO implements IProductosDAO {
                             producto.getTipo()
                     );
 
-                    List<IngredienteDTO> ingredientes = new ArrayList<>();
+                    List<IngredienteProductoDTO> ingredientes = new ArrayList<>();
                     for (ProductoIngrediente pi : producto.getIngredientes()) {
-                        IngredienteDTO ingredienteDTO = new IngredienteDTO(
+                        IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO(
                                 pi.getIngrediente().getId(),
                                 pi.getIngrediente().getNombre(),
                                 pi.getIngrediente().getUnidadMedida(),
-                                pi.getIngrediente().getCantidadStock()
+                                pi.getIngrediente().getCantidadStock(),
+                                pi.getCantidad()
                         );
-                        ingredientes.add(ingredienteDTO);
+                        ingredientes.add(ingredienteProductoDTO);
                     }
                     productoDTO.setIngredientes(ingredientes);
                     productosDTO.add(productoDTO);
@@ -198,15 +202,16 @@ public class ProductosDAO implements IProductosDAO {
                             producto.getTipo()
                     );
 
-                    List<IngredienteDTO> ingredientes = new ArrayList<>();
+                    List<IngredienteProductoDTO> ingredientes = new ArrayList<>();
                     for (ProductoIngrediente pi : producto.getIngredientes()) {
-                        IngredienteDTO ingredienteDTO = new IngredienteDTO(
+                        IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO(
                                 pi.getIngrediente().getId(),
                                 pi.getIngrediente().getNombre(),
                                 pi.getIngrediente().getUnidadMedida(),
-                                pi.getIngrediente().getCantidadStock()
+                                pi.getIngrediente().getCantidadStock(),
+                                pi.getCantidad()
                         );
-                        ingredientes.add(ingredienteDTO);
+                        ingredientes.add(ingredienteProductoDTO);
                     }
                     productoDTO.setIngredientes(ingredientes);
                     productosDTO.add(productoDTO);

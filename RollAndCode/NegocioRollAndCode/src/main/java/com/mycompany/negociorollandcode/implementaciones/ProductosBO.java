@@ -1,6 +1,7 @@
 package com.mycompany.negociorollandcode.implementaciones;
 
 import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
+import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoIngredienteDTO;
@@ -104,10 +105,10 @@ public class ProductosBO implements IProductosBO {
             try {
                 boolean disponible = true;
                 List<ProductoIngredienteDTO> ingredientes = this.productosDAO.obtenerProductosIngrediente(producto.getId());
-                List<IngredienteDTO> ingredientesNecesarios = producto.getIngredientes();
+                List<IngredienteProductoDTO> ingredientesNecesarios = producto.getIngredientes();
 
                 for (ProductoIngredienteDTO ingrediente : ingredientes) {
-                    for (IngredienteDTO ingredienteNecesario : ingredientesNecesarios) {
+                    for (IngredienteProductoDTO ingredienteNecesario : ingredientesNecesarios) {
                         if (ingredienteNecesario.getId().equals(ingrediente.getIdIngrediente())) {
                             if (ingrediente.getCantidad() > ingredienteNecesario.getCantidadStock()) {
                                 disponible = false;
