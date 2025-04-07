@@ -62,8 +62,8 @@ public class ProductoComanda implements Serializable {
         return importeProducto;
     }
 
-    public void setImporteProducto(BigDecimal importeProducto) {
-        this.importeProducto = importeProducto;
+    public void setImporteProducto() {
+        this.calcularImporteProducto();
     }
 
     public Integer getCantidadProducto() {
@@ -94,6 +94,14 @@ public class ProductoComanda implements Serializable {
     @PreUpdate
     private void calcularImporteProducto(){
         this.importeProducto = this.precioProducto.multiply(BigDecimal.valueOf(cantidadProducto));
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public void setComanda(Comanda comanda) {
+        this.comanda = comanda;
     }
     
 }

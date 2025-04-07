@@ -13,12 +13,16 @@ public class NuevaComandaDTO {
     private String folio;
     private EstadoComanda estado;
     private Calendar fechaCreacion;
-    private List<ProductoDTO> productos;
+    private List<NuevoProductoComandaDTO> productos;
     private MesaDTO mesa;
     private ClienteDTO cliente;
 
     public NuevaComandaDTO() {
         this.estado = EstadoComanda.ABIERTA;
+    }
+
+    public EstadoComanda getEstado() {
+        return estado;
     }
 
     public String getFolio() {
@@ -37,11 +41,11 @@ public class NuevaComandaDTO {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public List<ProductoDTO> getProductos() {
+    public List<NuevoProductoComandaDTO> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<ProductoDTO> productos) {
+    public void setProductos(List<NuevoProductoComandaDTO> productos) {
         this.productos = productos;
     }
 
@@ -61,9 +65,10 @@ public class NuevaComandaDTO {
         this.cliente = cliente;
     }
 
-    public EstadoComanda getEstado() {
-        return estado;
+    public void setEstado(EstadoComanda estado) {
+        this.estado = estado;
     }
-    
+
+   
     
 }

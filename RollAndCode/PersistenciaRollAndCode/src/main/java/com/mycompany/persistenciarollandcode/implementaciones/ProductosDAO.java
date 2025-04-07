@@ -128,4 +128,96 @@ public class ProductosDAO implements IProductosDAO {
         return null;
     }
 
+    @Override
+    public List<ProductoDTO> obtenerProductosFiltradosNombre(String filtro) throws PersistenciaException {
+                EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        try {
+            String jpqlQuery = """
+                            SELECT DISTINCT p FROM Producto p LEFT JOIN FETCH p.ingredientes pi 
+                            WHERE UPPER (p.nombre) LIKE UPPER(:filtro)
+                           """;
+            TypedQuery<Producto> query = entityManager.createQuery(jpqlQuery, Producto.class);
+            query.setParameter("filtro", "%" + filtro + "%");  
+            List<Producto> productos = query.getResultList();
+
+            if (!productos.isEmpty()) {
+                List<ProductoDTO> productosDTO = new ArrayList<>();
+
+                for (Producto producto : productos) {
+                    ProductoDTO productoDTO = new ProductoDTO(
+                            producto.getId(),
+                            producto.getNombre(),
+                            producto.getPrecio(),
+                            producto.getTipo()
+                    );
+
+                    List<IngredienteDTO> ingredientes = new ArrayList<>();
+                    for (ProductoIngrediente pi : producto.getIngredientes()) {
+                        IngredienteDTO ingredienteDTO = new IngredienteDTO(
+                                pi.getIngrediente().getId(),
+                                pi.getIngrediente().getNombre(),
+                                pi.getIngrediente().getUnidadMedida(),
+                                pi.getIngrediente().getCantidadStock()
+                        );
+                        ingredientes.add(ingredienteDTO);
+                    }
+                    productoDTO.setIngredientes(ingredientes);
+                    productosDTO.add(productoDTO);
+                }
+
+                return productosDTO;
+            }
+
+        } catch (NoResultException e) {
+            throw new PersistenciaException("Error al recuperar los productos.");
+        }
+        return null;
+    }
+
+    @Override
+    public List<ProductoDTO> obtenerProductosFiltradosTipo(String filtro) throws PersistenciaException {
+                        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        try {
+            String jpqlQuery = """
+                            SELECT DISTINCT p FROM Producto p LEFT JOIN FETCH p.ingredientes pi 
+                            WHERE UPPER (p.tipo) LIKE :filtro
+                           """;
+            TypedQuery<Producto> query = entityManager.createQuery(jpqlQuery, Producto.class);
+            query.setParameter("filtro", "%" + filtro + "%");  
+            List<Producto> productos = query.getResultList();
+
+            if (!productos.isEmpty()) {
+                List<ProductoDTO> productosDTO = new ArrayList<>();
+
+                for (Producto producto : productos) {
+                    ProductoDTO productoDTO = new ProductoDTO(
+                            producto.getId(),
+                            producto.getNombre(),
+                            producto.getPrecio(),
+                            producto.getTipo()
+                    );
+
+                    List<IngredienteDTO> ingredientes = new ArrayList<>();
+                    for (ProductoIngrediente pi : producto.getIngredientes()) {
+                        IngredienteDTO ingredienteDTO = new IngredienteDTO(
+                                pi.getIngrediente().getId(),
+                                pi.getIngrediente().getNombre(),
+                                pi.getIngrediente().getUnidadMedida(),
+                                pi.getIngrediente().getCantidadStock()
+                        );
+                        ingredientes.add(ingredienteDTO);
+                    }
+                    productoDTO.setIngredientes(ingredientes);
+                    productosDTO.add(productoDTO);
+                }
+
+                return productosDTO;
+            }
+
+        } catch (NoResultException e) {
+            throw new PersistenciaException("Error al recuperar los productos.");
+        }
+        return null;
+    }
+
 }

@@ -186,53 +186,52 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNuevoProductoActionPerformed
-       // obtener cantidad por cada producto 
-
+        // Obtener cantidad por cada producto
         List<NuevoProductoIngredienteDTO> ingredientes = new ArrayList<>();
         for (PnlIngredienteProducto panelIngrediente : panelesIngredientes) {
 
             String cantidadtxt = panelIngrediente.getCantidadTxt();
 
             if (cantidadtxt == null || cantidadtxt.trim().isEmpty()) {
-                try {
-                    throw new PresentacionException("La cantidad no puede estar vacía.");
-                } catch (PresentacionException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Cantidad inválida", JOptionPane.ERROR_MESSAGE);
-                }
+                JOptionPane.showMessageDialog(null, "La cantidad no puede estar vacía.", "Cantidad inválida", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            Integer cantidad = Integer.valueOf(cantidadtxt);
+
+            Integer cantidad = null;
+            try {
+                cantidad = Integer.valueOf(cantidadtxt);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "La cantidad debe ser un número válido.", "Cantidad inválida", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             IngredienteDTO ingrediente = panelIngrediente.getIngrediente();
             NuevoProductoIngredienteDTO ingredienteRelacion = new NuevoProductoIngredienteDTO();
             ingredienteRelacion.setIdIngrediente(ingrediente.getId());
             ingredienteRelacion.setCantidad(cantidad);
             ingredientes.add(ingredienteRelacion);
+        }
 
-        }
         String preciotxt = this.txtPrecioProducto.getText();
-        if(preciotxt == null || preciotxt.trim().isEmpty()) {
-            System.out.println("El precio no puede estar vacío.");
-            try {
-                throw new PresentacionException("El precio no puede estar vacío.");
-            } catch (PresentacionException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Precio inválido", JOptionPane.ERROR_MESSAGE);
-            }
+        if (preciotxt == null || preciotxt.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El precio no puede estar vacío.", "Precio inválido", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        BigDecimal precio = null;
         try {
-            BigDecimal precio = new BigDecimal(preciotxt);
-            System.out.println("Precio válido: " + precio);
+            precio = new BigDecimal(preciotxt);
         } catch (NumberFormatException ex) {
-           JOptionPane.showMessageDialog(null, ex.getMessage(), "Precio inválido", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El precio debe ser un número válido.", "Precio inválido", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-  
-        
-        BigDecimal precio = new BigDecimal(preciotxt);
+
         nuevoProductoDTO.setIngredientesRelacion(ingredientes);
         nuevoProductoDTO.setPrecio(precio);
-        
+
         try {
             this.productosBO.registrar(nuevoProductoDTO);
-            JOptionPane.showMessageDialog(null, "Producto registrado", "El producto se ha registrado con éxtito.", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Producto registrado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));

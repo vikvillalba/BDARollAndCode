@@ -36,7 +36,7 @@ public class Comanda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "folio", nullable = false, unique = true, length = 16)
+    @Column(name = "folio", nullable = false, unique = true, length = 30)
     private String folio;
     
     @Column(name = "estado", nullable = false)
@@ -58,7 +58,7 @@ public class Comanda implements Serializable {
     private Mesa mesa;
     
     @ManyToOne
-    @JoinColumn(name = "idClienteFrecuente", nullable = false)
+    @JoinColumn(name = "idClienteFrecuente", nullable = true)
     private ClienteFrecuente clienteFrecuente;
 
     public Comanda() {
@@ -113,6 +113,18 @@ public class Comanda implements Serializable {
             }
         }
         this.totalAcumulado = total;
+    }
+
+    public void setProductos(List<ProductoComanda> productos) {
+        this.productos = productos;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    public void setClienteFrecuente(ClienteFrecuente clienteFrecuente) {
+        this.clienteFrecuente = clienteFrecuente;
     }
     
 }

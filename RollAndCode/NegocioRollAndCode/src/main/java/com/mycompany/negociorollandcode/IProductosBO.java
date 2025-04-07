@@ -11,7 +11,8 @@ import java.util.List;
  */
 public interface IProductosBO {
     public abstract ProductoDTO registrar(NuevoProductoDTO nuevoProductoDTO) throws ProductoException;
-    public abstract List<ProductoDTO> obtenerProductosExistentes()throws ProductoException ;
-    public abstract List<ProductoDTO> buscarProductosFiltrados(String filtro);
+    public abstract List<ProductoDTO> obtenerProductosExistentes()throws ProductoException;
+    public abstract List<ProductoDTO> obtenerProductosFiltradosNombre(String filtro)throws ProductoException;
+    public abstract List<ProductoDTO> obtenerProductosFiltradosTipo(String filtro)throws ProductoException;
     
 }

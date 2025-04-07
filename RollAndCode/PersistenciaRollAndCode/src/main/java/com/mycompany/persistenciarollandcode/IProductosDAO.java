@@ -14,4 +14,8 @@ public interface IProductosDAO {
     public abstract Producto registrar(NuevoProductoDTO nuevoProductoDTO) throws PersistenciaException;
     public abstract ProductoDTO obtenerProducto(String nombre);
     public abstract List<ProductoDTO>obtenerProductosExistentes()throws PersistenciaException;
+    public abstract List<ProductoDTO>obtenerProductosFiltradosNombre(String filtro)throws PersistenciaException;
+    public abstract List<ProductoDTO>obtenerProductosFiltradosTipo(String filtro)throws PersistenciaException;
+    
+    
 }

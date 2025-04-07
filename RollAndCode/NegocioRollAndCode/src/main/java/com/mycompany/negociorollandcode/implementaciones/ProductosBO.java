@@ -3,14 +3,13 @@ package com.mycompany.negociorollandcode.implementaciones;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.dominiorollandcode.entidades.Producto;
+import com.mycompany.dominiorollandcode.enums.ProductoTipos;
 import com.mycompany.negociorollandcode.IProductosBO;
 import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.persistenciarollandcode.IProductosDAO;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Clase que implementa la interfaz para operaciones de negocio de productos.
@@ -48,9 +47,6 @@ public class ProductosBO implements IProductosBO{
     }
 
 
-    
-    
-
     @Override
     public List<ProductoDTO> obtenerProductosExistentes() throws ProductoException {
         try {
@@ -61,9 +57,42 @@ public class ProductosBO implements IProductosBO{
     }
 
     @Override
-    public List<ProductoDTO> buscarProductosFiltrados(String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<ProductoDTO> obtenerProductosFiltradosNombre(String filtro) throws ProductoException {
+        if(filtro.isBlank()){
+            throw new ProductoException("No se ingresó ningún valor para realizar la búsqueda.");
+        }
+        
+        List<ProductoDTO> productos;
+        
+        try {
+            productos = this.productosDAO.obtenerProductosFiltradosNombre(filtro.toUpperCase());
+            if(productos == null){
+                   throw new ProductoException("No existen productos con las especificaciones dadas.");
+               }
+               return productos;
+        } catch (PersistenciaException ex) {
+            throw new ProductoException(ex.getMessage());
+        }
     }
-    
+
+    @Override
+    public List<ProductoDTO> obtenerProductosFiltradosTipo(String filtro) throws ProductoException {
+        filtro = filtro.toUpperCase().trim();
+        for (ProductoTipos tipo : ProductoTipos.values()) {
+            if (tipo.name().equals(filtro)) {
+                try {
+                    List<ProductoDTO> productos = this.productosDAO.obtenerProductosFiltradosTipo(filtro);
+                    return productos;
+
+                } catch (PersistenciaException ex) {
+
+                    throw new ProductoException(ex.getMessage());
+                }
+            }
+        }
+        throw new ProductoException("Filtro de búsqueda inválido");
+    }
+
+   
     
 }

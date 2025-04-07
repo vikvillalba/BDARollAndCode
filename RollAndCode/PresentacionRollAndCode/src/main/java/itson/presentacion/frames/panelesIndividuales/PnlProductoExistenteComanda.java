@@ -31,6 +31,11 @@ public class PnlProductoExistenteComanda extends javax.swing.JPanel {
         this.lblTipoProducto.setText(productoDTO.getTipo().toString());
     }
 
+    public ProductoDTO getProductoDTO() {
+        return productoDTO;
+    }
+
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,15 +131,21 @@ public class PnlProductoExistenteComanda extends javax.swing.JPanel {
         List<ProductoDTO> productos = this.buscadorProductos.getProductosSeleccionados();
         
             productos.add(this.productoDTO);
-
+            this.btnAgregarProducto.setEnabled(false);
             this.revalidate();
             this.repaint();
-
+            
             this.buscadorProductos.setProductosSeleccionados(productos);
-            this.buscadorProductos.cargarIngredientesSeleccionados();
+            this.buscadorProductos.cargarProductosSeleccionados();
+            this.seleccionado = true;
 
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
+    public void activarSeleccion(){
+        this.btnAgregarProducto.setEnabled(true);
+        this.revalidate();
+        this.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;

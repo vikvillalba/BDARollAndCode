@@ -8,11 +8,8 @@ import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoExistenteComanda;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoSeleccionado;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +24,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     private IProductosBO productosBO;
     private List<ProductoDTO> productosSeleccionados;
     private List<PnlProductoExistenteComanda> pnlProductosExistentes;
+    private List<PnlProductoSeleccionado> pnlProductosCantidad;
     private ButtonGroup opcionesBusqueda;
     private NuevaComandaDTO comanda;
      
@@ -39,6 +37,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         
         this.pnlProductosExistentes = new ArrayList<>();
         this.productosSeleccionados = new ArrayList<>();
+        this.pnlProductosCantidad = new ArrayList<>();
         this.productosBO = FabricaObjetosNegocio.crearProductosBO();
         
         opcionesBusqueda = new ButtonGroup();
@@ -46,14 +45,14 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         opcionesBusqueda.add(rbTipoProducto);
         
         try {
-            cargarIngredientes(productosBO.obtenerProductosExistentes());
+            cargarProductos(productosBO.obtenerProductosExistentes());
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al cargar los productos", JOptionPane.ERROR_MESSAGE);
         }
         
     }
 
-    private void cargarIngredientes(List<ProductoDTO> productos) {
+    public void cargarProductos(List<ProductoDTO> productos) {
  
         this.pnlProductos.removeAll();
         this.pnlProductosExistentes.clear();
@@ -63,7 +62,6 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
             this.pnlProductos.add(pnlProducto);
             this.pnlProductosExistentes.add(pnlProducto);
         }
-
         this.pnlProductos.revalidate();
         this.pnlProductos.repaint();
 
@@ -84,17 +82,30 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         return pnlProductosExistentes;
     }
     
-    public void cargarIngredientesSeleccionados() {
-        this.pnlProductosSeleccionados.removeAll();
-        for (ProductoDTO producto : productosSeleccionados) {
-            PnlProductoSeleccionado pnlIngrediente = new PnlProductoSeleccionado(producto, this);
-            this.pnlProductosSeleccionados.add(pnlIngrediente);
+   public void cargarProductosSeleccionados() {
+    List<PnlProductoSeleccionado> anteriores = new ArrayList<>(pnlProductosCantidad);
 
+    pnlProductosSeleccionados.removeAll();
+    pnlProductosCantidad.clear();
+
+    for (ProductoDTO producto : productosSeleccionados) {
+        PnlProductoSeleccionado nuevoPanel = new PnlProductoSeleccionado(producto, this);
+
+        for (PnlProductoSeleccionado panelAnterior : anteriores) {
+            if (panelAnterior.getProductoDTO().getId().equals(producto.getId())) {
+                nuevoPanel.setCantidad(panelAnterior.obtenerCantidad());
+                break;
+            }
         }
 
-        this.pnlProductosSeleccionados.revalidate();
-        this.pnlProductosSeleccionados.repaint();
+        pnlProductosSeleccionados.add(nuevoPanel);
+        pnlProductosCantidad.add(nuevoPanel);
     }
+
+    pnlProductosSeleccionados.revalidate();
+    pnlProductosSeleccionados.repaint();
+}
+
 
     public JPanel getPnlProductos() {
         return pnlProductos;
@@ -103,11 +114,18 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     public JPanel getPnlProductosSeleccionados() {
         return pnlProductosSeleccionados;
     }
+
+    public void setPnlProductosCantidad(List<PnlProductoSeleccionado> pnlProductosCantidad) {
+        this.pnlProductosCantidad = pnlProductosCantidad;
+    }
+
+    public List<PnlProductoSeleccionado> getPnlProductosCantidad() {
+        return pnlProductosCantidad;
+    }
+    
     
     
 
-
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -227,14 +245,14 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
         btnBuscar.setBorder(null);
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         txtBuscadorProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         txtBuscadorProducto.setBorder(null);
-        txtBuscadorProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscadorProductoActionPerformed(evt);
-            }
-        });
 
         lblTitulo1.setFont(new java.awt.Font("STHeiti", 1, 48)); // NOI18N
         lblTitulo1.setForeground(new java.awt.Color(65, 70, 105));
@@ -270,7 +288,6 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
                             .addComponent(jSeparator1)
                             .addComponent(txtBuscadorProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
                         .addGap(18, 18, 18)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBorrarSeleccion)
@@ -305,17 +322,50 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        pantallaInicio.pintarPanelPrincipal(new PnlConfirmarComanda(pantallaInicio));
+        pantallaInicio.pintarPanelPrincipal(new PnlConfirmarComanda(pantallaInicio, this.pnlProductosCantidad, this, this.comanda));
     }//GEN-LAST:event_btnContinuarActionPerformed
 
-    private void txtBuscadorProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscadorProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscadorProductoActionPerformed
-
     private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed
-        //        List<IngredienteDTO> ingredientes = this.ingredientesBO.obtenerIngredientesExistentes();
-        //        cargarIngredientes(ingredientes);
+        List<ProductoDTO> productos;
+        try {
+            productos = this.productosBO.obtenerProductosExistentes();
+            cargarProductos(productos);
+        } catch (ProductoException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
     }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+         String filtro = txtBuscadorProducto.getText().trim();
+        this.txtBuscadorProducto.setText(""); 
+
+        List<ProductoDTO> productos = new ArrayList<>();
+
+        if (filtro.isEmpty()) {
+             try {
+                 productos = this.productosBO.obtenerProductosExistentes();
+             } catch (ProductoException ex) {
+                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+             }
+        } else if (rbNombreProducto.isSelected()) {
+            try {
+                productos = this.productosBO.obtenerProductosFiltradosNombre(filtro);
+            } catch (ProductoException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (rbTipoProducto.isSelected()) {
+            try {
+                productos = this.productosBO.obtenerProductosFiltradosTipo(filtro);
+
+            } catch (ProductoException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        cargarProductos(productos);
+        this.opcionesBusqueda.clearSelection();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

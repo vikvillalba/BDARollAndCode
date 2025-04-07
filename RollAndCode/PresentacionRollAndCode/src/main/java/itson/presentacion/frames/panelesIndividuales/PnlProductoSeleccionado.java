@@ -26,7 +26,21 @@ public class PnlProductoSeleccionado extends javax.swing.JPanel {
         return productoDTO;
     }
 
+    public Integer obtenerCantidad() {
+        try {
+            Integer cantidad = Integer.parseInt(txtCantidad.getText());
+            return cantidad;
+
+        } catch (NumberFormatException e) {
+            Integer cantidad = 1;
+            return cantidad;
+        }
+
+    }
     
+    public void setCantidad(Integer cantidad){
+        this.txtCantidad.setText(cantidad.toString());
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -115,17 +129,26 @@ public class PnlProductoSeleccionado extends javax.swing.JPanel {
                 txtCantidad.setText(String.valueOf(cantidad));
             } else {
                 List<ProductoDTO> productos = this.buscadorProductos.getProductosSeleccionados();
+                List<PnlProductoExistenteComanda> pnlProductosExistentes = this.buscadorProductos.getPnlProductosExistentes();
+
                 productos.remove(this.productoDTO);
                 this.buscadorProductos.setProductosSeleccionados(productos);
 
-                System.out.println("Eliminando producto: " + productoDTO.getNombre());
-
+                for (PnlProductoExistenteComanda panelExistente : pnlProductosExistentes) {
+                    if (panelExistente.getProductoDTO().equals(this.productoDTO)) {
+                        panelExistente.activarSeleccion();
+                        panelExistente.setVisible(true);
+                        panelExistente.revalidate();
+                        panelExistente.repaint();
+                        break;
+                    }
+                }
                 this.buscadorProductos.getPnlProductosSeleccionados().remove(this);
                 this.buscadorProductos.getPnlProductosSeleccionados().revalidate();
                 this.buscadorProductos.getPnlProductosSeleccionados().repaint();
             }
         } catch (NumberFormatException e) {
-            txtCantidad.setText("1"); 
+            txtCantidad.setText("1");
         }
     }//GEN-LAST:event_btnRestarCantidadActionPerformed
 
