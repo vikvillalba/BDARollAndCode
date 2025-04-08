@@ -155,6 +155,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnVerComandas.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnVerComandas.setText("Ver comandas ");
         btnVerComandas.setPreferredSize(new java.awt.Dimension(190, 45));
+        btnVerComandas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerComandasActionPerformed(evt);
+            }
+        });
         btnComandas.add(btnVerComandas);
 
         JMenuPrincipal.add(btnComandas);
@@ -315,6 +320,10 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         this.pintarPanelPrincipal(new PnlBuscarClientes(this));
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void btnVerComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerComandasActionPerformed
+        this.pintarPanelPrincipal(new PnlComandasActivas(this));
+    }//GEN-LAST:event_btnVerComandasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

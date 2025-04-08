@@ -1,8 +1,6 @@
 package itson.presentacion.frames.panelesIndividuales;
 
-import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
-import com.mycompany.negociorollandcode.IIngredientesBO;
-import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
+import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 
 /**
  * Representa gráficamente una comanda abierta en el sistema
@@ -10,15 +8,19 @@ import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
  */
 public class PnlComandaAbierta extends javax.swing.JPanel {
 
+    private ComandaDTO comanda;
     
     
-    public PnlComandaAbierta(IngredienteDTO ingrediente) {
+    public PnlComandaAbierta(ComandaDTO comanda) {
         initComponents();
+        this.comanda = comanda;
+        setDatosComanda();
         
     }
 
-    public void setDatosIngrediente(){
-       
+    public void setDatosComanda(){
+       this.lblFolioComanda.setText(comanda.getFolio());
+       this.lblNumeroMesa.setText(comanda.getNumeroMesa().toString());
     }
     
 
