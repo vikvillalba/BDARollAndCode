@@ -23,12 +23,14 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     private IClientesBO clientesBO;
     private NuevaComandaDTO comanda;
     private List<ClienteDTO> clientes;
+    private boolean creandoComanda;
 
     /**
      * Creates new form PnlBuscarClientes
      */
-    public PnlBuscarClientes(FrmPantallaInicio frame) {
+    public PnlBuscarClientes(FrmPantallaInicio frame, boolean creandoComanda) {
         initComponents();
+        this.creandoComanda = creandoComanda;
         this.frame = frame;
         clientesBO = frame.getClientesBO();
         frame.pintarPanelPrincipal(this);
@@ -81,6 +83,7 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         lbClientes.setForeground(new java.awt.Color(51, 0, 102));
         lbClientes.setText("Clientes");
 
+        campoBusqueda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         campoBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoBusquedaActionPerformed(evt);

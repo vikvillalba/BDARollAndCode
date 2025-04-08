@@ -54,6 +54,7 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
         btnSeleccionar = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         campoApellidoMaterno = new javax.swing.JTextPane();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(249, 205, 204));
 
@@ -107,6 +108,7 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
                     .addComponent(jScrollPane5)
                     .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +127,8 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
                     .addComponent(btnSeleccionar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -148,5 +151,6 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

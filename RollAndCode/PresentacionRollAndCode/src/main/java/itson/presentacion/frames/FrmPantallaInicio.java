@@ -313,7 +313,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        this.pintarPanelPrincipal(new PnlBuscarClientes(this));
+        this.pintarPanelPrincipal(new PnlBuscarClientes(this, false));
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
 
