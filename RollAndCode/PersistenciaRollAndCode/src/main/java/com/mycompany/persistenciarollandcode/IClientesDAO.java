@@ -18,4 +18,5 @@ public interface IClientesDAO {
     public abstract List<ClienteDTO> buscarClientesNombre(String nombre);
     public abstract List<ClienteDTO> buscarClientesCorreo(String correo);
     public abstract List<ClienteDTO> buscarClientesTelefono(String telefono);
+    public abstract List<ClienteDTO> consultarClientes(String nombre, String correo, String telefono);
 }

@@ -7,6 +7,9 @@ package itson.presentacion.frames;
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.negociorollandcode.IClientesBO;
+import itson.presentacion.frames.panelesIndividuales.PnlConsultarCliente;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -30,16 +33,17 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         clientesBO = frame.getClientesBO();
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Buscar Clientes");
-
-        this.clientes = clientesBO.buscarClientes();
+        pnlClientes.setLayout(new GridLayout(0,1));
+        pnlClientes.setPreferredSize(new Dimension(800,400));
+    
 
         try {
+            
             this.clientes = clientesBO.buscarClientes();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
         }
 
-       
     }
 
     /**
@@ -58,9 +62,6 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         buttonGroup4 = new javax.swing.ButtonGroup();
         buttonGroup5 = new javax.swing.ButtonGroup();
         btnAgregarCliente = new javax.swing.JButton();
-        rbNombre = new javax.swing.JRadioButton();
-        rbCorreo = new javax.swing.JRadioButton();
-        rbTelefono = new javax.swing.JRadioButton();
         lbClientes = new javax.swing.JLabel();
         campoBusqueda = new javax.swing.JTextField();
         pnlClientes = new javax.swing.JPanel();
@@ -75,21 +76,6 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
                 btnAgregarClienteActionPerformed(evt);
             }
         });
-
-        buttonGroup1.add(rbNombre);
-        rbNombre.setText("Nombre");
-        rbNombre.setSelected(true);
-
-        buttonGroup1.add(rbCorreo);
-        rbCorreo.setText("Correo");
-        rbCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbCorreoActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(rbTelefono);
-        rbTelefono.setText("Telefono");
 
         lbClientes.setFont(new java.awt.Font("Franklin Gothic Demi", 2, 48)); // NOI18N
         lbClientes.setForeground(new java.awt.Color(51, 0, 102));
@@ -156,30 +142,15 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
                                 .addComponent(btnCancelar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(502, 502, 502)
-                        .addComponent(lbClientes))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(479, 479, 479)
-                        .addComponent(rbNombre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rbTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbCorreo)))
+                        .addComponent(lbClientes)))
                 .addContainerGap(317, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rbCorreo, rbNombre});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbClientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbCorreo)
-                    .addComponent(rbNombre))
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(campoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,12 +164,27 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void campoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoBusquedaActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        pnlClientes.removeAll();
+        List<ClienteDTO> clientes = clientesBO.consultarClientes(campoBusqueda.getText());
+        
+        for(ClienteDTO c : clientes){
+            PnlConsultarCliente panel = new PnlConsultarCliente(c);
+            panel.setPreferredSize(new Dimension(750, 150));
+            pnlClientes.add(panel);
+        }
+        pnlClientes.revalidate();
+        pnlClientes.repaint();
+        pnlClientes.setVisible(true);
+        frame.getScrollPane().getViewport().revalidate();
+        frame.getScrollPane().getViewport().repaint();
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -230,8 +216,5 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbClientes;
     private javax.swing.JPanel pnlClientes;
-    private javax.swing.JRadioButton rbCorreo;
-    private javax.swing.JRadioButton rbNombre;
-    private javax.swing.JRadioButton rbTelefono;
     // End of variables declaration//GEN-END:variables
 }

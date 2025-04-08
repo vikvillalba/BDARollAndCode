@@ -15,29 +15,21 @@ import java.math.BigDecimal;
  */
 public class PnlConsultarCliente extends javax.swing.JPanel {
 
-    IClientesBO clientesBO;
     ClienteDTO clienteDTO;
-    PnlBuscarClientes panel;
 
     /**
      * Creates new form PnlConsultarCliente
      */
-    public PnlConsultarCliente(ClienteDTO cliente, IClientesBO clientesBO, PnlBuscarClientes panel) {
+    public PnlConsultarCliente(ClienteDTO cliente) {
         initComponents();
-        this.clientesBO = clientesBO;
         this.clienteDTO = cliente;
-        this.panel = panel;
         campoNombre.setText(clienteDTO.getNombres());
-        campoNombre.setEnabled(false);
-        campoApellido.setText(clienteDTO.getApellidoPaterno());
-        campoApellido.setEnabled(false);
+        campoApellidoPaterno.setText(clienteDTO.getApellidoPaterno());
         campoCorreo.setText(clienteDTO.getCorreoElectronico());
-        campoCorreo.setEnabled(false);
         campoTelefono.setText(clienteDTO.getTelefono());
-        campoTelefono.setEnabled(false);
         campoPuntosFidelidad.setText(String.valueOf(clienteDTO.getGastoTotal().divide(BigDecimal.valueOf(20L))));
-        campoPuntosFidelidad.setEnabled(false);
-        
+        campoApellidoMaterno.setText(cliente.getApellidoMaterno());
+
     }
 
     /**
@@ -56,27 +48,34 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         campoTelefono = new javax.swing.JTextPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        campoApellido = new javax.swing.JTextPane();
+        campoApellidoPaterno = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         campoPuntosFidelidad = new javax.swing.JTextPane();
         btnSeleccionar = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        campoApellidoMaterno = new javax.swing.JTextPane();
 
         setBackground(new java.awt.Color(249, 205, 204));
 
+        campoNombre.setEditable(false);
+        campoNombre.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jScrollPane1.setViewportView(campoNombre);
-        campoNombre.setEnabled(false);
 
+        campoCorreo.setEditable(false);
+        campoCorreo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jScrollPane2.setViewportView(campoCorreo);
-        campoCorreo.setEnabled(false);
 
+        campoTelefono.setEditable(false);
+        campoTelefono.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jScrollPane3.setViewportView(campoTelefono);
-        campoTelefono.setEnabled(false);
 
-        jScrollPane4.setViewportView(campoApellido);
-        campoApellido.setEnabled(false);
+        campoApellidoPaterno.setEditable(false);
+        campoApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jScrollPane4.setViewportView(campoApellidoPaterno);
 
+        campoPuntosFidelidad.setEditable(false);
+        campoPuntosFidelidad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jScrollPane5.setViewportView(campoPuntosFidelidad);
-        campoPuntosFidelidad.setEnabled(false);
 
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,20 +84,25 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
             }
         });
 
+        campoApellidoMaterno.setEditable(false);
+        campoApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jScrollPane6.setViewportView(campoApellidoMaterno);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 17, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane5)
                     .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -108,17 +112,20 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2)
-                        .addComponent(jScrollPane1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSeleccionar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -129,7 +136,8 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JTextPane campoApellido;
+    private javax.swing.JTextPane campoApellidoMaterno;
+    private javax.swing.JTextPane campoApellidoPaterno;
     private javax.swing.JTextPane campoCorreo;
     private javax.swing.JTextPane campoNombre;
     private javax.swing.JTextPane campoPuntosFidelidad;
@@ -139,5 +147,6 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     // End of variables declaration//GEN-END:variables
 }

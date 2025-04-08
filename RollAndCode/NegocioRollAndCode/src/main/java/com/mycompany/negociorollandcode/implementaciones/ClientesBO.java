@@ -9,6 +9,8 @@ import com.mycompany.negociorollandcode.implementaciones.com.mycompany.negocioro
 import com.mycompany.persistenciarollandcode.IClientesDAO;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -91,6 +93,24 @@ public class ClientesBO implements IClientesBO {
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
+            return null;
+        }
+    }
+    
+    @Override
+    public List<ClienteDTO> consultarClientes(String parametro){
+        try{
+            String nombre = parametro;
+            String correo = parametro;
+            String numTelefonoEncriptado = Utileria.encriptar(parametro);
+            List<ClienteDTO> clientes = clientesDAO.consultarClientes(nombre, correo, numTelefonoEncriptado);
+            for (ClienteDTO c : clientes) {
+                c.setNumeroTelefono(Utileria.desencriptar(c.getTelefono())); 
+            }
+            return clientes;
+        } catch (Exception ex) {
+            Logger.getLogger(ClientesBO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al mostrar los clientes");
             return null;
         }
     }
