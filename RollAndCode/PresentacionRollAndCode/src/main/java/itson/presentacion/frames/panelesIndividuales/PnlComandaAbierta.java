@@ -1,6 +1,9 @@
 package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
+import itson.presentacion.frames.FrmPantallaInicio;
+import itson.presentacion.frames.PnlDetallesComanda;
+import itson.presentacion.frames.PnlPantallaPrincipal;
 
 /**
  * Representa gráficamente una comanda abierta en el sistema
@@ -9,11 +12,13 @@ import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 public class PnlComandaAbierta extends javax.swing.JPanel {
 
     private ComandaDTO comanda;
+    private FrmPantallaInicio pantallaInicio;
     
     
-    public PnlComandaAbierta(ComandaDTO comanda) {
+    public PnlComandaAbierta(ComandaDTO comanda, FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.comanda = comanda;
+        this.pantallaInicio = pantallaInicio;
         setDatosComanda();
         
     }
@@ -134,7 +139,7 @@ public class PnlComandaAbierta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetallesComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesComandaActionPerformed
-
+        pantallaInicio.pintarPanelPrincipal(new PnlDetallesComanda(pantallaInicio, comanda));
 
     }//GEN-LAST:event_btnDetallesComandaActionPerformed
 

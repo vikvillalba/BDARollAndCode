@@ -44,15 +44,15 @@ public class PnlComandasActivas extends javax.swing.JPanel {
         this.pnlComandas.removeAll();
         try {
             List<ComandaDTO> comandas = this.comandasBO.obtenerComandasAbiertas();
-            
+
             for (ComandaDTO comanda : comandas) {
-                PnlComandaAbierta pnlComanda = new PnlComandaAbierta(comanda);
+                PnlComandaAbierta pnlComanda = new PnlComandaAbierta(comanda, pantallaInicio);
                 pnlComandas.add(Box.createVerticalStrut(10));
-            pnlComanda.setPreferredSize(new Dimension(779, 250));
-            pnlComanda.setMaximumSize(new Dimension(779, 250));
+                pnlComanda.setPreferredSize(new Dimension(779, 250));
+                pnlComanda.setMaximumSize(new Dimension(779, 250));
                 pnlComandas.add(pnlComanda);
             }
-            
+
             
             this.pnlComandas.revalidate();
             this.pnlComandas.repaint();

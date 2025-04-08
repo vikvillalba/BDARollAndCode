@@ -5,7 +5,7 @@ import com.mycompany.dominiorollandcode.enums.ProductoTipos;
 import java.math.BigDecimal;
 
 /**
- *
+ * Clase de transporte que representa una relación entre un producto en una comanda registrada.
  * @author victoria
  */
 public class ProductoComandaDTO {
@@ -16,6 +16,7 @@ public class ProductoComandaDTO {
     private ProductoTipos tipo;
     private Integer cantidad;
     private String comentario;
+    private BigDecimal subtotal;
 
     public ProductoComandaDTO() {
     }
@@ -75,6 +76,15 @@ public class ProductoComandaDTO {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
+
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
+    
     
     
 }

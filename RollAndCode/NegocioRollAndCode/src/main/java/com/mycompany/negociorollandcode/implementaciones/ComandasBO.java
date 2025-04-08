@@ -1,11 +1,12 @@
 package com.mycompany.negociorollandcode.implementaciones;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
+import com.mycompany.dominiorollandcode.entidades.ClienteFrecuente;
 import com.mycompany.dominiorollandcode.entidades.Comanda;
 import com.mycompany.dominiorollandcode.entidades.ProductoComanda;
-import com.mycompany.dominiorollandcode.entidades.ProductoIngrediente;
 import com.mycompany.dominiorollandcode.enums.EstadoComanda;
 import com.mycompany.negociorollandcode.IComandasBO;
 import com.mycompany.negociorollandcode.excepciones.ComandaException;
@@ -17,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Clase que implementa la interfaz IComandasBO
@@ -91,15 +90,30 @@ public class ComandasBO implements IComandasBO {
                     productoComandaDTO.setPrecio(producto.getProducto().getPrecio());
                     productoComandaDTO.setTipo(producto.getProducto().getTipo());
                     productoComandaDTO.setComentario(producto.getComentario());
-                    
+                    productoComandaDTO.setSubtotal(producto.getImporteProducto());
+ 
                     productos.add(productoComandaDTO);
                 }
-                
+
+                ClienteFrecuente clienteFrecuente = comanda.getClienteFrecuente();
+                if (clienteFrecuente != null) {
+                    ClienteDTO cliente = new ClienteDTO(clienteFrecuente.getId(),
+                            clienteFrecuente.getNombres(),
+                            clienteFrecuente.getApellidoPaterno(),
+                            clienteFrecuente.getApellidoMaterno(),
+                            clienteFrecuente.getTelefono(),
+                            clienteFrecuente.getCorreoElectronico(),
+                            clienteFrecuente.getFechaRegistro(),
+                            clienteFrecuente.getGastoTotal());
+                    comandaDTO.setCliente(cliente);
+                }
+
+                comandaDTO.setCliente(null);
                 comandaDTO.setProductos(productos);
                 comandaDTO.setNumeroMesa(comanda.getMesa().getNumero());
                 comandasDTO.add(comandaDTO);
             }
-            
+
             return comandasDTO;
         } catch (PersistenciaException ex) {
             throw new ComandaException(ex.getMessage());
