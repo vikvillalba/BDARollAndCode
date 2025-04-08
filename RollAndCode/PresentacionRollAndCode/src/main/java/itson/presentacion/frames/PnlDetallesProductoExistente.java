@@ -36,6 +36,7 @@ public class PnlDetallesProductoExistente extends javax.swing.JPanel {
         List<IngredienteProductoDTO> ingredientes = this.producto.getIngredientes();
         for (IngredienteProductoDTO ingrediente : ingredientes) {
             PnlIngredienteProductoExistente pnlIngrediente = new PnlIngredienteProductoExistente(ingrediente);
+            pnlIngrediente.eliminarBotonEliminar();
             this.pnlIngredientesProducto.add(pnlIngrediente);
         }
         

@@ -14,6 +14,7 @@ public interface IProductosBO {
     public abstract List<ProductoDTO> obtenerProductosExistentes()throws ProductoException;
     public abstract List<ProductoDTO> obtenerProductosFiltradosNombre(String filtro)throws ProductoException;
     public abstract List<ProductoDTO> obtenerProductosFiltradosTipo(String filtro)throws ProductoException;
-     public List<ProductoDTO> obtenerProductosDisponibles(List<ProductoDTO> productos)throws ProductoException;
+    public abstract List<ProductoDTO> obtenerProductosDisponibles(List<ProductoDTO> productos)throws ProductoException;
+    public abstract ProductoDTO actualizar(ProductoDTO producto)throws ProductoException;
     
 }

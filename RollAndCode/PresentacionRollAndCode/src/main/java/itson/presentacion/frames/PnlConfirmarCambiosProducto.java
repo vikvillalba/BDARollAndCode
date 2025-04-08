@@ -1,81 +1,61 @@
 
 package itson.presentacion.frames;
 
-import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
-import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
-import com.mycompany.dominiorollandcode.dtos.NuevoProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
-import com.mycompany.dominiorollandcode.enums.UnidadMedida;
 import com.mycompany.negociorollandcode.IProductosBO;
 import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProductoExistente;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
  * @author victoria
  */
-public class PnlEditarProductoExistente extends javax.swing.JPanel {
+public class PnlConfirmarCambiosProducto extends javax.swing.JPanel {
 
 
     private FrmPantallaInicio pantallaInicio;
-    private ProductoDTO producto;
-    private List<IngredienteProductoDTO> ingredientes;
+    private PnlBuscadorIngredientes buscadorIngredientes;
+    private List<IngredienteProductoDTO> ingredientesProducto;
+    private ProductoDTO productoDTO;
     private IProductosBO productosBO;
+    private List<PnlIngredienteProductoExistente> panelesIngredientes;
     
-    public PnlEditarProductoExistente(FrmPantallaInicio pantallaInicio, ProductoDTO producto) {
+    public PnlConfirmarCambiosProducto(FrmPantallaInicio pantallaInicio, ProductoDTO productoDTO, PnlBuscadorIngredientes buscadorIngredientes) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
-        this.producto = producto;
-        pantallaInicio.pintarPanelPrincipal(this);
-        pantallaInicio.setTitle("Detalles del producto");
-        
-        this.lblNombreProducto.setText(producto.getNombre());
-        this.lblTipoProducto.setText(producto.getTipo().toString());
-        this.txtPrecioProducto.setText(producto.getPrecio().toString());
         this.productosBO = FabricaObjetosNegocio.crearProductosBO();
+        this.productoDTO = productoDTO;
+        this.buscadorIngredientes = buscadorIngredientes;
+        this.panelesIngredientes = new ArrayList<>();
         
-        this.ingredientes = new ArrayList<>(this.producto.getIngredientes());
-        cargarIngredientes(this.ingredientes);
+        pantallaInicio.pintarPanelPrincipal(this);
+        pantallaInicio.setTitle("Confirmar cambios en producto existente");
         
+        
+        this.lblNombreProducto.setText(productoDTO.getNombre());
+        this.lblTipoProducto.setText(productoDTO.getTipo().toString());
+        this.txtPrecioProducto.setText(productoDTO.getPrecio().toString());
+        
+        cargarIngredientes();
     }
 
-    public void cargarIngredientes(List<IngredienteProductoDTO> ingredientes) {
-        this.pnlIngredientesProducto.removeAll();
-        for (IngredienteProductoDTO ingrediente : ingredientes) {
-            PnlIngredienteProductoExistente pnlIngrediente = new PnlIngredienteProductoExistente(ingrediente);
-            pnlIngrediente.setPnlEditarProducto(this);
-            pnlIngrediente.activarEdicionCantidad();
-            this.pnlIngredientesProducto.add(pnlIngrediente);
+
+    private void cargarIngredientes(){
+        ingredientesProducto = this.productoDTO.getIngredientes();
+        for (IngredienteProductoDTO ingredienteDTO : ingredientesProducto) {
+            PnlIngredienteProductoExistente ingrediente = new PnlIngredienteProductoExistente(ingredienteDTO);
+            ingrediente.eliminarBotonEliminar();
+            ingrediente.activarEdicionCantidad();
+            this.pnlIngredientesProducto.add(ingrediente);
+            this.panelesIngredientes.add(ingrediente);
         }
-
-        this.pnlIngredientesProducto.revalidate();
-        this.pnlIngredientesProducto.repaint();
     }
-
-    public List<IngredienteProductoDTO> getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(List<IngredienteProductoDTO> ingredientes) {
-        this.ingredientes = ingredientes;
-    }
-
-    public JPanel getPnlIngredientesProducto() {
-        return pnlIngredientesProducto;
-    }
-
-    
- 
-
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -88,12 +68,11 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         pnlFooter = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnAgregarIngredientes = new javax.swing.JButton();
-        btnGuardarCambios = new javax.swing.JButton();
+        btnGuardarNuevoProducto = new javax.swing.JButton();
         pnlIngredientesProducto = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(new java.awt.Dimension(1272, 698));
+        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlHeader.setBackground(new java.awt.Color(247, 242, 239));
@@ -139,9 +118,9 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(lblNombreProducto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblTipoProducto)
@@ -166,23 +145,13 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
             }
         });
 
-        btnAgregarIngredientes.setBackground(new java.awt.Color(247, 242, 239));
-        btnAgregarIngredientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/agregarIngredientes.png"))); // NOI18N
-        btnAgregarIngredientes.setBorder(null);
-        btnAgregarIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnAgregarIngredientes.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarNuevoProducto.setBackground(new java.awt.Color(247, 242, 239));
+        btnGuardarNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/guardarNuevoProducto.png"))); // NOI18N
+        btnGuardarNuevoProducto.setBorder(null);
+        btnGuardarNuevoProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGuardarNuevoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarIngredientesActionPerformed(evt);
-            }
-        });
-
-        btnGuardarCambios.setBackground(new java.awt.Color(247, 242, 239));
-        btnGuardarCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/guardarCambios.png"))); // NOI18N
-        btnGuardarCambios.setBorder(null);
-        btnGuardarCambios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnGuardarCambios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarCambiosActionPerformed(evt);
+                btnGuardarNuevoProductoActionPerformed(evt);
             }
         });
 
@@ -191,21 +160,18 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
         pnlFooterLayout.setHorizontalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFooterLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
+                .addGap(264, 264, 264)
                 .addComponent(btnRegresar)
-                .addGap(36, 36, 36)
-                .addComponent(btnAgregarIngredientes)
-                .addGap(34, 34, 34)
-                .addComponent(btnGuardarCambios)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addGap(136, 136, 136)
+                .addComponent(btnGuardarNuevoProducto)
+                .addContainerGap(274, Short.MAX_VALUE))
         );
         pnlFooterLayout.setVerticalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFooterLayout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGuardarCambios)
-                    .addComponent(btnAgregarIngredientes)
+                    .addComponent(btnGuardarNuevoProducto)
                     .addComponent(btnRegresar))
                 .addGap(21, 21, 21))
         );
@@ -213,48 +179,69 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
         add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlIngredientesProducto.setBackground(new java.awt.Color(247, 242, 239));
-        pnlIngredientesProducto.setPreferredSize(null);
+        pnlIngredientesProducto.setRequestFocusEnabled(false);
         add(pnlIngredientesProducto, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // vuelve a la pantalla de inicio
-        pantallaInicio.pintarPanelPrincipal(new PnlDetallesProductoExistente(pantallaInicio, producto));
+        pantallaInicio.pintarPanelPrincipal(buscadorIngredientes);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
+    private void btnGuardarNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNuevoProductoActionPerformed
+
+        List<IngredienteProductoDTO> ingredientes = new ArrayList<>();
+        for (PnlIngredienteProductoExistente panelIngrediente : panelesIngredientes) {
+
+            String cantidadtxt = panelIngrediente.getCantidadTxt();
+
+            if (cantidadtxt == null || cantidadtxt.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La cantidad no puede estar vacía.", "Cantidad inválida", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Integer cantidad = null;
+            try {
+                cantidad = Integer.valueOf(cantidadtxt);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "La cantidad debe ser un número válido.", "Cantidad inválida", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            IngredienteProductoDTO ingrediente = panelIngrediente.getIngrediente();
+            ingrediente.setCantidadProducto(cantidad);
+            ingredientes.add(ingrediente);
+        }
+
+        String preciotxt = this.txtPrecioProducto.getText();
+        if (preciotxt == null || preciotxt.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El precio no puede estar vacío.", "Precio inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        BigDecimal precio = null;
         try {
-            producto.setIngredientes(ingredientes);
-            productosBO.actualizar(producto);
-            JOptionPane.showMessageDialog(null, "Los cambios se guardaron correctamente", "Operación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            precio = new BigDecimal(preciotxt);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El precio debe ser un número válido.", "Precio inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        productoDTO.setPrecio(precio);
+        productoDTO.setIngredientes(ingredientes);
+
+        try {
+            this.productosBO.actualizar(productoDTO);
+            JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             pantallaInicio.pintarPanelPrincipal(new PnlProductosExistentes(pantallaInicio));
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));
         }
-    }//GEN-LAST:event_btnGuardarCambiosActionPerformed
-
-    private void btnAgregarIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarIngredientesActionPerformed
-        // pasar productodto a nuevoproductodto para agregar ingredientes 
-        List<IngredienteDTO> ingredientesDTO = new ArrayList<>();
-
-        for (IngredienteProductoDTO ingrediente : ingredientes) {
-
-            IngredienteDTO ingredienteBuscador = new IngredienteDTO(ingrediente.getId(), ingrediente.getNombre(), ingrediente.getUnidadMedida(), ingrediente.getCantidadStock());
-            ingredientesDTO.add(ingredienteBuscador);
-
-        }
-
-        PnlBuscadorIngredientes buscador = new PnlBuscadorIngredientes(pantallaInicio);
-        buscador.setIngredientesSeleccionados(ingredientesDTO);
-        buscador.cargarIngredientesSeleccionados();
-        buscador.setProductoExistente(producto);
-        pantallaInicio.pintarPanelPrincipal(buscador);
-    }//GEN-LAST:event_btnAgregarIngredientesActionPerformed
+    }//GEN-LAST:event_btnGuardarNuevoProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarIngredientes;
-    private javax.swing.JButton btnGuardarCambios;
+    private javax.swing.JButton btnGuardarNuevoProducto;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblNombreProducto;

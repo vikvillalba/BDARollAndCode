@@ -14,6 +14,8 @@ import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase que implementa la interfaz para operaciones de negocio de productos.
@@ -30,6 +32,9 @@ public class ProductosBO implements IProductosBO {
 
     @Override
     public ProductoDTO registrar(NuevoProductoDTO nuevoProductoDTO) throws ProductoException {
+        if(nuevoProductoDTO.getIngredientes().isEmpty()){
+            throw new ProductoException("El producto debe de tener al menos un ingrediente.");
+        }
 
         if (nuevoProductoDTO.getPrecio().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ProductoException("El precio no puede ser una cantidad negativa.");
@@ -132,6 +137,18 @@ public class ProductosBO implements IProductosBO {
 
         }
         return productosDisponibles;
+    }
+
+    @Override
+    public ProductoDTO actualizar(ProductoDTO producto) throws ProductoException{
+        if(producto.getIngredientes().isEmpty()){
+            throw new ProductoException("El producto debe de tener al menos un ingrediente.");
+        }
+        try {
+            return this.productosDAO.actualizar(producto);
+        } catch (PersistenciaException ex) {
+            throw new ProductoException(ex.getMessage());
+        }
     }
 
 

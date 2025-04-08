@@ -158,7 +158,9 @@ public class PnlNuevoProducto extends javax.swing.JPanel {
          NuevoProductoDTO nuevoProducto = new NuevoProductoDTO();
          nuevoProducto.setNombre(txtNombreProducto.getText());
          nuevoProducto.setTipo((ProductoTipos) cbxCategoriaProducto.getSelectedItem());
-         pantallaInicio.pintarPanelPrincipal(new PnlBuscadorIngredientes(pantallaInicio, nuevoProducto));
+         PnlBuscadorIngredientes buscador = new PnlBuscadorIngredientes(pantallaInicio);
+         buscador.setNuevoProductoDTO(nuevoProducto);
+         pantallaInicio.pintarPanelPrincipal(buscador);
        
     }//GEN-LAST:event_btnContinuarActionPerformed
 
