@@ -18,6 +18,7 @@ public interface IProductosDAO {
     public abstract List<ProductoDTO>obtenerProductosFiltradosNombre(String filtro)throws PersistenciaException;
     public abstract List<ProductoDTO>obtenerProductosFiltradosTipo(String filtro)throws PersistenciaException;
     public abstract List<ProductoIngredienteDTO> obtenerProductosIngrediente(Long idProducto)throws PersistenciaException;
+    public abstract ProductoDTO actualizar(ProductoDTO productoDTO)throws PersistenciaException;
     
     
 }

@@ -1,7 +1,9 @@
 package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
+import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
+import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.negociorollandcode.IIngredientesBO;
 import com.mycompany.negociorollandcode.excepciones.IngredienteException;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteExistente;
@@ -10,6 +12,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -30,14 +33,16 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
     private List<IngredienteDTO> ingredientesSeleccionados;
     private List<PnlIngredienteExistente> pnlIngredientesExistentes;
     private ButtonGroup opcionesBusqueda;
+    
+    // para cuando se usa el buscador para agregar ingredientes a un producto ya existente.
+    private ProductoDTO productoExistente;
 
-    public PnlBuscadorIngredientes(FrmPantallaInicio pantallaInicio,  NuevoProductoDTO nuevoProductoDTO) {
+    public PnlBuscadorIngredientes(FrmPantallaInicio pantallaInicio) {
         initComponents();
         pnlIngredientes.setLayout(new BoxLayout(pnlIngredientes, BoxLayout.Y_AXIS));
         this.pnlIngredientes.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         this.pantallaInicio = pantallaInicio;
         this.ingredientesBO = pantallaInicio.getIngredientesBO();
-        this.nuevoProductoDTO = nuevoProductoDTO;
         pantallaInicio.setTitle("Buscar Ingredientes");
         
         this.ingredientesSeleccionados = new ArrayList<>();
@@ -49,6 +54,7 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         
         
         cargarIngredientes(ingredientesBO.obtenerIngredientesExistentes());
+        cargarIngredientesSeleccionados();
                 
 
     }
@@ -119,6 +125,15 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
         return pnlIngredientesSeleccionados;
     }
 
+    public void setNuevoProductoDTO(NuevoProductoDTO nuevoProductoDTO) {
+        this.nuevoProductoDTO = nuevoProductoDTO;
+    }
+
+    public void setProductoExistente(ProductoDTO productoExistente) {
+        this.productoExistente = productoExistente;
+    }
+
+    
 
 
     @SuppressWarnings("unchecked")
@@ -354,9 +369,40 @@ public class PnlBuscadorIngredientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        // ingredientesseleccionados
-        this.nuevoProductoDTO.setIngredientes(ingredientesSeleccionados);
-        pantallaInicio.pintarPanelPrincipal(new PnlConfirmarNuevoProducto(pantallaInicio, nuevoProductoDTO, this));
+        
+        if (this.productoExistente == null) {
+            this.nuevoProductoDTO.setIngredientes(ingredientesSeleccionados);
+            pantallaInicio.pintarPanelPrincipal(new PnlConfirmarNuevoProducto(pantallaInicio, nuevoProductoDTO, this));
+        } else {
+            List<IngredienteProductoDTO> ingredientesCantidad = productoExistente.getIngredientes();
+
+            for (IngredienteDTO ingredientesSeleccionado : ingredientesSeleccionados) {
+                boolean existe = false;
+
+                for (IngredienteProductoDTO ingredienteProductoDTO : ingredientesCantidad) {
+                    if (Objects.equals(ingredienteProductoDTO.getId(), ingredientesSeleccionado.getId())) {
+                        existe = true;
+                        break;
+                    }
+                }
+
+                if (!existe) {
+
+                    IngredienteProductoDTO ingredienteProductoDTO = new IngredienteProductoDTO(
+                            ingredientesSeleccionado.getId(),
+                            ingredientesSeleccionado.getNombre(),
+                            ingredientesSeleccionado.getUnidadMedida(),
+                            ingredientesSeleccionado.getCantidadStock(),
+                            0);
+                    ingredientesCantidad.add(ingredienteProductoDTO);
+                }
+
+            }
+            this.productoExistente.setIngredientes(ingredientesCantidad);
+            pantallaInicio.pintarPanelPrincipal(new PnlConfirmarCambiosProducto(pantallaInicio, productoExistente, this));
+
+        }
+
     }//GEN-LAST:event_btnContinuarActionPerformed
 
 

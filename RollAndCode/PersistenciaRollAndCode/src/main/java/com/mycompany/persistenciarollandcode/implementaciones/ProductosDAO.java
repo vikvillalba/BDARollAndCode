@@ -9,16 +9,21 @@ import com.mycompany.dominiorollandcode.dtos.ProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.entidades.Ingrediente;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.dominiorollandcode.entidades.ProductoIngrediente;
-import com.mycompany.dominiorollandcode.enums.UnidadMedida;
+import com.mycompany.dominiorollandcode.enums.ProductoTipos;
 import com.mycompany.persistenciarollandcode.IProductosDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Root;
 
 /**
  * Clase que implementa la interfaz para persistir productos.
@@ -255,4 +260,70 @@ public class ProductosDAO implements IProductosDAO {
         return ingredientesProducto;
     }
 
+    @Override
+    public ProductoDTO actualizar(ProductoDTO productoDTO) throws PersistenciaException {
+    EntityManager entityManager = ManejadorConexiones.getEntityManager();
+    entityManager.getTransaction().begin();
+
+    try {
+        Producto producto = entityManager.find(Producto.class, productoDTO.getId());
+
+        if (producto == null) {
+            throw new PersistenciaException("No se encontró el producto especificado.");
+        }
+
+        List<ProductoIngrediente> ingredientes = producto.getIngredientes();
+        List<IngredienteProductoDTO> nuevosIngredientes = productoDTO.getIngredientes();
+
+        for (int i = 0; i < ingredientes.size(); i++) {
+            boolean encontrado = false;
+            for (IngredienteProductoDTO nuevoIngrediente : nuevosIngredientes) {
+                if (ingredientes.get(i).getIngrediente().getId().equals(nuevoIngrediente.getId())) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                ingredientes.remove(i);
+                i--; 
+            }
+        }
+
+        for (IngredienteProductoDTO ingredienteDTO : nuevosIngredientes) {
+            boolean encontrado = false;
+
+            for (ProductoIngrediente ingredienteRegistrado : ingredientes) {
+                if (ingredienteRegistrado.getIngrediente().getId().equals(ingredienteDTO.getId())) {
+                    ingredienteRegistrado.setCantidad(ingredienteDTO.getCantidadProducto());
+                    encontrado = true;
+                    break;
+                }
+            }
+
+            if (!encontrado) {
+                Ingrediente ingredienteExistente = entityManager.find(Ingrediente.class, ingredienteDTO.getId());
+                ProductoIngrediente nuevoIngrediente = new ProductoIngrediente();
+                nuevoIngrediente.setProducto(producto);
+                nuevoIngrediente.setIngrediente(ingredienteExistente);
+                nuevoIngrediente.setCantidad(ingredienteDTO.getCantidadProducto());
+                ingredientes.add(nuevoIngrediente);
+            }
+        }
+
+        producto.setPrecio(productoDTO.getPrecio());
+        producto.setNombre(productoDTO.getNombre());
+        producto.setTipo(productoDTO.getTipo());
+
+        entityManager.merge(producto);
+        entityManager.getTransaction().commit();
+
+        return productoDTO;
+    } catch (Exception e) {
+        entityManager.getTransaction().rollback();
+        throw new PersistenciaException("Error al actualizar el producto: " + e.getMessage(), e);
+    }
+
+    }
+
 }
+

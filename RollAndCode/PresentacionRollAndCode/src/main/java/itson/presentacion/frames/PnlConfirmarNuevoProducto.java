@@ -134,6 +134,7 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
 
         pnlFooter.setBackground(new java.awt.Color(247, 242, 239));
 
+        btnRegresar.setBackground(new java.awt.Color(247, 242, 239));
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
         btnRegresar.setBorder(null);
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -143,6 +144,7 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
             }
         });
 
+        btnGuardarNuevoProducto.setBackground(new java.awt.Color(247, 242, 239));
         btnGuardarNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/guardarNuevoProducto.png"))); // NOI18N
         btnGuardarNuevoProducto.setBorder(null);
         btnGuardarNuevoProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

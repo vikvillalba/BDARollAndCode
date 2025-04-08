@@ -46,6 +46,10 @@ public class ProductoDTO {
         this.ingredientes = ingredientes;
     }
 
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
     
     
 }
