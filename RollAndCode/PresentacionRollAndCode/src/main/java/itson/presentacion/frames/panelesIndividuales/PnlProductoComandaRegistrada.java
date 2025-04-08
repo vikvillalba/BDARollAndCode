@@ -13,12 +13,14 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
     public PnlProductoComandaRegistrada(ProductoComandaDTO producto) {
         initComponents();
         this.producto = producto;
+        setDatos();
     }
 
     public void setDatos(){
         lblNombreProducto.setText(producto.getNombreProducto());
         lblCantidad.setText(producto.getCantidad().toString());
         lblSubtotal.setText(producto.getSubtotal().toString());
+        lblComentario.setText(producto.getComentario());
     }
     
 

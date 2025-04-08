@@ -52,8 +52,10 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
         for (ProductoComandaDTO producto : productos) {
             PnlProductoComandaRegistrada pnlProducto = new PnlProductoComandaRegistrada(producto);
             pnlProductosComanda.add(Box.createVerticalStrut(10));
-            pnlProductosComanda.setPreferredSize(new Dimension(1200, 121));
-            pnlProductosComanda.setMaximumSize(new Dimension(1200, 121));
+            pnlProducto.setPreferredSize(new Dimension(1200, 121));
+            pnlProducto.setMaximumSize(new Dimension(1200, 121));
+            pnlProducto.setMinimumSize(new Dimension(1200, 121));
+            pnlProductosComanda.add(pnlProducto);
 
         }
       
