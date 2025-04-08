@@ -1,8 +1,9 @@
 package itson.presentacion.frames.panelesIndividuales;
 
-import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
-import com.mycompany.negociorollandcode.IIngredientesBO;
-import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
+import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
+import itson.presentacion.frames.FrmPantallaInicio;
+import itson.presentacion.frames.PnlDetallesComanda;
+import itson.presentacion.frames.PnlPantallaPrincipal;
 
 /**
  * Representa gráficamente una comanda abierta en el sistema
@@ -10,15 +11,21 @@ import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
  */
 public class PnlComandaAbierta extends javax.swing.JPanel {
 
+    private ComandaDTO comanda;
+    private FrmPantallaInicio pantallaInicio;
     
     
-    public PnlComandaAbierta(IngredienteDTO ingrediente) {
+    public PnlComandaAbierta(ComandaDTO comanda, FrmPantallaInicio pantallaInicio) {
         initComponents();
+        this.comanda = comanda;
+        this.pantallaInicio = pantallaInicio;
+        setDatosComanda();
         
     }
 
-    public void setDatosIngrediente(){
-       
+    public void setDatosComanda(){
+       this.lblFolioComanda.setText(comanda.getFolio());
+       this.lblNumeroMesa.setText(comanda.getNumeroMesa().toString());
     }
     
 
@@ -132,7 +139,7 @@ public class PnlComandaAbierta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetallesComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesComandaActionPerformed
-
+        pantallaInicio.pintarPanelPrincipal(new PnlDetallesComanda(pantallaInicio, comanda));
 
     }//GEN-LAST:event_btnDetallesComandaActionPerformed
 

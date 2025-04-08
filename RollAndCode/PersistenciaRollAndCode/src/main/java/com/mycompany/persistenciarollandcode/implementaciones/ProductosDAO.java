@@ -1,6 +1,5 @@
 package com.mycompany.persistenciarollandcode.implementaciones;
 
-import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoIngredienteDTO;
@@ -9,21 +8,15 @@ import com.mycompany.dominiorollandcode.dtos.ProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.entidades.Ingrediente;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.dominiorollandcode.entidades.ProductoIngrediente;
-import com.mycompany.dominiorollandcode.enums.ProductoTipos;
 import com.mycompany.persistenciarollandcode.IProductosDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Root;
 
 /**
  * Clase que implementa la interfaz para persistir productos.

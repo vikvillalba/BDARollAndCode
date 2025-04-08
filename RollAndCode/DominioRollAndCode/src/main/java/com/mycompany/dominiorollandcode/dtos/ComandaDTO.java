@@ -17,6 +17,8 @@ public class ComandaDTO {
     private EstadoComanda estado;
     private BigDecimal totalAcumulado;
     private List<ProductoComandaDTO> productos;
+    private Integer numeroMesa;
+    private ClienteDTO cliente;
 
     public ComandaDTO() {
     }
@@ -67,6 +69,22 @@ public class ComandaDTO {
 
     public void setProductos(List<ProductoComandaDTO> productos) {
         this.productos = productos;
+    }
+
+    public Integer getNumeroMesa() {
+        return numeroMesa;
+    }
+
+    public void setNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
     }
     
     

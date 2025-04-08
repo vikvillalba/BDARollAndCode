@@ -1,8 +1,12 @@
 package com.mycompany.negociorollandcode.implementaciones;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
+import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
+import com.mycompany.dominiorollandcode.entidades.ClienteFrecuente;
 import com.mycompany.dominiorollandcode.entidades.Comanda;
+import com.mycompany.dominiorollandcode.entidades.ProductoComanda;
 import com.mycompany.dominiorollandcode.enums.EstadoComanda;
 import com.mycompany.negociorollandcode.IComandasBO;
 import com.mycompany.negociorollandcode.excepciones.ComandaException;
@@ -10,7 +14,9 @@ import com.mycompany.persistenciarollandcode.IComandasDAO;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -54,6 +60,61 @@ public class ComandasBO implements IComandasBO {
 
             return comandaRegistrada;
 
+        } catch (PersistenciaException ex) {
+            throw new ComandaException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public List<ComandaDTO> obtenerComandasAbiertas() throws ComandaException {
+        try {
+            List<Comanda> comandas = this.ComandasDAO.obtenerComandasAbiertas();
+            List<ComandaDTO> comandasDTO = new ArrayList<>();
+            
+            for (Comanda comanda : comandas) {
+                ComandaDTO comandaDTO = new ComandaDTO();
+                comandaDTO.setId(comanda.getId());
+                comandaDTO.setFolio(comanda.getFolio());
+                comandaDTO.setFechaHora(comanda.getFechaCreacion());
+                comandaDTO.setEstado(comanda.getEstado());
+                comandaDTO.setTotalAcumulado(comanda.getTotalAcumulado());
+                
+                List<ProductoComandaDTO> productos = new ArrayList<>();
+                for (ProductoComanda producto : comanda.getProductos()) {
+                    ProductoComandaDTO productoComandaDTO = new ProductoComandaDTO();
+                    
+                    productoComandaDTO.setIdProducto(producto.getProducto().getId());
+                    productoComandaDTO.setIdComanda(comanda.getId());
+                    productoComandaDTO.setNombreProducto(producto.getProducto().getNombre());
+                    productoComandaDTO.setCantidad(producto.getCantidadProducto());
+                    productoComandaDTO.setPrecio(producto.getProducto().getPrecio());
+                    productoComandaDTO.setTipo(producto.getProducto().getTipo());
+                    productoComandaDTO.setComentario(producto.getComentario());
+                    productoComandaDTO.setSubtotal(producto.getImporteProducto());
+ 
+                    productos.add(productoComandaDTO);
+                }
+
+                ClienteFrecuente clienteFrecuente = comanda.getClienteFrecuente();
+                if (clienteFrecuente != null) {
+                    ClienteDTO cliente = new ClienteDTO(clienteFrecuente.getId(),
+                            clienteFrecuente.getNombres(),
+                            clienteFrecuente.getApellidoPaterno(),
+                            clienteFrecuente.getApellidoMaterno(),
+                            clienteFrecuente.getTelefono(),
+                            clienteFrecuente.getCorreoElectronico(),
+                            clienteFrecuente.getFechaRegistro(),
+                            clienteFrecuente.getGastoTotal());
+                    comandaDTO.setCliente(cliente);
+                }
+
+                comandaDTO.setCliente(null);
+                comandaDTO.setProductos(productos);
+                comandaDTO.setNumeroMesa(comanda.getMesa().getNumero());
+                comandasDTO.add(comandaDTO);
+            }
+
+            return comandasDTO;
         } catch (PersistenciaException ex) {
             throw new ComandaException(ex.getMessage());
         }

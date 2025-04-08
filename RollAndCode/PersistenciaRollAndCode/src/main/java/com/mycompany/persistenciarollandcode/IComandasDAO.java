@@ -1,9 +1,11 @@
 
 package com.mycompany.persistenciarollandcode;
 
+import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.dominiorollandcode.entidades.Comanda;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  * Interfaz para operaciones de persistencia de comandas.
@@ -11,4 +13,5 @@ import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
  */
 public interface IComandasDAO {
     public abstract Comanda registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws PersistenciaException;
+    public abstract List<Comanda> obtenerComandasAbiertas()throws PersistenciaException;
 }

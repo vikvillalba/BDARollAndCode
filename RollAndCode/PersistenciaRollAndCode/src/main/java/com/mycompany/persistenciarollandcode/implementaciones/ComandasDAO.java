@@ -8,12 +8,15 @@ import com.mycompany.dominiorollandcode.entidades.Comanda;
 import com.mycompany.dominiorollandcode.entidades.Mesa;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.dominiorollandcode.entidades.ProductoComanda;
+import com.mycompany.dominiorollandcode.enums.EstadoComanda;
 import com.mycompany.persistenciarollandcode.IComandasDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 /**
  * Implementación de los métodos de IComandasDAO
@@ -62,6 +65,23 @@ public class ComandasDAO implements IComandasDAO{
         entityManager.persist(comanda);
         entityManager.getTransaction().commit();
         return comanda;
+    }
+
+    @Override
+    public List<Comanda> obtenerComandasAbiertas() throws PersistenciaException {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        try {
+            String jpqlQuery = """
+                               SELECT c FROM Comanda c LEFT JOIN FETCH c.productos cp WHERE c.estado = :estado
+                               """;
+            TypedQuery<Comanda> query = entityManager.createQuery(jpqlQuery, Comanda.class);
+            query.setParameter("estado", EstadoComanda.ABIERTA);
+            return query.getResultList();
+
+        } catch (NoResultException e) {
+            throw new PersistenciaException("Error al recuperar las comandas.");
+        }
+
     }
     
 }

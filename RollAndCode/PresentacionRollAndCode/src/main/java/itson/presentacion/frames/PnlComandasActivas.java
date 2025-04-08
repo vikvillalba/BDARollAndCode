@@ -1,16 +1,16 @@
 
 package itson.presentacion.frames;
 
-import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
-import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
-import com.mycompany.dominiorollandcode.dtos.NuevoProductoIngredienteDTO;
-import com.mycompany.negociorollandcode.IProductosBO;
-import com.mycompany.negociorollandcode.excepciones.ProductoException;
+import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
+import com.mycompany.negociorollandcode.IComandasBO;
+import com.mycompany.negociorollandcode.excepciones.ComandaException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
-import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProducto;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import itson.presentacion.frames.panelesIndividuales.PnlComandaAbierta;
+import java.awt.Dimension;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,21 +21,45 @@ public class PnlComandasActivas extends javax.swing.JPanel {
 
 
     private FrmPantallaInicio pantallaInicio;
+    private IComandasBO comandasBO;
   
     
-    public PnlComandasActivas(FrmPantallaInicio pantallaInicio, NuevoProductoDTO nuevoProductoDTO, PnlBuscadorIngredientes buscadorIngredientes) {
+    public PnlComandasActivas(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
+        this.comandasBO = FabricaObjetosNegocio.crearComandasBO();
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Comandas activas");
         
         
-        cargarIngredientes();
+        pnlComandas.setLayout(new BoxLayout(pnlComandas, BoxLayout.Y_AXIS));
+        this.pnlComandas.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        
+        
+        cargarComandas();
     }
 
 
-    private void cargarIngredientes(){
-        
+    private void cargarComandas(){
+        this.pnlComandas.removeAll();
+        try {
+            List<ComandaDTO> comandas = this.comandasBO.obtenerComandasAbiertas();
+
+            for (ComandaDTO comanda : comandas) {
+                PnlComandaAbierta pnlComanda = new PnlComandaAbierta(comanda, pantallaInicio);
+                pnlComandas.add(Box.createVerticalStrut(10));
+                pnlComanda.setPreferredSize(new Dimension(779, 250));
+                pnlComanda.setMaximumSize(new Dimension(779, 250));
+                pnlComandas.add(pnlComanda);
+            }
+
+            
+            this.pnlComandas.revalidate();
+            this.pnlComandas.repaint();
+            
+        } catch (ComandaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -48,7 +72,6 @@ public class PnlComandasActivas extends javax.swing.JPanel {
         pnlComandas = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlHeader.setBackground(new java.awt.Color(247, 242, 239));
@@ -109,8 +132,8 @@ public class PnlComandasActivas extends javax.swing.JPanel {
         add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlComandas.setBackground(new java.awt.Color(247, 242, 239));
-        pnlComandas.setPreferredSize(null);
         pnlComandas.setRequestFocusEnabled(false);
+        pnlComandas.setLayout(new javax.swing.BoxLayout(pnlComandas, javax.swing.BoxLayout.Y_AXIS));
         add(pnlComandas, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 

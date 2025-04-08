@@ -103,5 +103,14 @@ public class ProductoComanda implements Serializable {
     public void setComanda(Comanda comanda) {
         this.comanda = comanda;
     }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public Comanda getComanda() {
+        return comanda;
+    }
+    
     
 }

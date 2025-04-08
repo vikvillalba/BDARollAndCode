@@ -126,5 +126,18 @@ public class Comanda implements Serializable {
     public void setClienteFrecuente(ClienteFrecuente clienteFrecuente) {
         this.clienteFrecuente = clienteFrecuente;
     }
+
+    public List<ProductoComanda> getProductos() {
+        return productos;
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public ClienteFrecuente getClienteFrecuente() {
+        return clienteFrecuente;
+    }
+    
     
 }
