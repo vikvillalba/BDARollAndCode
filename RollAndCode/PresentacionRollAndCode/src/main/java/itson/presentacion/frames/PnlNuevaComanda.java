@@ -6,6 +6,7 @@ import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.negociorollandcode.IMesasBO;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +17,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
     private FrmPantallaInicio pantallaInicio;
     private NuevaComandaDTO comanda;
     private IMesasBO mesasBO;
-    
+
     public PnlNuevaComanda(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
@@ -26,22 +27,32 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         pantallaInicio.setTitle("Nueva Comanda");
         cargarMesas();
     }
-    public void PnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente){
-        recuperarContexto(panel, cliente);
-    }
+
+//    public PnlNuevaComanda(FrmPantallaInicio pantallaInicio, NuevaComandaDTO comanda){
+//        initComponents();
+//        this.pantallaInicio = pantallaInicio;
+//        this.comanda = comanda;
+//        this.mesasBO
+//    }
     
-    private void recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente){
+    public void PnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente) {
+        initComponents();
+        recuperarContexto(panel, cliente);
+        
+    }
+
+    private void recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente) {
         PnlNuevaComanda pnlNuevaComanda = new PnlNuevaComanda(panel.pantallaInicio);
         pnlNuevaComanda.comanda.setCliente(cliente);
     }
 
-     private void cargarMesas(){
-         List<MesaDTO> mesas = mesasBO.obtenerMesas();
-         
-         for (MesaDTO mesa : mesas) {
-             this.cbxNumeroMesa.addItem(mesa.getNumero().toString());
-         }
-     }
+    private void cargarMesas() {
+        List<MesaDTO> mesas = mesasBO.obtenerMesas();
+
+        for (MesaDTO mesa : mesas) {
+            this.cbxNumeroMesa.addItem(mesa.getNumero().toString());
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -154,7 +165,11 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
 
     private void btnAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarClienteActionPerformed
         // TODO add your handling code here:
-        PnlBuscarClientes panel = new PnlBuscarClientes(pantallaInicio, true);
+        if ((null == comanda.getMesa())) {
+            PnlBuscarClientes panel = new PnlBuscarClientes(pantallaInicio, true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una mesa primero");
+        }
     }//GEN-LAST:event_btnAsignarClienteActionPerformed
 
 

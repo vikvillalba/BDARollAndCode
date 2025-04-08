@@ -77,9 +77,9 @@ public class ProductoComandaDTO {
         this.comentario = comentario;
     }
 
-    public BigDecimal getSubtotal() {
-        return subtotal;
-    }
+   public BigDecimal getSubtotal(){
+       return subtotal;
+   }
 
     public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;

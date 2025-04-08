@@ -24,10 +24,32 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     private NuevaComandaDTO comanda;
     private List<ClienteDTO> clientes;
     private boolean creandoComanda;
+    private PnlNuevaComanda panel;
 
     /**
      * Creates new form PnlBuscarClientes
      */
+    public PnlBuscarClientes(FrmPantallaInicio frame, boolean creandoComanda, NuevaComandaDTO comanda, PnlNuevaComanda panel) {
+        initComponents();
+        this.comanda = comanda;
+        this.creandoComanda = creandoComanda;
+        this.frame = frame;
+        clientesBO = frame.getClientesBO();
+        frame.pintarPanelPrincipal(this);
+        frame.setTitle("Buscar Clientes");
+        pnlClientes.setLayout(new GridLayout(0, 1));
+        pnlClientes.setPreferredSize(new Dimension(800, 400));
+        this.panel = panel;
+
+        try {
+
+            this.clientes = clientesBO.buscarClientes();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
+        }
+
+    }
+
     public PnlBuscarClientes(FrmPantallaInicio frame, boolean creandoComanda) {
         initComponents();
         this.creandoComanda = creandoComanda;
@@ -35,17 +57,8 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         clientesBO = frame.getClientesBO();
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Buscar Clientes");
-        pnlClientes.setLayout(new GridLayout(0,1));
-        pnlClientes.setPreferredSize(new Dimension(800,400));
-    
-
-        try {
-            
-            this.clientes = clientesBO.buscarClientes();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
-        }
-
+        pnlClientes.setLayout(new GridLayout(0, 1));
+        pnlClientes.setPreferredSize(new Dimension(800, 400));
     }
 
     /**
@@ -167,8 +180,7 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void campoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoBusquedaActionPerformed
@@ -176,9 +188,9 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         pnlClientes.removeAll();
         List<ClienteDTO> clientes = clientesBO.consultarClientes(campoBusqueda.getText());
-        
-        for(ClienteDTO c : clientes){
-            PnlConsultarCliente panel = new PnlConsultarCliente(c);
+
+        for (ClienteDTO c : clientes) {
+            PnlConsultarCliente panel = new PnlConsultarCliente(c, comanda, this.panel, creandoComanda);
             panel.setPreferredSize(new Dimension(750, 150));
             pnlClientes.add(panel);
         }
