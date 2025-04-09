@@ -28,6 +28,7 @@ public class PnlEditarComanda extends javax.swing.JPanel {
     private List<ProductoComandaDTO> productos;
     private PnlDetallesComanda detalles;
     private IComandasBO comandasBO;
+    BigDecimal totalAcumulado;
     
 
     
@@ -57,6 +58,7 @@ public class PnlEditarComanda extends javax.swing.JPanel {
 
     public void cargarProductos(List<ProductoComandaDTO> productos){
       this.pnlProductosComanda.removeAll();
+      totalAcumulado = BigDecimal.ZERO;
   
         for (ProductoComandaDTO producto : productos) {
             PnlProductoComandaRegistrada pnlProducto = new PnlProductoComandaRegistrada(producto);
@@ -66,10 +68,12 @@ public class PnlEditarComanda extends javax.swing.JPanel {
             pnlProducto.setMinimumSize(new Dimension(1200, 121));
             pnlProducto.setDetalles(this);
             pnlProducto.activarEdicionCantidad();
+            pnlProducto.activarComentarios();
             pnlProductosComanda.add(pnlProducto);
+            totalAcumulado = totalAcumulado.add(producto.getSubtotal());
 
         }
-      this.lblTotalComanda.setText(comanda.getTotalAcumulado().toString());
+      this.lblTotalComanda.setText(totalAcumulado.toString());
       this.pnlProductosComanda.revalidate();
       this.pnlProductosComanda.repaint();
     }
@@ -281,7 +285,10 @@ public class PnlEditarComanda extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
-
+        comanda.setProductos(productos);
+        comanda.setTotalAcumulado(totalAcumulado);
+        
+        // llamar al metodo de la bo
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     private void btnAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductosActionPerformed

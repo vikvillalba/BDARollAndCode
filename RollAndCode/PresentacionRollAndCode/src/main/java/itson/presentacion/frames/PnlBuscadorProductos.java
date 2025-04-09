@@ -9,6 +9,7 @@ import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoExistenteComanda;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoSeleccionado;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -353,6 +354,11 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
                     productoComanda.setPrecio(productoDTO.getPrecio());
                     productoComanda.setTipo(productoDTO.getTipo());
                     productoComanda.setCantidad(1);
+
+                    BigDecimal cantidad = BigDecimal.valueOf(productoComanda.getCantidad());
+                    BigDecimal subtotal = productoComanda.getPrecio().multiply(cantidad);
+
+                    productoComanda.setSubtotal(subtotal);
 
                     productosCantidad.add(productoComanda);
                 }

@@ -144,7 +144,9 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         Integer numeroMesa = Integer.valueOf((String) cbxNumeroMesa.getSelectedItem());
         MesaDTO mesa = this.mesasBO.obtenerMesa(numeroMesa);
         comanda.setMesa(mesa);
-        pantallaInicio.pintarPanelPrincipal(new PnlBuscadorProductos(pantallaInicio));
+       PnlBuscadorProductos buscador = new PnlBuscadorProductos(pantallaInicio);
+        buscador.setComanda(comanda);
+        pantallaInicio.pintarPanelPrincipal(buscador);
     }//GEN-LAST:event_btnContinuarSinAsignarClienteActionPerformed
 
 

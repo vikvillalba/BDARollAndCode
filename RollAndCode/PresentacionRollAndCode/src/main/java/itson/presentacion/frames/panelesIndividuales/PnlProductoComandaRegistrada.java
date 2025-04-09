@@ -24,8 +24,9 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
         lblNombreProducto.setText(producto.getNombreProducto());
         txtCantidadProducto.setText(producto.getCantidad().toString());
         txtCantidadProducto.setEditable(false);
+        this.txtComentario.setEditable(false);
         lblSubtotal.setText(producto.getSubtotal().toString());
-        lblComentario.setText(producto.getComentario());
+        txtComentario.setText(producto.getComentario());
     }
     
      public void eliminarBotonEliminar() {
@@ -46,7 +47,10 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
     public void setDetalles(PnlEditarComanda detalles) {
         this.detalles = detalles;
     }
-
+    
+    public void activarComentarios(){
+        this.txtComentario.setEditable(true);
+    }
     
     
     @SuppressWarnings("unchecked")
@@ -59,8 +63,9 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
         lblTextoCantidad = new javax.swing.JLabel();
         lblTextoSubtotal = new javax.swing.JLabel();
         lblSubtotal = new javax.swing.JLabel();
-        lblComentario = new javax.swing.JLabel();
         txtCantidadProducto = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtComentario = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(249, 205, 204));
         setPreferredSize(new java.awt.Dimension(1200, 121));
@@ -99,50 +104,49 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
         lblSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblSubtotal.setText("0.00");
 
-        lblComentario.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
-        lblComentario.setForeground(new java.awt.Color(65, 70, 105));
-        lblComentario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblComentario.setText("Comentarios");
-
         txtCantidadProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
         txtCantidadProducto.setBorder(null);
+
+        txtComentario.setColumns(20);
+        txtComentario.setRows(5);
+        jScrollPane1.setViewportView(txtComentario);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTextoCantidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(lblTextoSubtotal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(lblTextoComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTextoCantidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(lblTextoSubtotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTextoComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(104, 104, 104)))
                 .addComponent(btnEliminarProducto)
-                .addGap(35, 35, 35))
+                .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnEliminarProducto)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTextoComentario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblComentario))))
+                        .addGap(17, 17, 17)
+                        .addComponent(lblTextoComentario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -151,7 +155,11 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
                             .addComponent(lblTextoSubtotal)
                             .addComponent(lblSubtotal)
                             .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(btnEliminarProducto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -186,12 +194,13 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarProducto;
-    private javax.swing.JLabel lblComentario;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTextoCantidad;
     private javax.swing.JLabel lblTextoComentario;
     private javax.swing.JLabel lblTextoSubtotal;
     private javax.swing.JTextField txtCantidadProducto;
+    private javax.swing.JTextArea txtComentario;
     // End of variables declaration//GEN-END:variables
 }
