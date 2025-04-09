@@ -3,8 +3,13 @@ package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
+import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
+import com.mycompany.dominiorollandcode.enums.ProductoTipos;
+import com.mycompany.negociorollandcode.IComandasBO;
+import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoComandaRegistrada;
 import java.awt.Dimension;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -12,24 +17,27 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 
 /**
- * Detalles de la comanda como sus productos y comentarios.
+ *Edición de la comanda.
  * @author victoria
  */
-public class PnlDetallesComanda extends javax.swing.JPanel {
+public class PnlEditarComanda extends javax.swing.JPanel {
 
 
     private FrmPantallaInicio pantallaInicio;
     private ComandaDTO comanda;
     private List<ProductoComandaDTO> productos;
+    private PnlDetallesComanda detalles;
+    private IComandasBO comandasBO;
     
 
     
-    public PnlDetallesComanda(FrmPantallaInicio pantallaInicio, ComandaDTO comanda) {
+    public PnlEditarComanda(FrmPantallaInicio pantallaInicio, ComandaDTO comanda) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         this.comanda = comanda;
+        this.comandasBO = FabricaObjetosNegocio.crearComandasBO();
         pantallaInicio.pintarPanelPrincipal(this);
-        pantallaInicio.setTitle("Detalles de la comanda");
+        pantallaInicio.setTitle("Editar comanda");
         
         this.lblFolioComanda.setText(comanda.getFolio());
         
@@ -43,7 +51,7 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
         pnlProductosComanda.setLayout(new BoxLayout(pnlProductosComanda, BoxLayout.Y_AXIS));
         this.pnlProductosComanda.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         
-        List<ProductoComandaDTO> productos = comanda.getProductos();
+        this.productos = comanda.getProductos();
         cargarProductos(productos);
     }
 
@@ -56,7 +64,8 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
             pnlProducto.setPreferredSize(new Dimension(1200, 121));
             pnlProducto.setMaximumSize(new Dimension(1200, 121));
             pnlProducto.setMinimumSize(new Dimension(1200, 121));
-            pnlProducto.eliminarBotonEliminar();
+            pnlProducto.setDetalles(this);
+            pnlProducto.activarEdicionCantidad();
             pnlProductosComanda.add(pnlProducto);
 
         }
@@ -71,6 +80,10 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
 
     public void setProductos(List<ProductoComandaDTO> productos) {
         this.comanda.setProductos(productos);
+    }
+
+    public void setDetalles(PnlDetallesComanda detalles) {
+        this.detalles = detalles;
     }
     
     
@@ -89,9 +102,10 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
         lblNombreMesa = new javax.swing.JLabel();
         pnlFooter = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        btnEditarComanda = new javax.swing.JButton();
+        btnGuardarCambios = new javax.swing.JButton();
         lblTotalComanda = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
+        btnAgregarProductos = new javax.swing.JButton();
         pnlProductosComanda = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
@@ -153,7 +167,7 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
                 .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,13 +203,13 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
             }
         });
 
-        btnEditarComanda.setBackground(new java.awt.Color(247, 242, 239));
-        btnEditarComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnEditarComanda.png"))); // NOI18N
-        btnEditarComanda.setBorder(null);
-        btnEditarComanda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnEditarComanda.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarCambios.setBackground(new java.awt.Color(247, 242, 239));
+        btnGuardarCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnGuardarCambios.png"))); // NOI18N
+        btnGuardarCambios.setBorder(null);
+        btnGuardarCambios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGuardarCambios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarComandaActionPerformed(evt);
+                btnGuardarCambiosActionPerformed(evt);
             }
         });
 
@@ -209,34 +223,48 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
         lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTotal.setText("Total $");
 
+        btnAgregarProductos.setBackground(new java.awt.Color(247, 242, 239));
+        btnAgregarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnAgregarProductos.png"))); // NOI18N
+        btnAgregarProductos.setBorder(null);
+        btnAgregarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAgregarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFooterLayout = new javax.swing.GroupLayout(pnlFooter);
         pnlFooter.setLayout(pnlFooterLayout);
         pnlFooterLayout.setHorizontalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFooterLayout.createSequentialGroup()
-                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(242, Short.MAX_VALUE)
+                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlFooterLayout.createSequentialGroup()
-                        .addGap(286, 286, 286)
                         .addComponent(btnRegresar)
-                        .addGap(127, 127, 127)
-                        .addComponent(btnEditarComanda))
+                        .addGap(40, 40, 40)
+                        .addComponent(btnAgregarProductos)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnGuardarCambios)
+                        .addGap(136, 136, 136))
                     .addGroup(pnlFooterLayout.createSequentialGroup()
-                        .addGap(506, 506, 506)
                         .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTotalComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(496, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTotalComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(405, 405, 405))))
         );
         pnlFooterLayout.setVerticalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFooterLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTotalComanda)
-                    .addComponent(lblTotal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTotal)
+                    .addComponent(lblTotalComanda))
+                .addGap(18, 18, 18)
                 .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEditarComanda)
-                    .addComponent(btnRegresar))
+                    .addComponent(btnGuardarCambios)
+                    .addComponent(btnRegresar)
+                    .addComponent(btnAgregarProductos))
                 .addGap(19, 19, 19))
         );
 
@@ -249,18 +277,37 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
 
-        pantallaInicio.pintarPanelPrincipal(new PnlComandasActivas(pantallaInicio));
+        pantallaInicio.pintarPanelPrincipal(detalles);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarComandaActionPerformed
-        PnlEditarComanda pantalla = new PnlEditarComanda(pantallaInicio, comanda);
-        pantalla.setDetalles(this);
-        pantallaInicio.pintarPanelPrincipal(pantalla);
-    }//GEN-LAST:event_btnEditarComandaActionPerformed
+    private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
+
+    }//GEN-LAST:event_btnGuardarCambiosActionPerformed
+
+    private void btnAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductosActionPerformed
+        List<ProductoDTO> productos = new ArrayList<>();
+
+        for (ProductoComandaDTO productoComanda : this.productos) {
+            ProductoDTO productoDTO = new ProductoDTO(
+                    productoComanda.getIdProducto(),
+                    productoComanda.getNombreProducto(),
+                    productoComanda.getPrecio(),
+                    productoComanda.getTipo()
+            );
+            productos.add(productoDTO);
+       }
+        
+        PnlBuscadorProductos buscador = new PnlBuscadorProductos(pantallaInicio);
+        buscador.setProductosSeleccionados(productos);
+        buscador.cargarProductosSeleccionados();
+        buscador.setComandaExistente(comanda);
+        pantallaInicio.pintarPanelPrincipal(buscador);
+    }//GEN-LAST:event_btnAgregarProductosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditarComanda;
+    private javax.swing.JButton btnAgregarProductos;
+    private javax.swing.JButton btnGuardarCambios;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblFolioComanda;

@@ -90,6 +90,7 @@ public class PnlSeleccionarProductos extends javax.swing.JPanel {
 
         pnlFooter.setBackground(new java.awt.Color(249, 205, 204));
 
+        btnContinuar.setBackground(new java.awt.Color(249, 205, 204));
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
         btnContinuar.setBorder(null);
         btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -114,7 +115,6 @@ public class PnlSeleccionarProductos extends javax.swing.JPanel {
         pnlRight.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlProductosSeleccionados.setBackground(new java.awt.Color(249, 205, 204));
-        pnlProductosSeleccionados.setPreferredSize(null);
 
         javax.swing.GroupLayout pnlProductosSeleccionadosLayout = new javax.swing.GroupLayout(pnlProductosSeleccionados);
         pnlProductosSeleccionados.setLayout(pnlProductosSeleccionadosLayout);

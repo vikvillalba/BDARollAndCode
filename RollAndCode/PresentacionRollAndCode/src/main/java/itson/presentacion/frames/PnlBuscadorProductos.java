@@ -1,6 +1,8 @@
 package itson.presentacion.frames;
 
+import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
+import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.negociorollandcode.IProductosBO;
 import com.mycompany.negociorollandcode.excepciones.ProductoException;
@@ -26,8 +28,10 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     private List<PnlProductoSeleccionado> pnlProductosCantidad;
     private ButtonGroup opcionesBusqueda;
     private NuevaComandaDTO comanda;
+    
+    private ComandaDTO comandaExistente;
      
-    public PnlBuscadorProductos(FrmPantallaInicio pantallaInicio, NuevaComandaDTO comanda) {
+    public PnlBuscadorProductos(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         this.comanda = comanda;
@@ -82,30 +86,29 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         return pnlProductosExistentes;
     }
     
-   public void cargarProductosSeleccionados() {
-    List<PnlProductoSeleccionado> anteriores = new ArrayList<>(pnlProductosCantidad);
+    public void cargarProductosSeleccionados() {
+        List<PnlProductoSeleccionado> anteriores = new ArrayList<>(pnlProductosCantidad);
 
-    pnlProductosSeleccionados.removeAll();
-    pnlProductosCantidad.clear();
+        pnlProductosSeleccionados.removeAll();
+        pnlProductosCantidad.clear();
 
-    for (ProductoDTO producto : productosSeleccionados) {
-        PnlProductoSeleccionado nuevoPanel = new PnlProductoSeleccionado(producto, this);
+        for (ProductoDTO producto : productosSeleccionados) {
+            PnlProductoSeleccionado nuevoPanel = new PnlProductoSeleccionado(producto, this);
 
-        for (PnlProductoSeleccionado panelAnterior : anteriores) {
-            if (panelAnterior.getProductoDTO().getId().equals(producto.getId())) {
-                nuevoPanel.setCantidad(panelAnterior.obtenerCantidad());
-                break;
+            for (PnlProductoSeleccionado panelAnterior : anteriores) {
+                if (panelAnterior.getProductoDTO().getId().equals(producto.getId())) {
+                    nuevoPanel.setCantidad(panelAnterior.obtenerCantidad());
+                    break;
+                }
             }
+
+            pnlProductosSeleccionados.add(nuevoPanel);
+            pnlProductosCantidad.add(nuevoPanel);
         }
 
-        pnlProductosSeleccionados.add(nuevoPanel);
-        pnlProductosCantidad.add(nuevoPanel);
+        pnlProductosSeleccionados.revalidate();
+        pnlProductosSeleccionados.repaint();
     }
-
-    pnlProductosSeleccionados.revalidate();
-    pnlProductosSeleccionados.repaint();
-}
-
 
     public JPanel getPnlProductos() {
         return pnlProductos;
@@ -122,9 +125,14 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     public List<PnlProductoSeleccionado> getPnlProductosCantidad() {
         return pnlProductosCantidad;
     }
-    
-    
-    
+
+    public void setComanda(NuevaComandaDTO comanda) {
+        this.comanda = comanda;
+    }
+
+    public void setComandaExistente(ComandaDTO comandaExistente) {
+        this.comandaExistente = comandaExistente;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -322,7 +330,39 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        pantallaInicio.pintarPanelPrincipal(new PnlConfirmarComanda(pantallaInicio, this.pnlProductosCantidad, this, this.comanda));
+        if (comandaExistente == null) {
+            pantallaInicio.pintarPanelPrincipal(new PnlConfirmarComanda(pantallaInicio, this.pnlProductosCantidad, this, this.comanda));
+        } else {
+            List<ProductoComandaDTO> productosCantidad = comandaExistente.getProductos();
+
+            for (ProductoDTO productoDTO : productosSeleccionados) {
+                boolean existe = false;
+
+                for (ProductoComandaDTO productoComandaDTO : productosCantidad) {
+                    if (productoComandaDTO.getIdProducto().equals(productoDTO.getId())) {
+                        existe = true;
+                        break;
+                    }
+                }
+
+                if (!existe) {
+                    ProductoComandaDTO productoComanda = new ProductoComandaDTO();
+                    productoComanda.setIdProducto(productoDTO.getId());
+                    productoComanda.setIdComanda(comandaExistente.getId());
+                    productoComanda.setNombreProducto(productoDTO.getNombre());
+                    productoComanda.setPrecio(productoDTO.getPrecio());
+                    productoComanda.setTipo(productoDTO.getTipo());
+                    productoComanda.setCantidad(1);
+
+                    productosCantidad.add(productoComanda);
+                }
+            }
+
+            comandaExistente.setProductos(productosCantidad);
+            pantallaInicio.pintarPanelPrincipal(new PnlEditarComanda(pantallaInicio, comandaExistente));
+        }
+
+
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed

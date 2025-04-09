@@ -1,6 +1,9 @@
 package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
+import itson.presentacion.frames.PnlEditarComanda;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  * Representa un producto registrado en una comanda
@@ -9,6 +12,7 @@ import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
 public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
 
     private ProductoComandaDTO producto;
+    private PnlEditarComanda detalles;
     
     public PnlProductoComandaRegistrada(ProductoComandaDTO producto) {
         initComponents();
@@ -18,24 +22,45 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
 
     public void setDatos(){
         lblNombreProducto.setText(producto.getNombreProducto());
-        lblCantidad.setText(producto.getCantidad().toString());
+        txtCantidadProducto.setText(producto.getCantidad().toString());
+        txtCantidadProducto.setEditable(false);
         lblSubtotal.setText(producto.getSubtotal().toString());
         lblComentario.setText(producto.getComentario());
     }
     
+     public void eliminarBotonEliminar() {
+        btnEliminarProducto.setVisible(false);
 
+    }
+
+    public void activarBotonEliminar(){
+        btnEliminarProducto.setVisible(true);
+    }
+     
+     
+     
+    public void activarEdicionCantidad(){
+        this.txtCantidadProducto.setEditable(true);
+    }
+
+    public void setDetalles(PnlEditarComanda detalles) {
+        this.detalles = detalles;
+    }
+
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblNombreProducto = new javax.swing.JLabel();
         btnEliminarProducto = new javax.swing.JButton();
-        lblCantidad = new javax.swing.JLabel();
         lblTextoComentario = new javax.swing.JLabel();
         lblTextoCantidad = new javax.swing.JLabel();
         lblTextoSubtotal = new javax.swing.JLabel();
         lblSubtotal = new javax.swing.JLabel();
         lblComentario = new javax.swing.JLabel();
+        txtCantidadProducto = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(249, 205, 204));
         setPreferredSize(new java.awt.Dimension(1200, 121));
@@ -53,11 +78,6 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
                 btnEliminarProductoActionPerformed(evt);
             }
         });
-
-        lblCantidad.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
-        lblCantidad.setForeground(new java.awt.Color(65, 70, 105));
-        lblCantidad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCantidad.setText("XX");
 
         lblTextoComentario.setFont(new java.awt.Font("Avenir Next", 1, 18)); // NOI18N
         lblTextoComentario.setForeground(new java.awt.Color(65, 70, 105));
@@ -84,18 +104,21 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
         lblComentario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblComentario.setText("Comentarios");
 
+        txtCantidadProducto.setFont(new java.awt.Font("STHeiti", 1, 18)); // NOI18N
+        txtCantidadProducto.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTextoCantidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(lblTextoSubtotal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +129,7 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
                     .addComponent(lblComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarProducto)
-                .addGap(16, 16, 16))
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,31 +144,54 @@ public class PnlProductoComandaRegistrada extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblComentario))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNombreProducto)
                             .addComponent(lblTextoCantidad)
-                            .addComponent(lblCantidad)
                             .addComponent(lblTextoSubtotal)
-                            .addComponent(lblSubtotal))))
+                            .addComponent(lblSubtotal)
+                            .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
-       
+        List<ProductoComandaDTO> productos = detalles.getProductos();
+
+        int respuesta = JOptionPane.showConfirmDialog(
+                null,
+                "¿Desea eliminar el producto?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            productos.remove(producto);
+            if (!productos.isEmpty()) {
+                detalles.setProductos(productos);
+                detalles.cargarProductos(productos);
+                detalles.revalidate();
+                detalles.repaint();
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "La comanda no puede quedar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+           
+
+        }
+        detalles.repaint();
 
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarProducto;
-    private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblComentario;
     private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTextoCantidad;
     private javax.swing.JLabel lblTextoComentario;
     private javax.swing.JLabel lblTextoSubtotal;
+    private javax.swing.JTextField txtCantidadProducto;
     // End of variables declaration//GEN-END:variables
 }
