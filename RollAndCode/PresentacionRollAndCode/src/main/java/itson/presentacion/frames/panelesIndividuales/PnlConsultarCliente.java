@@ -5,10 +5,8 @@
 package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
-import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
-import itson.presentacion.frames.FrmPantallaInicio;
-import itson.presentacion.frames.PnlNuevaComanda;
-import java.awt.Panel;
+import com.mycompany.negociorollandcode.IClientesBO;
+import itson.presentacion.frames.PnlBuscarClientes;
 import java.math.BigDecimal;
 
 /**
@@ -17,20 +15,13 @@ import java.math.BigDecimal;
  */
 public class PnlConsultarCliente extends javax.swing.JPanel {
 
-    private ClienteDTO clienteDTO;
-    private NuevaComandaDTO comanda;
-    private PnlNuevaComanda panel;
-    private boolean creandoComanda;
-    
+    ClienteDTO clienteDTO;
 
     /**
      * Creates new form PnlConsultarCliente
      */
-    public PnlConsultarCliente(ClienteDTO cliente, NuevaComandaDTO comanda, PnlNuevaComanda panel, boolean creandoComanda) {
+    public PnlConsultarCliente(ClienteDTO cliente) {
         initComponents();
-        this.creandoComanda = creandoComanda;
-        this.comanda = comanda;
-        this.panel = panel;
         this.clienteDTO = cliente;
         campoNombre.setText(clienteDTO.getNombres());
         campoApellidoPaterno.setText(clienteDTO.getApellidoPaterno());
@@ -63,7 +54,6 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
         btnSeleccionar = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         campoApellidoMaterno = new javax.swing.JTextPane();
-        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(249, 205, 204));
 
@@ -117,7 +107,6 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
                     .addComponent(jScrollPane5)
                     .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,16 +125,12 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
                     .addComponent(btnSeleccionar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        if(creandoComanda){
-            comanda.setCliente(clienteDTO);
-            panel.PnlNuevaComanda(panel, clienteDTO);
-        }
+        
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
 
@@ -163,6 +148,5 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

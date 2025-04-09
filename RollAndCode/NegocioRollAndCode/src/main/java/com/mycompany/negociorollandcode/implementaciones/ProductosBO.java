@@ -1,5 +1,6 @@
 package com.mycompany.negociorollandcode.implementaciones;
 
+import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
@@ -13,6 +14,8 @@ import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase que implementa la interfaz para operaciones de negocio de productos.

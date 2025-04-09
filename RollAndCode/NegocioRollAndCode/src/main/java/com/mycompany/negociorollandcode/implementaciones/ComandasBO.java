@@ -32,19 +32,19 @@ public class ComandasBO implements IComandasBO {
         this.ComandasDAO = ComandasDAO;
     }
 
-    @Override
-    public ComandaDTO registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws ComandaException {
-        if(nuevaComandaDTO.getProductos().isEmpty()){
-            throw new ComandaException("La comanda debe de contener al menos un producto");
-        }
-        Random random = new Random();
-
-        int consecutivo = random.nextInt(999) + 1;
-        LocalDate fecha = LocalDate.now();
-        String fechaFormateada = fecha.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        String consecutivoFormateado = String.format("%03d", consecutivo);
-
-        String folio = "OB-" + fechaFormateada + "-" + consecutivoFormateado;
+     @Override
+     public ComandaDTO registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws ComandaException {
+         if(nuevaComandaDTO.getProductos().isEmpty()){
+             throw new ComandaException("La comanda debe de contener al menos un producto");
+         }
+         Random random = new Random();
+ 
+         int consecutivo = random.nextInt(999) + 1;
+         LocalDate fecha = LocalDate.now();
+         String fechaFormateada = fecha.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+         String consecutivoFormateado = String.format("%03d", consecutivo);
+ 
+         String folio = "OB-" + fechaFormateada + "-" + consecutivoFormateado;
         Calendar fechaComanda = Calendar.getInstance();
 
         nuevaComandaDTO.setFolio(folio);
