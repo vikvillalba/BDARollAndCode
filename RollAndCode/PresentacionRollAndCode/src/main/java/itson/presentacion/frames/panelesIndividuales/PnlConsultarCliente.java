@@ -138,7 +138,7 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         if(creandoComanda){
-            panel.PnlNuevaComanda(panel, clienteDTO);
+            panel.pnlNuevaComanda(panel, clienteDTO);
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 

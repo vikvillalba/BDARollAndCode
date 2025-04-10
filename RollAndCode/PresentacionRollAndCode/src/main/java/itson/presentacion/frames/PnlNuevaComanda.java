@@ -27,15 +27,16 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         cargarMesas();
     }
 
-    public void PnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente) {
-        recuperarContexto(panel, cliente);
+    public void pnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente) {
+        PnlNuevaComanda pnuevaComanda = panel.recuperarContexto(panel, cliente);
+        pantallaInicio.pintarPanelPrincipal(pnuevaComanda);
     }
 
-    private void recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente) {
+    private PnlNuevaComanda recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente) {
         PnlNuevaComanda pnlNuevaComanda = new PnlNuevaComanda(panel.pantallaInicio);
         pnlNuevaComanda.comanda.setCliente(cliente);
-        pantallaInicio.pintarPanelPrincipal(panel);
         
+        return pnlNuevaComanda;
     }
 
     private void cargarMesas() {
@@ -93,7 +94,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         });
 
         btnContinuarSinAsignarCliente.setBackground(new java.awt.Color(247, 242, 239));
-        btnContinuarSinAsignarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/continuarSinAgregarCliente.png"))); // NOI18N
+        btnContinuarSinAsignarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
         btnContinuarSinAsignarCliente.setBorder(null);
         btnContinuarSinAsignarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnContinuarSinAsignarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +124,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
                         .addComponent(btnAsignarCliente)
                         .addGap(57, 57, 57)
                         .addComponent(btnContinuarSinAsignarCliente)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

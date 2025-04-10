@@ -44,10 +44,11 @@ public class ComandasDAO implements IComandasDAO {
             comanda.setClienteFrecuente(null);
         } else {
             ClienteFrecuente cliente = entityManager.find(ClienteFrecuente.class, nuevaComandaDTO.getCliente().getId());
+            comanda.setClienteFrecuente(cliente);
         }
         Mesa mesa = entityManager.find(Mesa.class, nuevaComandaDTO.getMesa().getId());
         comanda.setMesa(mesa);
-
+        
         List<ProductoComanda> productosComanda = new ArrayList<>();
 
         for (NuevoProductoComandaDTO productoComanda : nuevaComandaDTO.getProductos()) {

@@ -87,7 +87,6 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         campoBusqueda = new javax.swing.JTextField();
         pnlClientes = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
 
         btnAgregarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/registrarCliente.png"))); // NOI18N
@@ -127,13 +126,6 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
             }
         });
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/agregarClienteComanda.png"))); // NOI18N
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
         btnBuscar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/buscar.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,20 +142,18 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(230, 230, 230)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(pnlClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(campoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCancelar))))
+                                .addComponent(campoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(502, 502, 502)
-                        .addComponent(lbClientes)))
+                        .addComponent(lbClientes))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(458, 458, 458)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(317, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -178,9 +168,7 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(pnlClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jButton1)
                 .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -193,12 +181,12 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         pnlClientes.removeAll();
         List<ClienteDTO> clientes = clientesBO.consultarClientes(campoBusqueda.getText());
-        if (creandoComanda) {
-            for (ClienteDTO c : clientes) {
-                PnlConsultarCliente panel = new PnlConsultarCliente(c, comanda, this.panel, true);
-                panel.setPreferredSize(new Dimension(750, 150));
-                pnlClientes.add(panel);
-            }
+
+        for (ClienteDTO c : clientes) {
+            PnlConsultarCliente panel = new PnlConsultarCliente(c, comanda, this.panel, creandoComanda);
+            panel.setPreferredSize(new Dimension(750, 150));
+            pnlClientes.add(panel);
+
         }
 
         pnlClientes.revalidate();
@@ -210,12 +198,8 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        frame.pintarPanelPrincipal(pnlClientes);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
         // TODO add your handling code here:
@@ -228,7 +212,6 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;

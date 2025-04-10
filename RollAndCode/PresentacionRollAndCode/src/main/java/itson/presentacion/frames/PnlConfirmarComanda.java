@@ -38,9 +38,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         this.buscador = buscador;
         this.comanda = comanda;
         this.comandasBO = FabricaObjetosNegocio.crearComandasBO();
-        
-        // TODO: revisar ya que se conecte el buscador de clientes
-        this.cliente = null;
+        this.cliente = comanda.getCliente();
         
         this.productosComanda = new ArrayList<>();
         this.pnlProductosSeleccionados = new ArrayList<>();
@@ -229,6 +227,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
             nuevoProductoComandaDTO.setCantidadProducto(producto.getCantidadProducto());
             nuevoProductoComandaDTO.setComentario(producto.getComentario());
             nuevoProductoComandaDTO.setPrecioProducto(producto.getProductoDTO().getPrecio());
+            
             productosComanda.add(nuevoProductoComandaDTO);
         }
         
