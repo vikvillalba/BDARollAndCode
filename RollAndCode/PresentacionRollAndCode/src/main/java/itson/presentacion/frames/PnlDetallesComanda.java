@@ -253,7 +253,7 @@ public class PnlDetallesComanda extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnEditarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarComandaActionPerformed
-        PnlEditarComanda pantalla = new PnlEditarComanda(pantallaInicio, comanda);
+        PnlEditarComanda pantalla = new PnlEditarComanda(pantallaInicio, comanda, this);
         pantalla.setDetalles(this);
         pantallaInicio.pintarPanelPrincipal(pantalla);
     }//GEN-LAST:event_btnEditarComandaActionPerformed

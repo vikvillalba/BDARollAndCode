@@ -365,7 +365,7 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
             }
 
             comandaExistente.setProductos(productosCantidad);
-            pantallaInicio.pintarPanelPrincipal(new PnlEditarComanda(pantallaInicio, comandaExistente));
+            pantallaInicio.pintarPanelPrincipal(new PnlEditarComanda(pantallaInicio, comandaExistente, new PnlDetallesComanda(pantallaInicio, comandaExistente)));
         }
 
 

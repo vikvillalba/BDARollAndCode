@@ -4,10 +4,11 @@ package itson.presentacion.frames;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
-import com.mycompany.dominiorollandcode.enums.ProductoTipos;
 import com.mycompany.negociorollandcode.IComandasBO;
+import com.mycompany.negociorollandcode.excepciones.ComandaException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoComandaRegistrada;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 
 /**
  *Edición de la comanda.
@@ -32,10 +34,12 @@ public class PnlEditarComanda extends javax.swing.JPanel {
     
 
     
-    public PnlEditarComanda(FrmPantallaInicio pantallaInicio, ComandaDTO comanda) {
+    public PnlEditarComanda(FrmPantallaInicio pantallaInicio, ComandaDTO comanda, PnlDetallesComanda detalles) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         this.comanda = comanda;
+        this.detalles = detalles;
+        this.totalAcumulado = BigDecimal.ZERO;
         this.comandasBO = FabricaObjetosNegocio.crearComandasBO();
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Editar comanda");
@@ -58,7 +62,6 @@ public class PnlEditarComanda extends javax.swing.JPanel {
 
     public void cargarProductos(List<ProductoComandaDTO> productos){
       this.pnlProductosComanda.removeAll();
-      totalAcumulado = BigDecimal.ZERO;
   
         for (ProductoComandaDTO producto : productos) {
             PnlProductoComandaRegistrada pnlProducto = new PnlProductoComandaRegistrada(producto);
@@ -69,8 +72,10 @@ public class PnlEditarComanda extends javax.swing.JPanel {
             pnlProducto.setDetalles(this);
             pnlProducto.activarEdicionCantidad();
             pnlProducto.activarComentarios();
+            pnlProducto.activarBotonesCantidad();
             pnlProductosComanda.add(pnlProducto);
-            totalAcumulado = totalAcumulado.add(producto.getSubtotal());
+            producto.setCantidad(pnlProducto.getCantidad());
+            actualizarTotal();
 
         }
       this.lblTotalComanda.setText(totalAcumulado.toString());
@@ -90,8 +95,23 @@ public class PnlEditarComanda extends javax.swing.JPanel {
         this.detalles = detalles;
     }
     
-    
-    
+    public void actualizarTotal() {
+        totalAcumulado = BigDecimal.ZERO; 
+        for (ProductoComandaDTO producto : comanda.getProductos()) {
+            totalAcumulado = totalAcumulado.add(producto.getSubtotal());
+        }
+        lblTotalComanda.setText(totalAcumulado.toString());
+        comanda.setTotalAcumulado(totalAcumulado);
+    }
+
+    public void setProductosPantallaDetalles(List<ProductoComandaDTO> productos){
+        this.detalles.setProductos(productos);
+    }
+
+    public PnlDetallesComanda getDetallesComanda() {
+        return detalles;
+    }
+ 
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -285,10 +305,32 @@ public class PnlEditarComanda extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
-        comanda.setProductos(productos);
+        List<ProductoComandaDTO> productosActualizados = new ArrayList<>();
+
+        for (Component comp : pnlProductosComanda.getComponents()) {
+            if (comp instanceof PnlProductoComandaRegistrada pnlProducto) {
+                ProductoComandaDTO producto = pnlProducto.getProducto();
+                producto.setComentario(pnlProducto.getComentario());
+                productosActualizados.add(producto);
+            }
+        }
+
+        comanda.setProductos(productosActualizados);
         comanda.setTotalAcumulado(totalAcumulado);
-        
-        // llamar al metodo de la bo
+
+        try {
+            ComandaDTO comandaActualizada = this.comandasBO.actualizar(comanda);
+            JOptionPane.showMessageDialog(null, "La comanda: " + comandaActualizada.getFolio() + " se actualizó correctamente",
+                    "Comanda actualizada", JOptionPane.INFORMATION_MESSAGE);
+
+            detalles.setProductos(comandaActualizada.getProductos());
+            detalles.revalidate();
+            detalles.repaint();
+            pantallaInicio.pintarPanelPrincipal(new PnlDetallesComanda(pantallaInicio, comanda));
+
+        } catch (ComandaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al actualizar comanda", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
     private void btnAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductosActionPerformed

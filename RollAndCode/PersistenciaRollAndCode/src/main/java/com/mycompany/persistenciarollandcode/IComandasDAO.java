@@ -14,4 +14,5 @@ import java.util.List;
 public interface IComandasDAO {
     public abstract Comanda registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws PersistenciaException;
     public abstract List<Comanda> obtenerComandasAbiertas()throws PersistenciaException;
+    public abstract Comanda actualizar(ComandaDTO comanda)throws PersistenciaException;
 }

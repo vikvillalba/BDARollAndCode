@@ -14,7 +14,7 @@ public class ProductoComandaDTO {
     private String nombreProducto;
     private BigDecimal precio;
     private ProductoTipos tipo;
-    private Integer cantidad;
+    private Integer cantidad = 1;
     private String comentario;
     private BigDecimal subtotal;
 

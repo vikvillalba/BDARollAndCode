@@ -12,6 +12,7 @@ import com.mycompany.negociorollandcode.IComandasBO;
 import com.mycompany.negociorollandcode.excepciones.ComandaException;
 import com.mycompany.persistenciarollandcode.IComandasDAO;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -118,6 +119,62 @@ public class ComandasBO implements IComandasBO {
             }
 
             return comandasDTO;
+        } catch (PersistenciaException ex) {
+            throw new ComandaException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public ComandaDTO actualizar(ComandaDTO comanda) throws ComandaException {
+        if (!comanda.getEstado().equals(EstadoComanda.ABIERTA)) {
+            throw new ComandaException("Solamente se pueden editar comandas abiertas.");
+        }
+
+        try {
+            Comanda comandaActualizada = this.ComandasDAO.actualizar(comanda);
+            
+            ComandaDTO comandaDTO = new ComandaDTO();
+            comandaDTO.setId(comandaActualizada.getId());
+            comandaDTO.setFolio(comandaActualizada.getFolio());
+            comandaDTO.setFechaHora(comandaActualizada.getFechaCreacion());
+            comandaDTO.setEstado(comandaActualizada.getEstado());
+            comandaDTO.setTotalAcumulado(comandaActualizada.getTotalAcumulado());
+
+            List<ProductoComandaDTO> productos = new ArrayList<>();
+            for (ProductoComanda producto : comandaActualizada.getProductos()) {
+                ProductoComandaDTO productoComandaDTO = new ProductoComandaDTO();
+
+                productoComandaDTO.setIdProducto(producto.getProducto().getId());
+                productoComandaDTO.setIdComanda(comandaActualizada.getId());
+                productoComandaDTO.setNombreProducto(producto.getProducto().getNombre());
+                productoComandaDTO.setCantidad(producto.getCantidadProducto());
+                productoComandaDTO.setPrecio(producto.getProducto().getPrecio());
+                productoComandaDTO.setTipo(producto.getProducto().getTipo());
+                productoComandaDTO.setComentario(producto.getComentario());
+                productoComandaDTO.setSubtotal(producto.getImporteProducto());
+
+                productos.add(productoComandaDTO);
+            }
+
+             ClienteFrecuente clienteFrecuente = comandaActualizada.getClienteFrecuente();
+                if (clienteFrecuente != null) {
+                    ClienteDTO cliente = new ClienteDTO(clienteFrecuente.getId(),
+                            clienteFrecuente.getNombres(),
+                            clienteFrecuente.getApellidoPaterno(),
+                            clienteFrecuente.getApellidoMaterno(),
+                            clienteFrecuente.getTelefono(),
+                            clienteFrecuente.getCorreoElectronico(),
+                            clienteFrecuente.getFechaRegistro(),
+                            clienteFrecuente.getGastoTotal());
+                    comandaDTO.setCliente(cliente);
+                }
+
+            comandaDTO.setCliente(null);
+            comandaDTO.setProductos(productos);
+            comandaDTO.setNumeroMesa(comandaActualizada.getMesa().getNumero());
+            
+            return comandaDTO;
+            
         } catch (PersistenciaException ex) {
             throw new ComandaException(ex.getMessage());
         }

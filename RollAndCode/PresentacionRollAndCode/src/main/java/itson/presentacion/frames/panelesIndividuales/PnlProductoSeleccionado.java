@@ -28,7 +28,7 @@ public class PnlProductoSeleccionado extends javax.swing.JPanel {
 
     public Integer obtenerCantidad() {
         try {
-            Integer cantidad = Integer.parseInt(txtCantidad.getText());
+            Integer cantidad = Integer.valueOf(txtCantidad.getText());
             return cantidad;
 
         } catch (NumberFormatException e) {
