@@ -1,6 +1,7 @@
 package itson.presentacion;
 
 import itson.presentacion.frames.FrmPantallaInicio;
+import itson.presentacion.frames.panelesIndividuales.ModoVista;
 
 /**
  *7
@@ -9,8 +10,9 @@ import itson.presentacion.frames.FrmPantallaInicio;
 public class Presentacion {
 
     public static void main(String[] args) {
-        FrmPantallaInicio frmInicio = new FrmPantallaInicio();
-        frmInicio.setVisible(true);
+        
+        ModoVista inicio = new ModoVista();
+        inicio.setVisible(true);
     }
     
 }
