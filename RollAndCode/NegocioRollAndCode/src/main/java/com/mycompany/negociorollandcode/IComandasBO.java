@@ -15,4 +15,5 @@ public interface IComandasBO {
     public abstract List<ComandaDTO> obtenerComandasAbiertas() throws ComandaException;
     public abstract ComandaDTO actualizar(ComandaDTO comanda) throws ComandaException;
     public abstract ComandaDTO entregar(ComandaDTO comanda) throws ComandaException;
+    public abstract ComandaDTO cancelar(ComandaDTO comanda) throws ComandaException;
 }

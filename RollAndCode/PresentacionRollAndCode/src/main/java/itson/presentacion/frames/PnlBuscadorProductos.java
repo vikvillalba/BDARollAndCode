@@ -331,42 +331,63 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        if (comandaExistente == null) {
-            pantallaInicio.pintarPanelPrincipal(new PnlConfirmarComanda(pantallaInicio, this.pnlProductosCantidad, this, this.comanda));
-        } else {
-            List<ProductoComandaDTO> productosCantidad = comandaExistente.getProductos();
+    if (comandaExistente == null) {
+        pantallaInicio.pintarPanelPrincipal(
+            new PnlConfirmarComanda(pantallaInicio, this.pnlProductosCantidad, this, this.comanda)
+        );
+    } else {
+        List<ProductoComandaDTO> productosCantidad = comandaExistente.getProductos();
 
-            for (ProductoDTO productoDTO : productosSeleccionados) {
-                boolean existe = false;
+        for (ProductoDTO productoDTO : productosSeleccionados) {
+            boolean existe = false;
 
-                for (ProductoComandaDTO productoComandaDTO : productosCantidad) {
-                    if (productoComandaDTO.getIdProducto().equals(productoDTO.getId())) {
-                        existe = true;
-                        break;
-                    }
-                }
-
-                if (!existe) {
-                    ProductoComandaDTO productoComanda = new ProductoComandaDTO();
-                    productoComanda.setIdProducto(productoDTO.getId());
-                    productoComanda.setIdComanda(comandaExistente.getId());
-                    productoComanda.setNombreProducto(productoDTO.getNombre());
-                    productoComanda.setPrecio(productoDTO.getPrecio());
-                    productoComanda.setTipo(productoDTO.getTipo());
-                    productoComanda.setCantidad(1);
-
-                    BigDecimal cantidad = BigDecimal.valueOf(productoComanda.getCantidad());
-                    BigDecimal subtotal = productoComanda.getPrecio().multiply(cantidad);
-
-                    productoComanda.setSubtotal(subtotal);
-
-                    productosCantidad.add(productoComanda);
+            for (ProductoComandaDTO productoComandaDTO : productosCantidad) {
+                if (productoComandaDTO.getIdProducto().equals(productoDTO.getId())) {
+                    existe = true;
+                    break;
                 }
             }
 
-            comandaExistente.setProductos(productosCantidad);
-            pantallaInicio.pintarPanelPrincipal(new PnlEditarComanda(pantallaInicio, comandaExistente, new PnlDetallesComanda(pantallaInicio, comandaExistente)));
+            if (!existe) {
+                ProductoComandaDTO productoComanda = new ProductoComandaDTO();
+                productoComanda.setIdProducto(productoDTO.getId());
+                productoComanda.setIdComanda(comandaExistente.getId());
+                productoComanda.setNombreProducto(productoDTO.getNombre());
+                productoComanda.setPrecio(productoDTO.getPrecio());
+                productoComanda.setTipo(productoDTO.getTipo());
+                productoComanda.setCantidad(1);
+
+                BigDecimal cantidad = BigDecimal.valueOf(productoComanda.getCantidad());
+                BigDecimal subtotal = productoComanda.getPrecio().multiply(cantidad);
+
+                productoComanda.setSubtotal(subtotal);
+
+                productosCantidad.add(productoComanda);
+            }
         }
+
+        for (ProductoComandaDTO productoComandaDTO : productosCantidad) {
+            for (PnlProductoSeleccionado pnl : pnlProductosCantidad) {
+                ProductoDTO productoDTO = pnl.getProductoDTO();
+
+                if (productoDTO.getId().equals(productoComandaDTO.getIdProducto())) {
+                    int cantidad = pnl.obtenerCantidad(); 
+                    productoComandaDTO.setCantidad(cantidad);
+
+                    BigDecimal cantidadBD = BigDecimal.valueOf(cantidad);
+                    BigDecimal subtotal = productoComandaDTO.getPrecio().multiply(cantidadBD);
+                    productoComandaDTO.setSubtotal(subtotal);
+
+                    break;
+                }
+            }
+        }
+
+        comandaExistente.setProductos(productosCantidad);
+        pantallaInicio.pintarPanelPrincipal(
+            new PnlEditarComanda(pantallaInicio, comandaExistente, new PnlDetallesComanda(pantallaInicio, comandaExistente))
+        );
+    }
 
 
     }//GEN-LAST:event_btnContinuarActionPerformed

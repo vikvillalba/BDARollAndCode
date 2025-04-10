@@ -6,9 +6,11 @@ import com.mycompany.dominiorollandcode.dtos.NuevoProductoComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
 import com.mycompany.dominiorollandcode.entidades.ClienteFrecuente;
 import com.mycompany.dominiorollandcode.entidades.Comanda;
+import com.mycompany.dominiorollandcode.entidades.Ingrediente;
 import com.mycompany.dominiorollandcode.entidades.Mesa;
 import com.mycompany.dominiorollandcode.entidades.Producto;
 import com.mycompany.dominiorollandcode.entidades.ProductoComanda;
+import com.mycompany.dominiorollandcode.entidades.ProductoIngrediente;
 import com.mycompany.dominiorollandcode.enums.EstadoComanda;
 import com.mycompany.persistenciarollandcode.IComandasDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
@@ -17,12 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 /**
  * Implementación de los métodos de IComandasDAO
@@ -48,7 +45,7 @@ public class ComandasDAO implements IComandasDAO {
         }
         Mesa mesa = entityManager.find(Mesa.class, nuevaComandaDTO.getMesa().getId());
         comanda.setMesa(mesa);
-        
+
         List<ProductoComanda> productosComanda = new ArrayList<>();
 
         for (NuevoProductoComandaDTO productoComanda : nuevaComandaDTO.getProductos()) {
@@ -159,7 +156,7 @@ public class ComandasDAO implements IComandasDAO {
     }
 
     @Override
-    public Comanda entregar(ComandaDTO comandaDTO) throws PersistenciaException {
+    public Comanda cambiarEstado(ComandaDTO comandaDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         try {
             entityManager.getTransaction().begin();
@@ -168,19 +165,45 @@ public class ComandasDAO implements IComandasDAO {
             if (comanda == null) {
                 throw new PersistenciaException("Comanda no encontrada.");
             }
-
-            comanda.setEstado(EstadoComanda.ENTREGADA);
-            entityManager.flush();
+            comanda.setEstado(comandaDTO.getEstado());
             entityManager.merge(comanda);
             
+            if(comanda.getEstado() == EstadoComanda.ENTREGADA){
+                actualizarIngredientes(comanda);
+            }
             entityManager.getTransaction().commit();
 
             return comanda;
         } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
+            entityManager.getTransaction().rollback();
+
             throw new PersistenciaException("Error al actualizar la comanda: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public void actualizarIngredientes(Comanda comanda) throws PersistenciaException {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        for (ProductoComanda productoComanda : comanda.getProductos()) {
+            Producto producto = productoComanda.getProducto();
+
+            for (ProductoIngrediente productoIngrediente : producto.getIngredientes()) {
+                Ingrediente ingrediente = productoIngrediente.getIngrediente();
+
+                Integer stockRestante = ingrediente.getCantidadStock() - (productoIngrediente.getCantidad() * productoComanda.getCantidadProducto());
+                if (stockRestante < 0) {
+                    entityManager.getTransaction().rollback();
+                    throw new PersistenciaException("No hay suficiente stock del ingrediente: " + ingrediente.getNombre());
+                   
+                }
+
+                ingrediente.setCantidadStock(stockRestante);
+                entityManager.merge(ingrediente);
+            }
+        }
+        entityManager.getTransaction().commit();
+    }
+
+
 }

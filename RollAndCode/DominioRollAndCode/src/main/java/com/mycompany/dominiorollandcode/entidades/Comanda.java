@@ -28,7 +28,6 @@ import javax.persistence.TemporalType;
  * @author victoria
  */
 @Entity
-@EntityListeners(ComandaListener.class)
 @Table(name = "comandas")
 public class Comanda implements Serializable {
 

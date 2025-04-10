@@ -6,6 +6,7 @@ import com.mycompany.negociorollandcode.IComandasBO;
 import com.mycompany.negociorollandcode.excepciones.ComandaException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.FrmPantallaInicio;
+import itson.presentacion.frames.PnlComandasActivas;
 import itson.presentacion.frames.PnlDetallesComanda;
 import javax.swing.JOptionPane;
 
@@ -18,13 +19,15 @@ public class PnlComandaAbierta extends javax.swing.JPanel {
     private ComandaDTO comanda;
     private FrmPantallaInicio pantallaInicio;
     private IComandasBO comandasBO;
+    private PnlComandasActivas pantallaComandas;
     
     
-    public PnlComandaAbierta(ComandaDTO comanda, FrmPantallaInicio pantallaInicio) {
+    public PnlComandaAbierta(ComandaDTO comanda, FrmPantallaInicio pantallaInicio, PnlComandasActivas pantallaComandas) {
         initComponents();
         this.comanda = comanda;
         this.pantallaInicio = pantallaInicio;
         this.comandasBO = FabricaObjetosNegocio.crearComandasBO();
+        this.pantallaComandas = pantallaComandas;
         setDatosComanda();
         
     }
@@ -150,12 +153,26 @@ public class PnlComandaAbierta extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDetallesComandaActionPerformed
 
     private void btnCancelarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarComandaActionPerformed
-        // TODO add your handling code here:
+       int respuesta = JOptionPane.showConfirmDialog(
+                null,
+                "¿Desea marcar la comanda como cancelada?",
+                "Confirmar cancelación",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            this.comanda.setEstado(EstadoComanda.CANCELADA);
+            try {
+                comanda = this.comandasBO.cancelar(comanda);
+                JOptionPane.showMessageDialog(null, "La comanda se ha cancelado correctamente.", "Comanda cancelada", JOptionPane.INFORMATION_MESSAGE);
+                pantallaComandas.cargarComandas();
+            } catch (ComandaException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al cancelar comanda.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnCancelarComandaActionPerformed
 
     private void btnEntregarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarComandaActionPerformed
-        
-        this.comanda.setEstado(EstadoComanda.ENTREGADA);
         int respuesta = JOptionPane.showConfirmDialog(
                 null,
                 "¿Desea marcar la comanda como entregada?",
@@ -164,11 +181,11 @@ public class PnlComandaAbierta extends javax.swing.JPanel {
         );
 
         if (respuesta == JOptionPane.YES_OPTION) {
-           
+            this.comanda.setEstado(EstadoComanda.ENTREGADA);
             try {
-                ComandaDTO comandaActualizada = this.comandasBO.entregar(this.comanda);
+                comanda = this.comandasBO.entregar(comanda);
                 JOptionPane.showMessageDialog(null, "La comanda se ha marcado como entregada.", "Comanda entregada", JOptionPane.INFORMATION_MESSAGE);
-                
+                pantallaComandas.cargarComandas();
             } catch (ComandaException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al entregar comanda.", JOptionPane.ERROR_MESSAGE);
             }
