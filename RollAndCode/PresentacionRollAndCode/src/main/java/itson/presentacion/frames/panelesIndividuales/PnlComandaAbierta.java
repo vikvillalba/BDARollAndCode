@@ -1,9 +1,13 @@
 package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
+import com.mycompany.dominiorollandcode.enums.EstadoComanda;
+import com.mycompany.negociorollandcode.IComandasBO;
+import com.mycompany.negociorollandcode.excepciones.ComandaException;
+import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.FrmPantallaInicio;
 import itson.presentacion.frames.PnlDetallesComanda;
-import itson.presentacion.frames.PnlPantallaPrincipal;
+import javax.swing.JOptionPane;
 
 /**
  * Representa gráficamente una comanda abierta en el sistema
@@ -13,12 +17,14 @@ public class PnlComandaAbierta extends javax.swing.JPanel {
 
     private ComandaDTO comanda;
     private FrmPantallaInicio pantallaInicio;
+    private IComandasBO comandasBO;
     
     
     public PnlComandaAbierta(ComandaDTO comanda, FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.comanda = comanda;
         this.pantallaInicio = pantallaInicio;
+        this.comandasBO = FabricaObjetosNegocio.crearComandasBO();
         setDatosComanda();
         
     }
@@ -148,7 +154,27 @@ public class PnlComandaAbierta extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarComandaActionPerformed
 
     private void btnEntregarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarComandaActionPerformed
-        // cosa random con el observer
+        
+        this.comanda.setEstado(EstadoComanda.ENTREGADA);
+        int respuesta = JOptionPane.showConfirmDialog(
+                null,
+                "¿Desea marcar la comanda como entregada?",
+                "Confirmar entrega",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+           
+            try {
+                ComandaDTO comandaActualizada = this.comandasBO.entregar(this.comanda);
+                JOptionPane.showMessageDialog(null, "La comanda se ha marcado como entregada.", "Comanda entregada", JOptionPane.INFORMATION_MESSAGE);
+                
+            } catch (ComandaException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al entregar comanda.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+
     }//GEN-LAST:event_btnEntregarComandaActionPerformed
 
 

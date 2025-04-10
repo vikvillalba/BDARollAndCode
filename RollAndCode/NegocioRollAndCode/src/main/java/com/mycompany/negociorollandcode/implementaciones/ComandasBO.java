@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase que implementa la interfaz IComandasBO
@@ -178,6 +180,31 @@ public class ComandasBO implements IComandasBO {
         } catch (PersistenciaException ex) {
             throw new ComandaException(ex.getMessage());
         }
+    }
+
+    @Override
+    public ComandaDTO entregar(ComandaDTO comandaDTO) throws ComandaException {
+    System.out.println("Iniciando proceso de entrega...");
+    
+    if (comandaDTO.getEstado().equals(EstadoComanda.CANCELADA)) {
+        throw new ComandaException("La comanda no puede entregarse si está marcada como cancelada.");
+    }
+
+    try {
+        Comanda comanda = this.ComandasDAO.actualizar(comandaDTO);
+
+        System.out.println("Comanda actualizada: " + comanda.getEstado());
+        
+        ComandaDTO comandaActuaizadaDTO = new ComandaDTO();
+        comandaActuaizadaDTO.setId(comanda.getId());
+        comandaActuaizadaDTO.setFolio(comanda.getFolio());
+        comandaActuaizadaDTO.setFechaHora(comanda.getFechaCreacion());
+        comandaActuaizadaDTO.setEstado(comanda.getEstado());
+        comandaActuaizadaDTO.setTotalAcumulado(comanda.getTotalAcumulado());
+        return comandaActuaizadaDTO;
+    } catch (PersistenciaException ex) {
+        throw new ComandaException(ex.getMessage());
+    }
     }
 
 }

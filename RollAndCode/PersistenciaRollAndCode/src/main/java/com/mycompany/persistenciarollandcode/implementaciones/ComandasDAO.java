@@ -17,7 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 /**
  * Implementación de los métodos de IComandasDAO
@@ -74,7 +79,7 @@ public class ComandasDAO implements IComandasDAO {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         try {
             String jpqlQuery = """
-                               SELECT c FROM Comanda c LEFT JOIN FETCH c.productos cp WHERE c.estado = :estado
+                               SELECT DISTINCT c FROM Comanda c LEFT JOIN FETCH c.productos cp WHERE c.estado = :estado
                                """;
             TypedQuery<Comanda> query = entityManager.createQuery(jpqlQuery, Comanda.class);
             query.setParameter("estado", EstadoComanda.ABIERTA);
@@ -108,9 +113,9 @@ public class ComandasDAO implements IComandasDAO {
                     }
                 }
                 if (!encontrado) {
-                    entityManager.remove(productos.get(i)); 
+                    entityManager.remove(productos.get(i));
                     productos.remove(i);
-                    i--; 
+                    i--;
                 }
             }
 
@@ -152,4 +157,29 @@ public class ComandasDAO implements IComandasDAO {
 
     }
 
+    @Override
+    public Comanda entregar(ComandaDTO comandaDTO) throws PersistenciaException {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            Comanda comanda = entityManager.find(Comanda.class, comandaDTO.getId());
+            if (comanda == null) {
+                throw new PersistenciaException("Comanda no encontrada.");
+            }
+
+            comanda.setEstado(EstadoComanda.ENTREGADA);
+            entityManager.flush();
+            entityManager.merge(comanda);
+            
+            entityManager.getTransaction().commit();
+
+            return comanda;
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al actualizar la comanda: " + e.getMessage(), e);
+        }
+    }
 }
