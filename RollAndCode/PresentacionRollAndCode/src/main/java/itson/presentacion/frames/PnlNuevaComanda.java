@@ -16,7 +16,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
     private FrmPantallaInicio pantallaInicio;
     private NuevaComandaDTO comanda;
     private IMesasBO mesasBO;
-    
+
     public PnlNuevaComanda(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
@@ -26,22 +26,25 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         pantallaInicio.setTitle("Nueva Comanda");
         cargarMesas();
     }
-    public void PnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente){
+
+    public void PnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente) {
         recuperarContexto(panel, cliente);
     }
-    
-    private void recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente){
+
+    private void recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente) {
         PnlNuevaComanda pnlNuevaComanda = new PnlNuevaComanda(panel.pantallaInicio);
         pnlNuevaComanda.comanda.setCliente(cliente);
+        pantallaInicio.pintarPanelPrincipal(panel);
+        
     }
 
-     private void cargarMesas(){
-         List<MesaDTO> mesas = mesasBO.obtenerMesas();
-         
-         for (MesaDTO mesa : mesas) {
-             this.cbxNumeroMesa.addItem(mesa.getNumero().toString());
-         }
-     }
+    private void cargarMesas() {
+        List<MesaDTO> mesas = mesasBO.obtenerMesas();
+
+        for (MesaDTO mesa : mesas) {
+            this.cbxNumeroMesa.addItem(mesa.getNumero().toString());
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,7 +75,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         btnRegresar.setBackground(new java.awt.Color(247, 242, 239));
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
         btnRegresar.setBorder(null);
-        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
@@ -82,12 +85,17 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         btnAsignarCliente.setBackground(new java.awt.Color(247, 242, 239));
         btnAsignarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/agregarClienteComanda.png"))); // NOI18N
         btnAsignarCliente.setBorder(null);
-        btnAsignarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAsignarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAsignarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarClienteActionPerformed(evt);
+            }
+        });
 
         btnContinuarSinAsignarCliente.setBackground(new java.awt.Color(247, 242, 239));
         btnContinuarSinAsignarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/continuarSinAgregarCliente.png"))); // NOI18N
         btnContinuarSinAsignarCliente.setBorder(null);
-        btnContinuarSinAsignarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnContinuarSinAsignarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnContinuarSinAsignarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnContinuarSinAsignarClienteActionPerformed(evt);
@@ -144,10 +152,14 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         Integer numeroMesa = Integer.valueOf((String) cbxNumeroMesa.getSelectedItem());
         MesaDTO mesa = this.mesasBO.obtenerMesa(numeroMesa);
         comanda.setMesa(mesa);
-       PnlBuscadorProductos buscador = new PnlBuscadorProductos(pantallaInicio);
+        PnlBuscadorProductos buscador = new PnlBuscadorProductos(pantallaInicio);
         buscador.setComanda(comanda);
         pantallaInicio.pintarPanelPrincipal(buscador);
     }//GEN-LAST:event_btnContinuarSinAsignarClienteActionPerformed
+
+    private void btnAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarClienteActionPerformed
+        pantallaInicio.pintarPanelPrincipal(new PnlBuscarClientes(pantallaInicio,this, true));
+    }//GEN-LAST:event_btnAsignarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

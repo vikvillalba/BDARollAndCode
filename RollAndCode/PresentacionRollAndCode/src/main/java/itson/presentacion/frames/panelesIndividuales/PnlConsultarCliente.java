@@ -5,8 +5,10 @@
 package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
+import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.negociorollandcode.IClientesBO;
 import itson.presentacion.frames.PnlBuscarClientes;
+import itson.presentacion.frames.PnlNuevaComanda;
 import java.math.BigDecimal;
 
 /**
@@ -15,13 +17,18 @@ import java.math.BigDecimal;
  */
 public class PnlConsultarCliente extends javax.swing.JPanel {
 
-    ClienteDTO clienteDTO;
-
+    private ClienteDTO clienteDTO;
+    private NuevaComandaDTO comanda;
+    private PnlNuevaComanda panel;
+    private boolean creandoComanda;
     /**
      * Creates new form PnlConsultarCliente
      */
-    public PnlConsultarCliente(ClienteDTO cliente) {
+    public PnlConsultarCliente(ClienteDTO cliente, NuevaComandaDTO comanda, PnlNuevaComanda panel, boolean creandoComanda) {
         initComponents();
+        this.creandoComanda = creandoComanda;
+        this.comanda = comanda;
+        this.panel = panel;
         this.clienteDTO = cliente;
         campoNombre.setText(clienteDTO.getNombres());
         campoApellidoPaterno.setText(clienteDTO.getApellidoPaterno());
@@ -130,7 +137,9 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        
+        if(creandoComanda){
+            panel.PnlNuevaComanda(panel, clienteDTO);
+        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
 
