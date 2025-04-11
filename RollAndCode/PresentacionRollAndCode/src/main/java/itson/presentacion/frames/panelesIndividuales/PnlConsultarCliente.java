@@ -6,8 +6,9 @@ package itson.presentacion.frames.panelesIndividuales;
 
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
-import com.mycompany.negociorollandcode.IClientesBO;
+import itson.presentacion.frames.FrmPantallaInicio;
 import itson.presentacion.frames.PnlBuscarClientes;
+import itson.presentacion.frames.PnlInformacionCliente;
 import itson.presentacion.frames.PnlNuevaComanda;
 import java.math.BigDecimal;
 
@@ -17,10 +18,13 @@ import java.math.BigDecimal;
  */
 public class PnlConsultarCliente extends javax.swing.JPanel {
 
+    private FrmPantallaInicio frame;
     private ClienteDTO clienteDTO;
     private NuevaComandaDTO comanda;
     private PnlNuevaComanda panel;
     private boolean creandoComanda;
+    private PnlBuscarClientes panelBuscarClientes;
+
     /**
      * Creates new form PnlConsultarCliente
      */
@@ -37,6 +41,20 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
         campoPuntosFidelidad.setText(String.valueOf(clienteDTO.getGastoTotal().divide(BigDecimal.valueOf(20L))));
         campoApellidoMaterno.setText(cliente.getApellidoMaterno());
 
+    }
+
+    public PnlConsultarCliente(ClienteDTO cliente,PnlBuscarClientes panel, FrmPantallaInicio frame, boolean creandoComanda) {
+        initComponents();
+        this.panelBuscarClientes = panel;
+        this.creandoComanda = creandoComanda;
+        this.clienteDTO = cliente;
+        this.frame = frame;
+        campoNombre.setText(clienteDTO.getNombres());
+        campoApellidoPaterno.setText(clienteDTO.getApellidoPaterno());
+        campoCorreo.setText(clienteDTO.getCorreoElectronico());
+        campoTelefono.setText(clienteDTO.getTelefono());
+        campoPuntosFidelidad.setText(String.valueOf(clienteDTO.getGastoTotal().divide(BigDecimal.valueOf(20L))));
+        campoApellidoMaterno.setText(cliente.getApellidoMaterno());
     }
 
     /**
@@ -137,9 +155,12 @@ public class PnlConsultarCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        if(creandoComanda){
+        if (creandoComanda) {
             comanda.setCliente(clienteDTO);
             panel.pnlNuevaComanda(panel, comanda);
+        } else {
+            PnlInformacionCliente infoCliente = new PnlInformacionCliente(frame, panelBuscarClientes, clienteDTO);
+            frame.pintarPanelPrincipal(infoCliente);
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 

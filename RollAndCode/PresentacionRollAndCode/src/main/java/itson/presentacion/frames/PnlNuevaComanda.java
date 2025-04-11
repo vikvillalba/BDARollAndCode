@@ -167,6 +167,9 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         pantallaInicio.pintarPanelPrincipal(new PnlBuscarClientes(pantallaInicio, comanda, this, true));
     }//GEN-LAST:event_btnAsignarClienteActionPerformed
 
+        public FrmPantallaInicio getFrame(){
+            return pantallaInicio;
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarCliente;

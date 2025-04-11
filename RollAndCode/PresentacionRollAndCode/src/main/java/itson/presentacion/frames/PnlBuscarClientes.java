@@ -53,11 +53,14 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         initComponents();
         this.frame = frame;
         clientesBO = frame.getClientesBO();
+        this.creandoComanda = creandoComanda;
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Buscar Clientes");
-        this.creandoComanda = creandoComanda;
-        pnlClientes.setLayout(new GridLayout(0, 1));
-        pnlClientes.setPreferredSize(new Dimension(800, 400));
+
+        pnlClientes.setLayout(new BoxLayout(pnlClientes, BoxLayout.Y_AXIS));
+        pnlClientes.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        cargarClientes();
 
     }
 
@@ -192,7 +195,10 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        frame.pintarPanelPrincipal(panel);
+        if (creandoComanda)
+            frame.pintarPanelPrincipal(panel);
+        else
+            frame.pintarPanelPrincipal(new PnlPantallaPrincipal(frame, frame.getMesasBO()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
@@ -203,13 +209,22 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         this.pnlClientes.removeAll();
         try {
             List<ClienteDTO> clientes = this.clientesBO.buscarClientes();
-
-            for (ClienteDTO c : clientes) {
-                PnlConsultarCliente panel = new PnlConsultarCliente(c, comanda, this.panel, creandoComanda);
-                pnlClientes.add(Box.createVerticalStrut(10));
-                panel.setPreferredSize(new Dimension(750, 150));
-                pnlClientes.add(panel);
+            if (creandoComanda) {
+                for (ClienteDTO c : clientes) {
+                    PnlConsultarCliente panel = new PnlConsultarCliente(c,comanda, this.panel, creandoComanda);
+                    pnlClientes.add(Box.createVerticalStrut(10));
+                    panel.setPreferredSize(new Dimension(750, 150));
+                    pnlClientes.add(panel);
+                }
+            } else {
+                for (ClienteDTO c : clientes) {
+                    PnlConsultarCliente panel = new PnlConsultarCliente(c, this, frame, creandoComanda);
+                    pnlClientes.add(Box.createVerticalStrut(10));
+                    panel.setPreferredSize(new Dimension(750, 150));
+                    pnlClientes.add(panel);
+                }
             }
+
             this.pnlClientes.revalidate();
             this.pnlClientes.repaint();
         } catch (Exception e) {
