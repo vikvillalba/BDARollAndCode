@@ -61,7 +61,7 @@ public class IngredientesDAO implements IIngredientesDAO{
         Root<Ingrediente> rootIngrediente = update.from(Ingrediente.class);
 
         update.set(rootIngrediente.get("cantidadStock"), ingredienteActualizar.getCantidadStock()).
-                where(cb.equal(rootIngrediente.get("nombre"), ingredienteActualizar.getNombre()));
+                where(cb.equal(rootIngrediente.get("id"), ingredienteActualizar.getId()));
 
         Query query = entityManager.createQuery(update);
         int filasActualizadas = query.executeUpdate();
@@ -75,7 +75,7 @@ public class IngredientesDAO implements IIngredientesDAO{
                     ingredienteActualizar.getCantidadStock()
                 );
         } else {
-            throw new PersistenciaException("No se encontró el ingrediente con el nombre: " + ingredienteActualizar.getNombre());
+            throw new PersistenciaException("No se encontró el ingrediente.");
         }
         
         return ingredienteActualizado;
