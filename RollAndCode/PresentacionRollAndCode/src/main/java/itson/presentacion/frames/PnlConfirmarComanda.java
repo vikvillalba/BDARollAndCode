@@ -237,7 +237,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         try {
             this.comandasBO.registrarComanda(comanda);
             JOptionPane.showMessageDialog(null, "Comanda creada correctamente", "Comanda registrada", JOptionPane.INFORMATION_MESSAGE);
-            this.pantallaInicio.pintarPanelPrincipal(new PnlNuevaComanda(pantallaInicio));
+            this.pantallaInicio.pintarPanelPrincipal(new PnlComandasActivas(pantallaInicio));
         } catch (ComandaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

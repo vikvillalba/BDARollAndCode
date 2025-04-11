@@ -14,8 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- * Clase que contiene el menú de navegación, y actúa como control de navegación
- * entre las pantallas.
+ * Clase que contiene el menú de navegación, y actúa como control de navegación entre las pantallas.
  *
  * @author victoria
  */
@@ -34,15 +33,14 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         this.setSize(1272, 789);
         this.setLocationRelativeTo(null);
         this.usuario = usuario;
-        
-        if(!this.usuario.getTipoUsuario().equals(TipoUsuario.ADMINISTRADOR)){
+
+        if (!this.usuario.getTipoUsuario().equals(TipoUsuario.ADMINISTRADOR)) {
             btnClientesFrecuentes.setEnabled(false);
             btnIngredientes.setEnabled(false);
             btnProductos.setEnabled(false);
             btnReportes.setEnabled(false);
         }
-        
-        
+
     }
 
     public void pintarPanelPrincipal(JPanel panel) {
@@ -288,8 +286,8 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.setPreferredSize(new java.awt.Dimension(80, 50));
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSalirMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSalirMousePressed(evt);
             }
         });
         JMenuPrincipal.add(btnSalir);
@@ -328,7 +326,7 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerIngredientesActionPerformed
 
     private void btnClientesFrecuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesFrecuentesActionPerformed
-      
+
     }//GEN-LAST:event_btnClientesFrecuentesActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
@@ -347,11 +345,11 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         this.pintarPanelPrincipal(new PnlPantallaPrincipal(this, mesasBO));
     }//GEN-LAST:event_btnInicioMouseClicked
 
-    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
         this.dispose();
         ModoVista vista = new ModoVista();
         vista.setVisible(true);
-    }//GEN-LAST:event_btnSalirMouseClicked
+    }//GEN-LAST:event_btnSalirMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -94,7 +94,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         });
 
         btnContinuarSinAsignarCliente.setBackground(new java.awt.Color(247, 242, 239));
-        btnContinuarSinAsignarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/seleccionContinuar.png"))); // NOI18N
+        btnContinuarSinAsignarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/continuarSinAgregarCliente.png"))); // NOI18N
         btnContinuarSinAsignarCliente.setBorder(null);
         btnContinuarSinAsignarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnContinuarSinAsignarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
                         .addComponent(btnAsignarCliente)
                         .addGap(57, 57, 57)
                         .addComponent(btnContinuarSinAsignarCliente)))
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
