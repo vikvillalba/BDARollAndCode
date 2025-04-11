@@ -28,13 +28,14 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
     }
 
     public void pnlNuevaComanda(PnlNuevaComanda panel, NuevaComandaDTO comanda) {
-        
         pantallaInicio.pintarPanelPrincipal(panel.recuperarContexto(panel, comanda));
     }
 
     private PnlNuevaComanda recuperarContexto(PnlNuevaComanda panel, NuevaComandaDTO comanda) {
         PnlNuevaComanda pnlNuevaComanda = new PnlNuevaComanda(panel.pantallaInicio);
         pnlNuevaComanda.comanda.setCliente(comanda.getCliente());
+
+        pnlNuevaComanda.cbxNumeroMesa.setSelectedItem(comanda.getMesa());
         pnlNuevaComanda.comanda.setMesa(comanda.getMesa());
 
         return pnlNuevaComanda;
