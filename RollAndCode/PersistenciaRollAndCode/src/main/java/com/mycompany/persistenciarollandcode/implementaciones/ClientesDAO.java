@@ -174,9 +174,9 @@ public class ClientesDAO implements IClientesDAO {
         query.setParameter("telefono", telefono);
         return query.getResultList();
     }
-    
+
     @Override
-    public List<ClienteDTO> consultarClientes(String nombre, String correo, String telefono){
+    public List<ClienteDTO> consultarClientes(String nombre, String correo, String telefono) {
         EntityManager em = ManejadorConexiones.getEntityManager();
         String jpql = """
                       SELECT NEW com.mycompany.dominiorollandcode.dtos.ClienteDTO(
@@ -194,8 +194,28 @@ public class ClientesDAO implements IClientesDAO {
                       """;
         TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
         query.setParameter("telefono", telefono);
-        query.setParameter("nombres", "%"+nombre+"%");
-        query.setParameter("correoElectronico", "%"+correo+"%");
+        query.setParameter("nombres", "%" + nombre + "%");
+        query.setParameter("correoElectronico", "%" + correo + "%");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ClienteDTO> consultarClientes() {
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        String jpql = """
+                        Select NEW com.mycompany.dominiorollandcode.dtos.ClienteDTO(
+                            c.id,
+                            c.nombres,
+                            c.apellidoPaterno,
+                            c.apellidoMaterno,
+                            c.telefono,
+                            c.correoElectronico,
+                            c.fechaRegistro,
+                            c.gastoTotal
+                            )
+                         FROM ClienteFrecuente c
+                      """;
+        TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
         return query.getResultList();
     }
 }

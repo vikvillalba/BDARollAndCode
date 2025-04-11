@@ -27,15 +27,16 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         cargarMesas();
     }
 
-    public void pnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente) {
-        PnlNuevaComanda pnuevaComanda = panel.recuperarContexto(panel, cliente);
+    public void pnlNuevaComanda(PnlNuevaComanda panel, NuevaComandaDTO comanda) {
+        PnlNuevaComanda pnuevaComanda = panel.recuperarContexto(panel, comanda);
         pantallaInicio.pintarPanelPrincipal(pnuevaComanda);
     }
 
-    private PnlNuevaComanda recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente) {
+    private PnlNuevaComanda recuperarContexto(PnlNuevaComanda panel, NuevaComandaDTO comanda) {
         PnlNuevaComanda pnlNuevaComanda = new PnlNuevaComanda(panel.pantallaInicio);
-        pnlNuevaComanda.comanda.setCliente(cliente);
-        
+        pnlNuevaComanda.comanda.setCliente(comanda.getCliente());
+        pnlNuevaComanda.comanda.setMesa(comanda.getMesa());
+
         return pnlNuevaComanda;
     }
 
@@ -135,7 +136,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMesa)
                     .addComponent(cbxNumeroMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegresar)
                     .addComponent(btnAsignarCliente)
@@ -159,7 +160,7 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
     }//GEN-LAST:event_btnContinuarSinAsignarClienteActionPerformed
 
     private void btnAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarClienteActionPerformed
-        pantallaInicio.pintarPanelPrincipal(new PnlBuscarClientes(pantallaInicio,this, true));
+        pantallaInicio.pintarPanelPrincipal(new PnlBuscarClientes(pantallaInicio, comanda, this, true));
     }//GEN-LAST:event_btnAsignarClienteActionPerformed
 
 

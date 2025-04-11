@@ -18,8 +18,10 @@ public class ClienteDTO {
     private Calendar fechaRegistro;
     private BigDecimal gastoTotal;
 
-    public ClienteDTO(long id, String nombres, String ApellidoP, String apellidoM,
-            String telefono, String email, Calendar fechaRegistro, BigDecimal gastoTotal) {
+    public ClienteDTO(long id, String nombres,
+            String ApellidoP, String apellidoM,
+            String telefono, String email,
+            Calendar fechaRegistro, BigDecimal gastoTotal) {
         this.id = id;
         this.nombres = nombres;
         this.apellidoMaterno = apellidoM;

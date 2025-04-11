@@ -90,26 +90,41 @@ public class ClientesBO implements IClientesBO {
             String numTelefonoEncriptado = Utileria.encriptar(telefono);
             List<ClienteDTO> clientes = clientesDAO.buscarClientesTelefono(numTelefonoEncriptado);
             return clientes;
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
             return null;
         }
     }
-    
+
     @Override
-    public List<ClienteDTO> consultarClientes(String parametro){
-        try{
+    public List<ClienteDTO> consultarClientes(String parametro) {
+        try {
             String nombre = parametro;
             String correo = parametro;
             String numTelefonoEncriptado = Utileria.encriptar(parametro);
             List<ClienteDTO> clientes = clientesDAO.consultarClientes(nombre, correo, numTelefonoEncriptado);
             for (ClienteDTO c : clientes) {
-                c.setNumeroTelefono(Utileria.desencriptar(c.getTelefono())); 
+                c.setNumeroTelefono(Utileria.desencriptar(c.getTelefono()));
             }
             return clientes;
         } catch (Exception ex) {
             Logger.getLogger(ClientesBO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al mostrar los clientes");
+            return null;
+        }
+    }
+
+    @Override
+    public List<ClienteDTO> consultarClientes() {
+        try {
+            List<ClienteDTO> clientes = clientesDAO.consultarClientes();
+            for (ClienteDTO c : clientes) {
+                c.setNumeroTelefono(Utileria.desencriptar(c.getTelefono()));
+            }
+            return clientes;
+        } catch (Exception e) {
+            Logger.getLogger(ClientesBO.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(null, "Error al mostrar los clientes");
             return null;
         }
