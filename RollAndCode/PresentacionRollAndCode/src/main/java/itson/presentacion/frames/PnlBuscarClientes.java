@@ -29,9 +29,10 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     /**
      * Creates new form PnlBuscarClientes
      */
-    public PnlBuscarClientes(FrmPantallaInicio frame, PnlNuevaComanda panel, boolean creandoComanda) {
+    public PnlBuscarClientes(FrmPantallaInicio frame, NuevaComandaDTO comanda, PnlNuevaComanda panel, boolean creandoComanda) {
         initComponents();
         this.frame = frame;
+        this.comanda = comanda;
         clientesBO = frame.getClientesBO();
         frame.pintarPanelPrincipal(this);
         frame.setTitle("Buscar Clientes");
@@ -40,12 +41,6 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         pnlClientes.setLayout(new GridLayout(0, 1));
         pnlClientes.setPreferredSize(new Dimension(800, 400));
 
-        try {
-
-            this.clientes = clientesBO.buscarClientes();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
-        }
     }
 
     public PnlBuscarClientes(FrmPantallaInicio frame, boolean creandoComanda) {
@@ -58,12 +53,6 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
         pnlClientes.setLayout(new GridLayout(0, 1));
         pnlClientes.setPreferredSize(new Dimension(800, 400));
 
-        try {
-
-            this.clientes = clientesBO.buscarClientes();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
-        }
 
     }
 
@@ -198,7 +187,7 @@ public class PnlBuscarClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        frame.pintarPanelPrincipal(pnlClientes);
+        frame.pintarPanelPrincipal(panel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed

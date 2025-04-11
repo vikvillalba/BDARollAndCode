@@ -27,15 +27,16 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
         cargarMesas();
     }
 
-    public void pnlNuevaComanda(PnlNuevaComanda panel, ClienteDTO cliente) {
-        PnlNuevaComanda pnuevaComanda = panel.recuperarContexto(panel, cliente);
-        pantallaInicio.pintarPanelPrincipal(pnuevaComanda);
+    public void pnlNuevaComanda(PnlNuevaComanda panel, NuevaComandaDTO comanda) {
+        
+        pantallaInicio.pintarPanelPrincipal(panel.recuperarContexto(panel, comanda));
     }
 
-    private PnlNuevaComanda recuperarContexto(PnlNuevaComanda panel, ClienteDTO cliente) {
+    private PnlNuevaComanda recuperarContexto(PnlNuevaComanda panel, NuevaComandaDTO comanda) {
         PnlNuevaComanda pnlNuevaComanda = new PnlNuevaComanda(panel.pantallaInicio);
-        pnlNuevaComanda.comanda.setCliente(cliente);
-        
+        pnlNuevaComanda.comanda.setCliente(comanda.getCliente());
+        pnlNuevaComanda.comanda.setMesa(comanda.getMesa());
+
         return pnlNuevaComanda;
     }
 
@@ -159,7 +160,10 @@ public class PnlNuevaComanda extends javax.swing.JPanel {
     }//GEN-LAST:event_btnContinuarSinAsignarClienteActionPerformed
 
     private void btnAsignarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarClienteActionPerformed
-        pantallaInicio.pintarPanelPrincipal(new PnlBuscarClientes(pantallaInicio,this, true));
+        Integer numeroMesa = Integer.valueOf((String) cbxNumeroMesa.getSelectedItem());
+        MesaDTO mesa = this.mesasBO.obtenerMesa(numeroMesa);
+        comanda.setMesa(mesa);
+        pantallaInicio.pintarPanelPrincipal(new PnlBuscarClientes(pantallaInicio, comanda, this, true));
     }//GEN-LAST:event_btnAsignarClienteActionPerformed
 
 
