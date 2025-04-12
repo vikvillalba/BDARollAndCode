@@ -34,6 +34,13 @@ public class ComandasBO implements IComandasBO {
         this.ComandasDAO = ComandasDAO;
     }
 
+    /**
+     * Registra una nueva comanda en la base de datos
+     *
+     * @param nuevaComandaDTO objeto con los datos de la comanda
+     * @return ComandaDTO con los datos de la comanda
+     * @throws ComandaException
+     */
     @Override
     public ComandaDTO registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws ComandaException {
         if (nuevaComandaDTO.getProductos().isEmpty()) {
@@ -52,8 +59,6 @@ public class ComandasBO implements IComandasBO {
         nuevaComandaDTO.setFolio(folio);
         nuevaComandaDTO.setFechaCreacion(fechaComanda);
         nuevaComandaDTO.setEstado(EstadoComanda.ABIERTA);
-        
-        
 
         try {
             Comanda comanda = this.ComandasDAO.registrarComanda(nuevaComandaDTO);
@@ -72,6 +77,12 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
+    /**
+     * Obtiene todas las comandas abiertas en la base de datos
+     *
+     * @return List<ComandaDTO> con los datos de las comandas
+     * @throws ComandaException
+     */
     @Override
     public List<ComandaDTO> obtenerComandasAbiertas() throws ComandaException {
         try {
@@ -127,6 +138,13 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
+    /**
+     * Actualiza una comanda en la base de datos
+     *
+     * @param comanda objeto con los datos de la comanda
+     * @return ComandaDTO con nuevos los datos de la comanda
+     * @throws ComandaException
+     */
     @Override
     public ComandaDTO actualizar(ComandaDTO comanda) throws ComandaException {
         if (!comanda.getEstado().equals(EstadoComanda.ABIERTA)) {
@@ -183,6 +201,13 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
+    /**
+     * Marca una comanda como entregada
+     *
+     * @param comandaDTO objeto con los datos de la comanda
+     * @return ComandaDTO con los datos de la comanda
+     * @throws ComandaException
+     */
     @Override
     public ComandaDTO entregar(ComandaDTO comandaDTO) throws ComandaException {
         if (comandaDTO.getEstado() == EstadoComanda.CANCELADA) {
@@ -203,6 +228,13 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
+    /**
+     * Marca una comanda como cancelada
+     *
+     * @param comandaDTO objeto con los datos de la comanda
+     * @return ComandaDTO con los datos de la comanda
+     * @throws ComandaException
+     */
     @Override
     public ComandaDTO cancelar(ComandaDTO comandaDTO) throws ComandaException {
         if (comandaDTO.getEstado() == EstadoComanda.ENTREGADA) {
@@ -223,11 +255,21 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
+    /**
+     * genera un reporte de comandas
+     *
+     * @param fechaInicio calendario con la fecha de inicio del reporte
+     * @param fechaFin calendario con la fecha de fin del reporte
+     * @return List<ComandaReporteDTO> con los datos del reporte
+     */
     public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin) {
         return ComandasDAO.obtenerComandasReporte(fechaInicio, fechaFin);
     }
-    
-    public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, Integer minVisitas){
+
+    /**
+     * genera un reporte de clientes frecuentes
+     */
+    public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, Integer minVisitas) {
         return ComandasDAO.obtenerReporteClientesFrecuentes(nombreFiltro, minVisitas);
     }
 }

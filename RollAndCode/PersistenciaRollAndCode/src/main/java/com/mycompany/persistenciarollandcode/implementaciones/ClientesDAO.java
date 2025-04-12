@@ -25,6 +25,12 @@ public class ClientesDAO implements IClientesDAO {
     public ClientesDAO() {
     }
 
+    /**
+     * Registra un nuevo cliente en la base de datos
+     *
+     * @param clienteDTO objeto con los datos del cliente
+     * @return ClienteFrecuente con los datos del cliente
+     */
     @Override
     public ClienteFrecuente registrarCliente(RegistrarClienteDTO clienteDTO) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -47,6 +53,12 @@ public class ClientesDAO implements IClientesDAO {
         return cliente;
     }
 
+    /**
+     * Verifica si el correo ya existe en la base de datos
+     *
+     * @param correo cadena con el correo
+     * @return boolean con el resultado de la verificación
+     */
     @Override
     public boolean verificarCorreoBaseDatos(String correo) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -62,6 +74,12 @@ public class ClientesDAO implements IClientesDAO {
         }
     }
 
+    /**
+     * Verifica si el telefono ya existe en la base de datos
+     *
+     * @param telefono cadena con el telefono
+     * @return boolean con el resultado de la verificación
+     */
     @Override
     public boolean verificarTelefono(String telefono) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -80,6 +98,12 @@ public class ClientesDAO implements IClientesDAO {
 
     }
 
+    /**
+     * Verifica si el correo es un correo válido
+     *
+     * @param correo cadena con el correo
+     * @return boolean con el resultado de la verificación
+     */
     @Override
     public boolean verificarFormatoCorreo(String correo) {
         Pattern patronEmail = Pattern.compile(
@@ -88,6 +112,11 @@ public class ClientesDAO implements IClientesDAO {
         return matcher.matches();
     }
 
+    /**
+     * Obtiene todos los clientes en la base de datos
+     *
+     * @return List<ClienteDTO> con los datos de todos los clientes
+     */
     @Override
     public List<ClienteDTO> buscarClientes() {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -108,6 +137,12 @@ public class ClientesDAO implements IClientesDAO {
         return query.getResultList();
     }
 
+    /**
+     * Obtiene todos los clientes con un nombre que coincida con el filtro
+     *
+     * @param nombre cadena con el nombre del cliente
+     * @return List<ClienteDTO> con los datos de los clientes
+     */
     @Override
     public List<ClienteDTO> buscarClientesNombre(String nombre) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -130,6 +165,12 @@ public class ClientesDAO implements IClientesDAO {
         return query.getResultList();
     }
 
+    /**
+     * Obtiene todos los clientes con un correo que coincida con el filtro
+     *
+     * @param correo cadena con el correo del cliente
+     * @return List<ClienteDTO> con los datos de los clientes
+     */
     @Override
     public List<ClienteDTO> buscarClientesCorreo(String correo) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -153,6 +194,11 @@ public class ClientesDAO implements IClientesDAO {
 
     }
 
+    /**
+     * Obtiene todos los clientes con un telefono que coincida con el filtro
+     *
+     * @param telefono cadena con el telefono del cliente
+     */
     @Override
     public List<ClienteDTO> buscarClientesTelefono(String telefono) {
         EntityManager em = ManejadorConexiones.getEntityManager();
@@ -174,9 +220,18 @@ public class ClientesDAO implements IClientesDAO {
         query.setParameter("telefono", telefono);
         return query.getResultList();
     }
-    
+
+    /**
+     * Obtiene todos los clientes con un nombre, correo o telefono que coincida
+     * con el filtro
+     *
+     * @param nombre cadena con el nombre del cliente
+     * @param correo cadena con el correo del cliente
+     * @param telefono cadena con el telefono del cliente
+     * @return List<ClienteDTO> con los datos de los clientes
+     */
     @Override
-    public List<ClienteDTO> consultarClientes(String nombre, String correo, String telefono){
+    public List<ClienteDTO> consultarClientes(String nombre, String correo, String telefono) {
         EntityManager em = ManejadorConexiones.getEntityManager();
         String jpql = """
                       SELECT NEW com.mycompany.dominiorollandcode.dtos.ClienteDTO(
@@ -194,8 +249,8 @@ public class ClientesDAO implements IClientesDAO {
                       """;
         TypedQuery<ClienteDTO> query = em.createQuery(jpql, ClienteDTO.class);
         query.setParameter("telefono", telefono);
-        query.setParameter("nombres", "%"+nombre+"%");
-        query.setParameter("correoElectronico", "%"+correo+"%");
+        query.setParameter("nombres", "%" + nombre + "%");
+        query.setParameter("correoElectronico", "%" + correo + "%");
         return query.getResultList();
     }
 }

@@ -33,6 +33,9 @@ public class FabricaObjetosNegocio {
     private static IProductosBO productosBO;
     private static IComandasBO comandasBO;
 
+    /**
+     * Construye un nuevo objeto mesasBO.
+     */
     public static IMesasBO crearMesasBO() {
         IMesasDAO mesasDAO = new MesasDAO();
         mesasBO = new MesasBO(mesasDAO);
@@ -40,12 +43,22 @@ public class FabricaObjetosNegocio {
         return mesasBO;
     }
 
+    /**
+     * Construye un nuevo objeto clientesBO
+     *
+     * @return un clientesBO
+     */
     public static IClientesBO crearClientesBO() {
         IClientesDAO clientesDAO = new ClientesDAO();
         clientesBO = new ClientesBO(clientesDAO);
         return clientesBO;
     }
 
+    /**
+     * Construye un nuevo objeto ingredientesBO y lo devuelve
+     *
+     * @return un ingredientesBO
+     */
     public static IIngredientesBO crearIngredientesBO() {
         IIngredientesDAO ingredientesDAO = new IngredientesDAO();
         ingredientesBO = new IngredientesBO(ingredientesDAO);
@@ -53,12 +66,22 @@ public class FabricaObjetosNegocio {
         return ingredientesBO;
     }
 
+    /**
+     * Construye un nuevo objeto productosBO y lo devuelve
+     *
+     * @return un productosBO
+     */
     public static IProductosBO crearProductosBO() {
         IProductosDAO productosDAO = new ProductosDAO();
         productosBO = new ProductosBO(productosDAO);
         return productosBO;
     }
 
+    /**
+     * Crea un nuevo objeto comandasBO y lo devuelve
+     *
+     * @return un comandasBO
+     */
     public static IComandasBO crearComandasBO() {
         IComandasDAO comandasDAO = new ComandasDAO();
         comandasBO = new ComandasBO(comandasDAO);

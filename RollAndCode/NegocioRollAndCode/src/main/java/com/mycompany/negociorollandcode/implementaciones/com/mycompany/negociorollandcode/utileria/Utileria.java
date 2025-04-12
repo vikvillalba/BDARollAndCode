@@ -20,8 +20,15 @@ public class Utileria {
     private static final String PADDING = "PKCS5Padding";
     private static final String TRANSFORMACION = ALGORITMO + "/" + MODO + "/" + PADDING;
 
-    private static final byte[] CLAVE_SECRETA = "olaquetachendo12".getBytes(StandardCharsets.UTF_8); 
+    private static final byte[] CLAVE_SECRETA = "olaquetachendo12".getBytes(StandardCharsets.UTF_8);
 
+    /**
+     * Encripta una cadena
+     *
+     * @param s string a encriptar
+     * @return string encriptada
+     * @throws Exception
+     */
     public static String encriptar(String s) throws Exception {
         SecretKeySpec clave = new SecretKeySpec(CLAVE_SECRETA, ALGORITMO);
         Cipher cipher = Cipher.getInstance(TRANSFORMACION);
@@ -30,6 +37,13 @@ public class Utileria {
         return Base64.getEncoder().encodeToString(bytesEncriptados);
     }
 
+    /**
+     * Desencripta una cadena
+     *
+     * @param s cadena a desencriptar
+     * @return string desencriptada
+     * @throws Exception
+     */
     public static String desencriptar(String s) throws Exception {
         SecretKeySpec clave = new SecretKeySpec(CLAVE_SECRETA, ALGORITMO);
         Cipher cipher = Cipher.getInstance(TRANSFORMACION);
@@ -38,4 +52,4 @@ public class Utileria {
         byte[] bytesDesencriptados = cipher.doFinal(bytesDecodificados);
         return new String(bytesDesencriptados, StandardCharsets.UTF_8);
     }
-    }
+}

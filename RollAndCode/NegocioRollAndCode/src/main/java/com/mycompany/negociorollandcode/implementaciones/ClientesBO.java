@@ -28,6 +28,13 @@ public class ClientesBO implements IClientesBO {
     public ClientesBO() {
     }
 
+    /**
+     * Registra un nuevo cliente en la base de datos
+     *
+     * @param cliente objeto con los datos del cliente
+     * @return ClienteDTO con los datos del cliente
+     * @throws ClienteException
+     */
     @Override
     public ClienteDTO registrarNuevoCliente(RegistrarClienteDTO cliente) throws ClienteException {
         String correo = cliente.getCorreoElectronico().toLowerCase();
@@ -69,6 +76,11 @@ public class ClientesBO implements IClientesBO {
 
     }
 
+    /**
+     * Busca todos los clientes en la base de datos
+     *
+     * @return List<ClienteDTO> con los datos de todos los clientes
+     */
     @Override
     public List<ClienteDTO> buscarClientes() {
         List<ClienteDTO> clientes = clientesDAO.buscarClientes();
@@ -81,7 +93,7 @@ public class ClientesBO implements IClientesBO {
             JOptionPane.showMessageDialog(null, "Error al cargar los clientes");
             return null;
         }
-        
+
     }
 
     @Override
@@ -107,6 +119,12 @@ public class ClientesBO implements IClientesBO {
         }
     }
 
+    /**
+     * Busca clientes por nombre, correo y telefono
+     *
+     * @param parametro cadena con el nombre, correo o telefono
+     * @return List<ClienteDTO> con los datos de los clientes
+     */
     @Override
     public List<ClienteDTO> consultarClientes(String parametro) {
         try {

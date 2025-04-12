@@ -30,9 +30,16 @@ public class ProductosBO implements IProductosBO {
         this.productosDAO = productosDAO;
     }
 
+    /**
+     * Registra un nuevo producto en la base de datos
+     *
+     * @param nuevoProductoDTO objeto con los datos del producto
+     * @return ProductoDTO con los datos del producto
+     * @throws ProductoException
+     */
     @Override
     public ProductoDTO registrar(NuevoProductoDTO nuevoProductoDTO) throws ProductoException {
-        if(nuevoProductoDTO.getIngredientes().isEmpty()){
+        if (nuevoProductoDTO.getIngredientes().isEmpty()) {
             throw new ProductoException("El producto debe de tener al menos un ingrediente.");
         }
 
@@ -57,6 +64,12 @@ public class ProductosBO implements IProductosBO {
         }
     }
 
+    /**
+     * Obtiene todos los productos existentes en la base de datos
+     *
+     * @return List<ProductoDTO> con los datos de todos los productos
+     * @throws ProductoException
+     */
     @Override
     public List<ProductoDTO> obtenerProductosExistentes() throws ProductoException {
         try {
@@ -66,6 +79,12 @@ public class ProductosBO implements IProductosBO {
         }
     }
 
+    /**
+     * Obtiene todos los productos con un nombre que coincida con el filtro
+     *
+     * @param filtro cadena con el nombre del producto
+     * @return List<ProductoDTO> con los datos de los productos
+     */
     @Override
     public List<ProductoDTO> obtenerProductosFiltradosNombre(String filtro) throws ProductoException {
         if (filtro.isBlank()) {
@@ -85,6 +104,12 @@ public class ProductosBO implements IProductosBO {
         }
     }
 
+    /**
+     * Obtiene todos los productos con un tipo que coincida con el filtro
+     *
+     * @param filtro cadena con el tipo del producto
+     * @return List<ProductoDTO> con los datos de los productos
+     */
     @Override
     public List<ProductoDTO> obtenerProductosFiltradosTipo(String filtro) throws ProductoException {
         filtro = filtro.toUpperCase().trim();
@@ -103,6 +128,12 @@ public class ProductosBO implements IProductosBO {
         throw new ProductoException("Filtro de búsqueda inválido");
     }
 
+    /**
+     * Obtiene los productos disponibles en la base de datos
+     *
+     * @param productos List<ProductoDTO> con los datos de los productos
+     * @return List<ProductoDTO> con los datos de los productos disponibles
+     */
     @Override
     public List<ProductoDTO> obtenerProductosDisponibles(List<ProductoDTO> productos) throws ProductoException {
         List<ProductoDTO> productosDisponibles = new ArrayList<>();
@@ -139,9 +170,16 @@ public class ProductosBO implements IProductosBO {
         return productosDisponibles;
     }
 
+    /**
+     * Actualiza un producto en la base de datos
+     *
+     * @param producto objeto con los datos del producto
+     * @return ProductoDTO con los datos del producto
+     * @throws ProductoException
+     */
     @Override
-    public ProductoDTO actualizar(ProductoDTO producto) throws ProductoException{
-        if(producto.getIngredientes().isEmpty()){
+    public ProductoDTO actualizar(ProductoDTO producto) throws ProductoException {
+        if (producto.getIngredientes().isEmpty()) {
             throw new ProductoException("El producto debe de tener al menos un ingrediente.");
         }
         try {
@@ -151,7 +189,4 @@ public class ProductosBO implements IProductosBO {
         }
     }
 
-
-   
-    
 }

@@ -31,6 +31,12 @@ import javax.persistence.TypedQuery;
  */
 public class ComandasDAO implements IComandasDAO {
 
+    /**
+     * Registra un nuevo comanda en la base de datos
+     *
+     * @param nuevaComandaDTO objeto con los datos de la comanda
+     * @return Comanda con los datos de la comanda
+     */
     @Override
     public Comanda registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -75,6 +81,11 @@ public class ComandasDAO implements IComandasDAO {
         return comanda;
     }
 
+    /**
+     * Obtiene todas las comandas abiertas en la base de datos
+     *
+     * @return List<Comanda> con los datos de las comandas
+     */
     @Override
     public List<Comanda> obtenerComandasAbiertas() throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -92,6 +103,12 @@ public class ComandasDAO implements IComandasDAO {
 
     }
 
+    /**
+     * Actualiza un comanda en la base de datos
+     *
+     * @param comandaDTO objeto con los datos de la comanda
+     * @return Comanda con los datos de la comanda
+     */
     @Override
     public Comanda actualizar(ComandaDTO comandaDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -158,6 +175,12 @@ public class ComandasDAO implements IComandasDAO {
 
     }
 
+    /**
+     * Cambia el estado de una comanda en la base de datos
+     *
+     * @param comandaDTO objeto con los datos de la comanda
+     * @return Comanda con los datos de la comanda
+     */
     @Override
     public Comanda cambiarEstado(ComandaDTO comandaDTO) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -184,6 +207,11 @@ public class ComandasDAO implements IComandasDAO {
         }
     }
 
+    /**
+     * Actualiza el stock de ingredientes de una comanda en la base de datos
+     *
+     * @param comanda objeto con los datos de la comanda
+     */
     @Override
     public void actualizarIngredientes(Comanda comanda) throws PersistenciaException {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -208,6 +236,12 @@ public class ComandasDAO implements IComandasDAO {
         entityManager.getTransaction().commit();
     }
 
+    /**
+     * Genera un reporte de comandas
+     *
+     * @param fechaInicio calendario con la fecha de inicio del reporte
+     * @param fechaFin calendario con la fecha de fin del reporte
+     */
     @Override
     public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -224,6 +258,9 @@ public class ComandasDAO implements IComandasDAO {
 
     }
 
+    /**
+     * Genera un reporte de clientes frecuentes
+     */
     @Override
     public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, int minVisitas) {
         EntityManager em = ManejadorConexiones.getEntityManager();
