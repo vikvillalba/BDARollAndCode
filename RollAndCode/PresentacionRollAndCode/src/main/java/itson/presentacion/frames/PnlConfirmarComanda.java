@@ -46,7 +46,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Confirmar comanda");
         
-        int filas = (int) Math.ceil(this.comanda.getProductos().size() / 3.0);
+        int filas = (int) Math.ceil(productos.size() / 3.0);
         this.pnlProductos.setPreferredSize(new Dimension(pnlProductos.getWidth(), filas * 210));
         cargarProductos();
         calcularTotal();

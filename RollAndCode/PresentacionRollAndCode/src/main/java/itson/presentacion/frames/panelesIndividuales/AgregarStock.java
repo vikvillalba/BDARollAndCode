@@ -141,7 +141,12 @@ public class AgregarStock extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-         try {
+        if (!txtCantidadStock.getText().matches("\\d+") || txtCantidadStock.getText().isEmpty() || txtCantidadStock.getText().isBlank()) {
+              JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
+              txtCantidadStock.setText("");
+              return;
+        }
+        try {
             
             Integer cantidadStock = this.obtenerCantidad();
             IngredienteDTO ingredienteActualizado = this.ingredientesBO.actualizarStock(ingredienteDTO, cantidadStock);
