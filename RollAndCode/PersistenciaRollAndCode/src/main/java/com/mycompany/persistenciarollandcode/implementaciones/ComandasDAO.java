@@ -1,5 +1,6 @@
 package com.mycompany.persistenciarollandcode.implementaciones;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
@@ -169,8 +170,8 @@ public class ComandasDAO implements IComandasDAO {
             }
             comanda.setEstado(comandaDTO.getEstado());
             entityManager.merge(comanda);
-            
-            if(comanda.getEstado() == EstadoComanda.ENTREGADA){
+
+            if (comanda.getEstado() == EstadoComanda.ENTREGADA) {
                 actualizarIngredientes(comanda);
             }
             entityManager.getTransaction().commit();
@@ -197,7 +198,7 @@ public class ComandasDAO implements IComandasDAO {
                 if (stockRestante < 0) {
                     entityManager.getTransaction().rollback();
                     throw new PersistenciaException("No hay suficiente stock del ingrediente: " + ingrediente.getNombre());
-                   
+
                 }
 
                 ingrediente.setCantidadStock(stockRestante);
@@ -207,8 +208,7 @@ public class ComandasDAO implements IComandasDAO {
         entityManager.getTransaction().commit();
     }
 
-    
-    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin){
+    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         String jpql = """
                       SELECT new com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO 
@@ -218,10 +218,33 @@ public class ComandasDAO implements IComandasDAO {
                       LEFT JOIN c.clienteFrecuente cf
                       WHERE c.fechaCreacion BETWEEN :fechaInicio AND :fechaFin
                       """;
-        
+
         return entityManager.createQuery(jpql, ComandaReporteDTO.class).setParameter("fechaInicio", fechaInicio).setParameter("fechaFin", fechaFin).getResultList();
 
-    
+    }
+
+    public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, int minVisitas) {
+        EntityManager em = ManejadorConexiones.getEntityManager();
+        String jpql = """
+        SELECT new com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO(
+            cf.nombres,
+            cf.apellidoPaterno,
+            cf.apellidoMaterno,
+            COUNT(c.id),
+            SUM(c.totalAcumulado),
+            MAX(c.fechaCreacion)
+        )
+        FROM ClienteFrecuente cf
+        JOIN cf.comandas c
+        WHERE CONCAT(cf.nombres, ' ', cf.apellidoPaterno, ' ', cf.apellidoMaterno) LIKE :nombreFiltro
+        GROUP BY cf.nombres, cf.apellidoPaterno, cf.apellidoMaterno
+        HAVING COUNT(c.id) >= :minVisitas
+    """;
+
+        return em.createQuery(jpql, ClienteReporteDTO.class)
+                .setParameter("nombreFiltro", "%" + nombreFiltro + "%")
+                .setParameter("minVisitas", (long) minVisitas) // Ojo: COUNT es Long
+                .getResultList();
     }
 
 }

@@ -54,6 +54,11 @@ public class PnlReporteComanda extends javax.swing.JPanel {
         }
 
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblReporte.getModel();
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
         comandas.forEach(row -> {
             Object[] fila = new Object[6];
             fila[0] = row.getFolio();

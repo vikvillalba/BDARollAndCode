@@ -1,6 +1,7 @@
 
 package com.mycompany.negociorollandcode;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
@@ -19,4 +20,5 @@ public interface IComandasBO {
     public abstract ComandaDTO entregar(ComandaDTO comanda) throws ComandaException;
     public abstract ComandaDTO cancelar(ComandaDTO comanda) throws ComandaException;
     public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin);
+    public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, Integer minVisitas);
 }

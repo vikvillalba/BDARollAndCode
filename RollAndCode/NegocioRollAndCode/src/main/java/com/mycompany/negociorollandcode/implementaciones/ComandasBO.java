@@ -1,6 +1,7 @@
 package com.mycompany.negociorollandcode.implementaciones;
 
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
+import com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
@@ -33,24 +34,26 @@ public class ComandasBO implements IComandasBO {
         this.ComandasDAO = ComandasDAO;
     }
 
-     @Override
-     public ComandaDTO registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws ComandaException {
-         if(nuevaComandaDTO.getProductos().isEmpty()){
-             throw new ComandaException("La comanda debe de contener al menos un producto");
-         }
-         Random random = new Random();
- 
-         int consecutivo = random.nextInt(999) + 1;
-         LocalDate fecha = LocalDate.now();
-         String fechaFormateada = fecha.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-         String consecutivoFormateado = String.format("%03d", consecutivo);
- 
-         String folio = "OB-" + fechaFormateada + "-" + consecutivoFormateado;
+    @Override
+    public ComandaDTO registrarComanda(NuevaComandaDTO nuevaComandaDTO) throws ComandaException {
+        if (nuevaComandaDTO.getProductos().isEmpty()) {
+            throw new ComandaException("La comanda debe de contener al menos un producto");
+        }
+        Random random = new Random();
+
+        int consecutivo = random.nextInt(999) + 1;
+        LocalDate fecha = LocalDate.now();
+        String fechaFormateada = fecha.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String consecutivoFormateado = String.format("%03d", consecutivo);
+
+        String folio = "OB-" + fechaFormateada + "-" + consecutivoFormateado;
         Calendar fechaComanda = Calendar.getInstance();
 
         nuevaComandaDTO.setFolio(folio);
         nuevaComandaDTO.setFechaCreacion(fechaComanda);
         nuevaComandaDTO.setEstado(EstadoComanda.ABIERTA);
+        
+        
 
         try {
             Comanda comanda = this.ComandasDAO.registrarComanda(nuevaComandaDTO);
@@ -74,7 +77,7 @@ public class ComandasBO implements IComandasBO {
         try {
             List<Comanda> comandas = this.ComandasDAO.obtenerComandasAbiertas();
             List<ComandaDTO> comandasDTO = new ArrayList<>();
-            
+
             for (Comanda comanda : comandas) {
                 ComandaDTO comandaDTO = new ComandaDTO();
                 comandaDTO.setId(comanda.getId());
@@ -82,11 +85,11 @@ public class ComandasBO implements IComandasBO {
                 comandaDTO.setFechaHora(comanda.getFechaCreacion());
                 comandaDTO.setEstado(comanda.getEstado());
                 comandaDTO.setTotalAcumulado(comanda.getTotalAcumulado());
-                
+
                 List<ProductoComandaDTO> productos = new ArrayList<>();
                 for (ProductoComanda producto : comanda.getProductos()) {
                     ProductoComandaDTO productoComandaDTO = new ProductoComandaDTO();
-                    
+
                     productoComandaDTO.setIdProducto(producto.getProducto().getId());
                     productoComandaDTO.setIdComanda(comanda.getId());
                     productoComandaDTO.setNombreProducto(producto.getProducto().getNombre());
@@ -95,7 +98,7 @@ public class ComandasBO implements IComandasBO {
                     productoComandaDTO.setTipo(producto.getProducto().getTipo());
                     productoComandaDTO.setComentario(producto.getComentario());
                     productoComandaDTO.setSubtotal(producto.getImporteProducto());
- 
+
                     productos.add(productoComandaDTO);
                 }
 
@@ -132,7 +135,7 @@ public class ComandasBO implements IComandasBO {
 
         try {
             Comanda comandaActualizada = this.ComandasDAO.actualizar(comanda);
-            
+
             ComandaDTO comandaDTO = new ComandaDTO();
             comandaDTO.setId(comandaActualizada.getId());
             comandaDTO.setFolio(comandaActualizada.getFolio());
@@ -156,42 +159,42 @@ public class ComandasBO implements IComandasBO {
                 productos.add(productoComandaDTO);
             }
 
-             ClienteFrecuente clienteFrecuente = comandaActualizada.getClienteFrecuente();
-                if (clienteFrecuente != null) {
-                    ClienteDTO cliente = new ClienteDTO(clienteFrecuente.getId(),
-                            clienteFrecuente.getNombres(),
-                            clienteFrecuente.getApellidoPaterno(),
-                            clienteFrecuente.getApellidoMaterno(),
-                            clienteFrecuente.getTelefono(),
-                            clienteFrecuente.getCorreoElectronico(),
-                            clienteFrecuente.getFechaRegistro(),
-                            clienteFrecuente.getGastoTotal());
-                    comandaDTO.setCliente(cliente);
-                }
+            ClienteFrecuente clienteFrecuente = comandaActualizada.getClienteFrecuente();
+            if (clienteFrecuente != null) {
+                ClienteDTO cliente = new ClienteDTO(clienteFrecuente.getId(),
+                        clienteFrecuente.getNombres(),
+                        clienteFrecuente.getApellidoPaterno(),
+                        clienteFrecuente.getApellidoMaterno(),
+                        clienteFrecuente.getTelefono(),
+                        clienteFrecuente.getCorreoElectronico(),
+                        clienteFrecuente.getFechaRegistro(),
+                        clienteFrecuente.getGastoTotal());
+                comandaDTO.setCliente(cliente);
+            }
 
             comandaDTO.setCliente(null);
             comandaDTO.setProductos(productos);
             comandaDTO.setNumeroMesa(comandaActualizada.getMesa().getNumero());
-            
+
             return comandaDTO;
-            
+
         } catch (PersistenciaException ex) {
             throw new ComandaException(ex.getMessage());
         }
     }
 
     @Override
-    public ComandaDTO entregar(ComandaDTO comandaDTO) throws ComandaException{
-         if(comandaDTO.getEstado()== EstadoComanda.CANCELADA){
-                throw new ComandaException("No se puede entregar una comanda que ya se marcó como cancelada.");
-            }
-        
+    public ComandaDTO entregar(ComandaDTO comandaDTO) throws ComandaException {
+        if (comandaDTO.getEstado() == EstadoComanda.CANCELADA) {
+            throw new ComandaException("No se puede entregar una comanda que ya se marcó como cancelada.");
+        }
+
         try {
             comandaDTO.setEstado(EstadoComanda.ENTREGADA);
             Comanda comanda = ComandasDAO.cambiarEstado(comandaDTO);
             comandaDTO.setEstado(comanda.getEstado());
-            
-            if(comandaDTO.getEstado()!= EstadoComanda.ENTREGADA){
+
+            if (comandaDTO.getEstado() != EstadoComanda.ENTREGADA) {
                 throw new ComandaException("La comanda no se pudo entregar correctamente.");
             }
             return comandaDTO;
@@ -220,7 +223,11 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
-    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin){
+    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin) {
         return ComandasDAO.obtenerComandasReporte(fechaInicio, fechaFin);
+    }
+    
+    public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, Integer minVisitas){
+        return ComandasDAO.obtenerReporteClientesFrecuentes(nombreFiltro, minVisitas);
     }
 }

@@ -1,5 +1,6 @@
 package com.mycompany.persistenciarollandcode;
 
+import com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
@@ -25,4 +26,5 @@ public interface IComandasDAO {
 
     public abstract void actualizarIngredientes(Comanda comanda) throws PersistenciaException;
     public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin);
+    public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, int minVisitas);
 }

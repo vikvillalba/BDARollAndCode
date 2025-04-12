@@ -8,52 +8,66 @@ import java.util.Calendar;
  * @author victoria
  */
 public class ClienteReporteDTO {
-    private String nombres;
-    private String apellidoPaterno;
-    private String apellidoMaterno;
-    private Integer numeroVisitas;
+   private String nombreCompleto;
+    private Long numeroVisitas;
     private BigDecimal totalGastado;
     private Integer puntosFidelidad;
-    private Calendar fechaUltimaComanda;
+    private Calendar ultimaComanda;
 
-    public ClienteReporteDTO(String nombres, String apellidoPaterno, String apellidoMaterno, Integer numeroVisitas, BigDecimal totalGastado, Integer puntosFidelidad, Calendar fechaUltimaComanda) {
-        this.nombres = nombres;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
+     public ClienteReporteDTO(String nombres, String apellidoPaterno, String apellidoMaterno,
+                                      Long numeroVisitas, BigDecimal totalGastado, Calendar ultimaComanda) {
+        this.nombreCompleto = nombres + " " + apellidoPaterno + " " + apellidoMaterno;
         this.numeroVisitas = numeroVisitas;
         this.totalGastado = totalGastado;
-        this.puntosFidelidad = puntosFidelidad;
-        this.fechaUltimaComanda = fechaUltimaComanda;
+        this.ultimaComanda = ultimaComanda;
+        this.puntosFidelidad = totalGastado != null ? totalGastado.divide(new BigDecimal(20), 0, BigDecimal.ROUND_DOWN).intValue() : 0;
     }
 
-    public String getNombres() {
-        return nombres;
+    public ClienteReporteDTO() {
     }
 
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
+    
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
-    public Integer getNumeroVisitas() {
+    public Long getNumeroVisitas() {
         return numeroVisitas;
+    }
+
+    public void setNumeroVisitas(Long numeroVisitas) {
+        this.numeroVisitas = numeroVisitas;
     }
 
     public BigDecimal getTotalGastado() {
         return totalGastado;
     }
 
+    public void setTotalGastado(BigDecimal totalGastado) {
+        this.totalGastado = totalGastado;
+    }
+
     public Integer getPuntosFidelidad() {
         return puntosFidelidad;
     }
 
-    public Calendar getFechaUltimaComanda() {
-        return fechaUltimaComanda;
+    public void setPuntosFidelidad(Integer puntosFidelidad) {
+        this.puntosFidelidad = puntosFidelidad;
     }
-    
+
+    public Calendar getUltimaComanda() {
+        return ultimaComanda;
+    }
+
+    public void setUltimaComanda(Calendar ultimaComanda) {
+        this.ultimaComanda = ultimaComanda;
+    }
+
+
     
     
 }
