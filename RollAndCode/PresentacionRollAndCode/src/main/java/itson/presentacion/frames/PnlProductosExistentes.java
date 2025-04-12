@@ -1,4 +1,3 @@
-
 package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
@@ -6,6 +5,7 @@ import com.mycompany.negociorollandcode.IProductosBO;
 import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoExistente;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -18,31 +18,33 @@ import javax.swing.JOptionPane;
 public class PnlProductosExistentes extends javax.swing.JPanel {
 
     private FrmPantallaInicio pantallaInicio;
-     private IProductosBO productosBO;
+    private IProductosBO productosBO;
     private ButtonGroup opcionesBusqueda;
-    
-     
+
     public PnlProductosExistentes(FrmPantallaInicio pantallaInicio) {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         this.productosBO = FabricaObjetosNegocio.crearProductosBO();
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Productos existentes");
-        
+
         opcionesBusqueda = new ButtonGroup();
         opcionesBusqueda.add(rbNombreProducto);
         opcionesBusqueda.add(rbTipoProducto);
-        
-        
+
         try {
-            cargarProductos(productosBO.obtenerProductosExistentes());
+            List<ProductoDTO> productos = productosBO.obtenerProductosExistentes();
+            int filas = (int) Math.ceil(productosBO.obtenerProductosExistentes().size() / 3.0);
+            this.pnlProductos.setPreferredSize(new Dimension(pnlProductos.getWidth(), filas * 210));
+            cargarProductos(productos);
+            
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al cargar los productos", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     public void cargarProductos(List<ProductoDTO> productos) {
- 
+
         this.pnlProductos.removeAll();
 
         for (ProductoDTO producto : productos) {
@@ -80,6 +82,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         pnlProductos = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
+        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlBuscador.setBackground(new java.awt.Color(247, 242, 239));
@@ -221,6 +224,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
         pnlBuscador.add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlProductos.setBackground(new java.awt.Color(247, 242, 239));
+        pnlProductos.setPreferredSize(null);
         pnlBuscador.add(pnlProductos, java.awt.BorderLayout.CENTER);
 
         add(pnlBuscador, java.awt.BorderLayout.CENTER);
@@ -231,7 +235,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-       pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));
+        pantallaInicio.pintarPanelPrincipal(new PnlNuevoProducto(pantallaInicio));
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void btnBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarSeleccionActionPerformed
@@ -245,7 +249,7 @@ public class PnlProductosExistentes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBorrarSeleccionActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-         String filtro = txtBuscadorProducto.getText().trim();
+        String filtro = txtBuscadorProducto.getText().trim();
         this.txtBuscadorProducto.setText("");
 
         List<ProductoDTO> productos = new ArrayList<>();

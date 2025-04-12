@@ -10,6 +10,7 @@ import com.mycompany.negociorollandcode.excepciones.ComandaException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoComandaSeleccionado;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoSeleccionado;
+import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -44,6 +45,9 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         this.pnlProductosSeleccionados = new ArrayList<>();
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Confirmar comanda");
+        
+        int filas = (int) Math.ceil(this.comanda.getProductos().size() / 3.0);
+        this.pnlProductos.setPreferredSize(new Dimension(pnlProductos.getWidth(), filas * 210));
         cargarProductos();
         calcularTotal();
         
@@ -110,7 +114,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         pnlProductos = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(new java.awt.Dimension(1272, 698));
+        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlBuscador.setBackground(new java.awt.Color(247, 242, 239));
@@ -155,7 +159,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         btnCrearComanda.setBackground(new java.awt.Color(247, 242, 239));
         btnCrearComanda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/crearComanda.png"))); // NOI18N
         btnCrearComanda.setBorder(null);
-        btnCrearComanda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearComanda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCrearComanda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearComandaActionPerformed(evt);
@@ -165,7 +169,7 @@ public class PnlConfirmarComanda extends javax.swing.JPanel {
         btnRegresar.setBackground(new java.awt.Color(247, 242, 239));
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilerias/botones/btnRegresar.png"))); // NOI18N
         btnRegresar.setBorder(null);
-        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);

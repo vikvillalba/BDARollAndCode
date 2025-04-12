@@ -208,6 +208,7 @@ public class ComandasDAO implements IComandasDAO {
         entityManager.getTransaction().commit();
     }
 
+    @Override
     public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         String jpql = """
@@ -223,27 +224,22 @@ public class ComandasDAO implements IComandasDAO {
 
     }
 
+    @Override
     public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, int minVisitas) {
         EntityManager em = ManejadorConexiones.getEntityManager();
         String jpql = """
-        SELECT new com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO(
-            cf.nombres,
-            cf.apellidoPaterno,
-            cf.apellidoMaterno,
-            COUNT(c.id),
-            SUM(c.totalAcumulado),
-            MAX(c.fechaCreacion)
-        )
-        FROM ClienteFrecuente cf
-        JOIN cf.comandas c
-        WHERE CONCAT(cf.nombres, ' ', cf.apellidoPaterno, ' ', cf.apellidoMaterno) LIKE :nombreFiltro
-        GROUP BY cf.nombres, cf.apellidoPaterno, cf.apellidoMaterno
-        HAVING COUNT(c.id) >= :minVisitas
-    """;
+                        SELECT new com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO
+                        (cf.nombres, cf.apellidoPaterno, cf.apellidoMaterno,COUNT(c.id),SUM(c.totalAcumulado),MAX(c.fechaCreacion))
+                        FROM ClienteFrecuente cf
+                        JOIN cf.comandas c
+                        WHERE CONCAT(cf.nombres, ' ', cf.apellidoPaterno, ' ', cf.apellidoMaterno) LIKE :nombreFiltro
+                        GROUP BY cf.nombres, cf.apellidoPaterno, cf.apellidoMaterno
+                        HAVING COUNT(c.id) >= :minVisitas
+                      """;
 
         return em.createQuery(jpql, ClienteReporteDTO.class)
                 .setParameter("nombreFiltro", "%" + nombreFiltro + "%")
-                .setParameter("minVisitas", (long) minVisitas) // Ojo: COUNT es Long
+                .setParameter("minVisitas", (long) minVisitas)
                 .getResultList();
     }
 

@@ -7,6 +7,7 @@ import com.mycompany.negociorollandcode.IProductosBO;
 import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProductoExistente;
+import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,9 @@ public class PnlConfirmarCambiosProducto extends javax.swing.JPanel {
         this.lblTipoProducto.setText(productoDTO.getTipo().toString());
         this.txtPrecioProducto.setText(productoDTO.getPrecio().toString());
         
+        int filas = (int) Math.ceil(this.productoDTO.getIngredientes().size() / 3.0);
+        this.pnlIngredientesProducto.setPreferredSize(new Dimension(pnlIngredientesProducto.getWidth(), filas * 210));
+        
         cargarIngredientes();
     }
 
@@ -72,7 +76,6 @@ public class PnlConfirmarCambiosProducto extends javax.swing.JPanel {
         pnlIngredientesProducto = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlHeader.setBackground(new java.awt.Color(247, 242, 239));
@@ -179,6 +182,7 @@ public class PnlConfirmarCambiosProducto extends javax.swing.JPanel {
         add(pnlFooter, java.awt.BorderLayout.PAGE_END);
 
         pnlIngredientesProducto.setBackground(new java.awt.Color(247, 242, 239));
+        pnlIngredientesProducto.setPreferredSize(null);
         pnlIngredientesProducto.setRequestFocusEnabled(false);
         add(pnlIngredientesProducto, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents

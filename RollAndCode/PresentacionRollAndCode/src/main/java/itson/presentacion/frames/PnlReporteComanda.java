@@ -3,7 +3,6 @@ package itson.presentacion.frames;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
-import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.negociorollandcode.IComandasBO;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import java.text.SimpleDateFormat;
@@ -13,7 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
@@ -24,13 +22,11 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -76,6 +72,9 @@ public class PnlReporteComanda extends javax.swing.JPanel {
         Calendar fechaInicio = this.fechaInicio.getCalendar();
         Calendar fechaFin = this.fechaFin.getCalendar();
         List<ComandaReporteDTO> comandas = comandasBO.obtenerComandasReporte(fechaInicio, fechaFin);
+        if(comandas.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No se encontraron registros relacionados", "Sin registros.", JOptionPane.INFORMATION_MESSAGE);
+        }
 
         llenarTabla(comandas);
     }
@@ -103,7 +102,7 @@ public class PnlReporteComanda extends javax.swing.JPanel {
 
     private void addTableHeader(PdfPTable table, String text, Font font) {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
-        cell.setBackgroundColor(new BaseColor(51, 102, 153));  // Color azul corporativo
+        cell.setBackgroundColor(new BaseColor(65, 70, 105));
         cell.setPadding(5);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
@@ -301,7 +300,16 @@ public class PnlReporteComanda extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
-        cargarDatos();
+        Date actual = new Date();
+        if (fechaInicio.getDate() == null || fechaFin.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Se debe de seleccionar una fecha", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (fechaInicio.getDate().after(actual)) {
+            JOptionPane.showMessageDialog(null, "La fecha de inicio del rango no puede estar después de la fecha actual.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            cargarDatos();
+        }
+
+
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
     private void btnGuardarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReporteActionPerformed
@@ -326,11 +334,10 @@ public class PnlReporteComanda extends javax.swing.JPanel {
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(fullPath));
             doc.open();
 
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, new BaseColor(65, 70, 105));
             Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
-            Font totalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.RED);
+            Font totalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, new BaseColor(227, 148, 147));
             Font subtitleFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.DARK_GRAY);
-
 
             Paragraph title = new Paragraph("Reporte de Ganancias por Comandas", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
@@ -349,7 +356,6 @@ public class PnlReporteComanda extends javax.swing.JPanel {
             tbl.setWidthPercentage(100);
             tbl.setSpacingBefore(15f);
             tbl.setSpacingAfter(15f);
-
 
             float[] columnWidths = {1.2f, 2.5f, 1.5f, 2f, 1.5f, 2f};
             tbl.setWidths(columnWidths);

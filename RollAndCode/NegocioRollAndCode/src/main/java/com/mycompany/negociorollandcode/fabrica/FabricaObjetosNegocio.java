@@ -26,56 +26,42 @@ import com.mycompany.persistenciarollandcode.implementaciones.ProductosDAO;
  * @author victoria
  */
 public class FabricaObjetosNegocio {
-    
+
     private static IMesasBO mesasBO;
     private static IIngredientesBO ingredientesBO;
     private static IClientesBO clientesBO;
     private static IProductosBO productosBO;
     private static IComandasBO comandasBO;
 
-    // implementando el patron singleton
     public static IMesasBO crearMesasBO() {
-        if (mesasBO == null) {
-            IMesasDAO mesasDAO = new MesasDAO();
-            mesasBO = new MesasBO(mesasDAO);
-        }
+        IMesasDAO mesasDAO = new MesasDAO();
+        mesasBO = new MesasBO(mesasDAO);
 
         return mesasBO;
     }
 
     public static IClientesBO crearClientesBO() {
-        if (clientesBO == null) {
-            IClientesDAO clientesDAO = new ClientesDAO();
-            clientesBO = new ClientesBO(clientesDAO);
-        }
-
+        IClientesDAO clientesDAO = new ClientesDAO();
+        clientesBO = new ClientesBO(clientesDAO);
         return clientesBO;
     }
 
     public static IIngredientesBO crearIngredientesBO() {
-        if (ingredientesBO == null) {
-            IIngredientesDAO ingredientesDAO = new IngredientesDAO();
-            ingredientesBO = new IngredientesBO(ingredientesDAO);
-        }
+        IIngredientesDAO ingredientesDAO = new IngredientesDAO();
+        ingredientesBO = new IngredientesBO(ingredientesDAO);
 
         return ingredientesBO;
     }
 
     public static IProductosBO crearProductosBO() {
-        if (productosBO == null) {
-            IProductosDAO productosDAO = new ProductosDAO();
-            productosBO = new ProductosBO(productosDAO);
-        }
-
+        IProductosDAO productosDAO = new ProductosDAO();
+        productosBO = new ProductosBO(productosDAO);
         return productosBO;
     }
-    
-    public static IComandasBO crearComandasBO(){
-        if(comandasBO == null){
-            IComandasDAO comandasDAO = new ComandasDAO();
-            comandasBO = new ComandasBO(comandasDAO);
-        }
-        
+
+    public static IComandasBO crearComandasBO() {
+        IComandasDAO comandasDAO = new ComandasDAO();
+        comandasBO = new ComandasBO(comandasDAO);
         return comandasBO;
     }
 

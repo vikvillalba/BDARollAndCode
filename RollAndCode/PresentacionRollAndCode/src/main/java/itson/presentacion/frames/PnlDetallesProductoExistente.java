@@ -4,6 +4,7 @@ package itson.presentacion.frames;
 import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProductoExistente;
+import java.awt.Dimension;
 import java.util.List;
 
 /**
@@ -27,6 +28,9 @@ public class PnlDetallesProductoExistente extends javax.swing.JPanel {
         this.lblNombreProducto.setText(producto.getNombre());
         this.lblPrecioProducto.setText(producto.getPrecio().toString());
         this.lblTipoProducto.setText(producto.getTipo().toString());
+        
+        int filas = (int) Math.ceil(this.producto.getIngredientes().size() / 3.0);
+        this.pnlIngredientesProducto.setPreferredSize(new Dimension(pnlIngredientesProducto.getWidth(), filas * 210));
         
         cargarIngredientes();
     }
@@ -58,7 +62,7 @@ public class PnlDetallesProductoExistente extends javax.swing.JPanel {
         pnlIngredientesProducto = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(new java.awt.Dimension(1272, 698));
+        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlHeader.setBackground(new java.awt.Color(247, 242, 239));

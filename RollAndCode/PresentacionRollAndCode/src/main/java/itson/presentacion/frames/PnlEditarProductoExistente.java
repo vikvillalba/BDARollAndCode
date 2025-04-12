@@ -3,18 +3,14 @@ package itson.presentacion.frames;
 
 import com.mycompany.dominiorollandcode.dtos.IngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.IngredienteProductoDTO;
-import com.mycompany.dominiorollandcode.dtos.NuevoProductoDTO;
-import com.mycompany.dominiorollandcode.dtos.NuevoProductoIngredienteDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
-import com.mycompany.dominiorollandcode.enums.UnidadMedida;
 import com.mycompany.negociorollandcode.IProductosBO;
 import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProductoExistente;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -43,6 +39,10 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
         this.productosBO = FabricaObjetosNegocio.crearProductosBO();
         
         this.ingredientes = new ArrayList<>(this.producto.getIngredientes());
+        
+        int filas = (int) Math.ceil(ingredientes.size() / 3.0);
+        this.pnlIngredientesProducto.setPreferredSize(new Dimension(pnlIngredientesProducto.getWidth(), filas * 210));
+        
         cargarIngredientes(this.ingredientes);
         
     }
@@ -93,7 +93,7 @@ public class PnlEditarProductoExistente extends javax.swing.JPanel {
         pnlIngredientesProducto = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(new java.awt.Dimension(1272, 698));
+        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlHeader.setBackground(new java.awt.Color(247, 242, 239));

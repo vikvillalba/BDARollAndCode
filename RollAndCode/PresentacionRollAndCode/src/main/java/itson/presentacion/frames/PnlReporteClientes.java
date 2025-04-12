@@ -2,8 +2,6 @@ package itson.presentacion.frames;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
-import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
-import com.mycompany.dominiorollandcode.dtos.ProductoDTO;
 import com.mycompany.negociorollandcode.IComandasBO;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import java.text.SimpleDateFormat;
@@ -13,7 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
@@ -25,13 +22,13 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.mycompany.dominiorollandcode.dtos.ClienteReporteDTO;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
+import javax.swing.JSpinner;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -46,6 +43,9 @@ public class PnlReporteClientes extends javax.swing.JPanel {
         initComponents();
         this.pantallaInicio = pantallaInicio;
         comandasBO = FabricaObjetosNegocio.crearComandasBO();
+
+        JFormattedTextField txt = ((JSpinner.NumberEditor) numeroVisitas.getEditor()).getTextField();
+        ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
 
     }
 
@@ -77,6 +77,10 @@ public class PnlReporteClientes extends javax.swing.JPanel {
         int visitas = (int) numeroVisitas.getValue();
         List<ClienteReporteDTO> clientes = comandasBO.obtenerReporteClientesFrecuentes(nombre, visitas);
 
+        if (clientes.isEmpty()) {
+             JOptionPane.showMessageDialog(null, "No se encontraron registros relacionados", "Sin registros.", JOptionPane.INFORMATION_MESSAGE);
+             this.txtNombre.setText(" ");
+        }
         llenarTabla(clientes);
     }
 
@@ -103,7 +107,7 @@ public class PnlReporteClientes extends javax.swing.JPanel {
 
     private void addTableHeader(PdfPTable table, String text, Font font) {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
-        cell.setBackgroundColor(new BaseColor(51, 102, 153));  // Color azul corporativo
+        cell.setBackgroundColor(new BaseColor(65, 70, 105));
         cell.setPadding(5);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
@@ -172,6 +176,7 @@ public class PnlReporteClientes extends javax.swing.JPanel {
         lblNombreProducto3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNombreProducto3.setText("Número de visitas");
 
+        numeroVisitas.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         numeroVisitas.setBorder(null);
 
         javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
@@ -302,6 +307,10 @@ public class PnlReporteClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        if (txtNombre.getText().isEmpty() || txtNombre.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Se debe de ingresar un cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
         cargarDatos();
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
@@ -327,11 +336,10 @@ public class PnlReporteClientes extends javax.swing.JPanel {
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(fullPath));
             doc.open();
 
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, new BaseColor(65, 70, 105));
             Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
-            Font totalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.RED);
+            Font totalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, new BaseColor(227, 148, 147));
             Font subtitleFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.DARK_GRAY);
-
 
             Paragraph title = new Paragraph("Reporte de Cliente frecuente", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
@@ -351,7 +359,6 @@ public class PnlReporteClientes extends javax.swing.JPanel {
             tbl.setSpacingBefore(15f);
             tbl.setSpacingAfter(15f);
 
-
             float[] columnWidths = {1.2f, 2.5f, 1.5f, 2f, 1.5f};
             tbl.setWidths(columnWidths);
 
@@ -365,16 +372,14 @@ public class PnlReporteClientes extends javax.swing.JPanel {
 
             for (int i = 0; i < tblReporte.getRowCount(); i++) {
                 addTableCell(tbl, tblReporte.getValueAt(i, 0).toString());
-                addTableCell(tbl, tblReporte.getValueAt(i, 1).toString());              
+                addTableCell(tbl, tblReporte.getValueAt(i, 1).toString());
                 BigDecimal total = convertToBigDecimal(tblReporte.getValueAt(i, 2));
                 String formattedTotal = currencyFormat.format(total);
-                addTableCell(tbl, formattedTotal, Element.ALIGN_RIGHT);               
-               addTableCell(tbl, tblReporte.getValueAt(i, 3).toString());
+                addTableCell(tbl, formattedTotal, Element.ALIGN_RIGHT);
+                addTableCell(tbl, tblReporte.getValueAt(i, 3).toString());
 
-            
                 addTableCell(tbl, tblReporte.getValueAt(i, 4).toString());
 
-                
             }
 
             doc.add(tbl);

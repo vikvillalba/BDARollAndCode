@@ -25,6 +25,8 @@ public interface IComandasDAO {
     public abstract Comanda cambiarEstado(ComandaDTO comandaDTO) throws PersistenciaException;
 
     public abstract void actualizarIngredientes(Comanda comanda) throws PersistenciaException;
-    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin);
-    public List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, int minVisitas);
+
+    public abstract List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin);
+
+    public abstract List<ClienteReporteDTO> obtenerReporteClientesFrecuentes(String nombreFiltro, int minVisitas);
 }

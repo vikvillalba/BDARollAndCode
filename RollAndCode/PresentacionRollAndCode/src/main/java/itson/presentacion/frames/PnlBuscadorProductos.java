@@ -9,6 +9,7 @@ import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoExistenteComanda;
 import itson.presentacion.frames.panelesIndividuales.PnlProductoSeleccionado;
+import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +49,13 @@ public class PnlBuscadorProductos extends javax.swing.JPanel {
         opcionesBusqueda.add(rbNombreProducto);
         opcionesBusqueda.add(rbTipoProducto);
         
+       
         try {
-            List<ProductoDTO> productosExistentes = productosBO.obtenerProductosExistentes();
-            cargarProductos(productosBO.obtenerProductosDisponibles(productosExistentes));
+            List<ProductoDTO> productos = productosBO.obtenerProductosExistentes();
+            int filas = (int) Math.ceil(productosBO.obtenerProductosExistentes().size() / 4.0);
+            this.pnlProductos.setPreferredSize(new Dimension(pnlProductos.getWidth(), filas * 210));
+            cargarProductos(productos);
+            
         } catch (ProductoException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error al cargar los productos", JOptionPane.ERROR_MESSAGE);
         }
