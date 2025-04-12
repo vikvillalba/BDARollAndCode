@@ -1,6 +1,7 @@
 package com.mycompany.persistenciarollandcode.implementaciones;
 
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
+import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevoProductoComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
@@ -16,6 +17,7 @@ import com.mycompany.persistenciarollandcode.IComandasDAO;
 import com.mycompany.persistenciarollandcode.conexion.ManejadorConexiones;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -205,5 +207,21 @@ public class ComandasDAO implements IComandasDAO {
         entityManager.getTransaction().commit();
     }
 
+    
+    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin){
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpql = """
+                      SELECT new com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO 
+                      (c.folio, c.fechaCreacion, c.estado, c.totalAcumulado, m.numero, cf.nombres, cf.apellidoPaterno, cf.apellidoMaterno)               
+                      FROM Comanda c 
+                      JOIN c.mesa m
+                      LEFT JOIN c.clienteFrecuente cf
+                      WHERE c.fechaCreacion BETWEEN :fechaInicio AND :fechaFin
+                      """;
+        
+        return entityManager.createQuery(jpql, ComandaReporteDTO.class).setParameter("fechaInicio", fechaInicio).setParameter("fechaFin", fechaFin).getResultList();
+
+    
+    }
 
 }

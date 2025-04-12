@@ -271,11 +271,21 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         btnReporteClientes.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnReporteClientes.setText("Reporte de clientes");
         btnReporteClientes.setPreferredSize(new java.awt.Dimension(210, 45));
+        btnReporteClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteClientesActionPerformed(evt);
+            }
+        });
         btnReportes.add(btnReporteClientes);
 
         btnReporteComandas.setFont(new java.awt.Font("STHeiti", 0, 18)); // NOI18N
         btnReporteComandas.setText("Reporte de comandas");
         btnReporteComandas.setPreferredSize(new java.awt.Dimension(240, 45));
+        btnReporteComandas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteComandasActionPerformed(evt);
+            }
+        });
         btnReportes.add(btnReporteComandas);
 
         JMenuPrincipal.add(btnReportes);
@@ -350,6 +360,14 @@ public class FrmPantallaInicio extends javax.swing.JFrame {
         ModoVista vista = new ModoVista();
         vista.setVisible(true);
     }//GEN-LAST:event_btnSalirMousePressed
+
+    private void btnReporteComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteComandasActionPerformed
+        this.pintarPanelPrincipal(new PnlReporteComanda(this));
+    }//GEN-LAST:event_btnReporteComandasActionPerformed
+
+    private void btnReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteClientesActionPerformed
+        this.pintarPanelPrincipal(new PnlReporteClientes(this));
+    }//GEN-LAST:event_btnReporteClientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

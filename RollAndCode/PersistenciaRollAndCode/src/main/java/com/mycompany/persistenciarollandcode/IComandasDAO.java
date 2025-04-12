@@ -1,9 +1,11 @@
 package com.mycompany.persistenciarollandcode;
 
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
+import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.dominiorollandcode.entidades.Comanda;
 import com.mycompany.persistenciarollandcode.excepciones.PersistenciaException;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -22,4 +24,5 @@ public interface IComandasDAO {
     public abstract Comanda cambiarEstado(ComandaDTO comandaDTO) throws PersistenciaException;
 
     public abstract void actualizarIngredientes(Comanda comanda) throws PersistenciaException;
+    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin);
 }

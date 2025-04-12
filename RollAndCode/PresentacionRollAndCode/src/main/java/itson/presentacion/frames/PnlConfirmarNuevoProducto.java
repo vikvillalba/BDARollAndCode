@@ -9,6 +9,7 @@ import com.mycompany.negociorollandcode.excepciones.ProductoException;
 import com.mycompany.negociorollandcode.fabrica.FabricaObjetosNegocio;
 import itson.presentacion.excepciones.PresentacionException;
 import itson.presentacion.frames.panelesIndividuales.PnlIngredienteProducto;
+import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,11 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
         pantallaInicio.pintarPanelPrincipal(this);
         pantallaInicio.setTitle("Confirmar nuevo producto");
         
-        
         this.lblNombreProducto.setText(nuevoProductoDTO.getNombre());
         this.lblTipoProducto.setText(nuevoProductoDTO.getTipo().toString());
+
+        int filas = (int) Math.ceil(this.nuevoProductoDTO.getIngredientes().size() / 3.0);
+        this.pnlIngredientesProducto.setPreferredSize(new Dimension(pnlIngredientesProducto.getWidth(), filas * 210));
         
         cargarIngredientes();
     }
@@ -71,7 +74,7 @@ public class PnlConfirmarNuevoProducto extends javax.swing.JPanel {
         pnlIngredientesProducto = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(247, 242, 239));
-        setPreferredSize(new java.awt.Dimension(1272, 698));
+        setPreferredSize(null);
         setLayout(new java.awt.BorderLayout());
 
         pnlHeader.setBackground(new java.awt.Color(247, 242, 239));

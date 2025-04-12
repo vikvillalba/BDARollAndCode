@@ -2,6 +2,7 @@ package com.mycompany.negociorollandcode.implementaciones;
 
 import com.mycompany.dominiorollandcode.dtos.ClienteDTO;
 import com.mycompany.dominiorollandcode.dtos.ComandaDTO;
+import com.mycompany.dominiorollandcode.dtos.ComandaReporteDTO;
 import com.mycompany.dominiorollandcode.dtos.NuevaComandaDTO;
 import com.mycompany.dominiorollandcode.dtos.ProductoComandaDTO;
 import com.mycompany.dominiorollandcode.entidades.ClienteFrecuente;
@@ -219,4 +220,7 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
+    public List<ComandaReporteDTO> obtenerComandasReporte(Calendar fechaInicio, Calendar fechaFin){
+        return ComandasDAO.obtenerComandasReporte(fechaInicio, fechaFin);
+    }
 }

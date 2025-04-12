@@ -265,6 +265,9 @@
                   <Dimension value="[210, 45]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporteClientesActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnReporteComandas">
               <Properties>
@@ -276,6 +279,9 @@
                   <Dimension value="[240, 45]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporteComandasActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
